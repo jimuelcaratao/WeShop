@@ -17,4 +17,5 @@
 
 
 Note.
-Update your composer and node.js for less error/and faster installations. ty pakyu.
+- Update your composer and node.js for less error/and faster installations. ty pakyu.
+- Don't forget to clear cache ;) sometimes that the only problem. happens to me everytime.
