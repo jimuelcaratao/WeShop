@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,23 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Facebook Auth
+Route::get('/signin-facebook', function () {
+    return Socialite::driver('facebook')->redirect();
+});
+
+Route::get('/callback', [SocialAuthController::class, 'callback']);
+
+// Google Auth
+
+Route::get('/signin-google', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

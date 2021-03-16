@@ -44,5 +44,21 @@
                 </x-jet-button>
             </div>
         </form>
+
+        <hr />
+        <div class="my-4">
+            <x-jet-button class="ml-4" >
+                <a href="/signin-facebook">
+                    {{ __('Facebook') }}
+                </a>
+            </x-jet-button>
+            <x-jet-button class="ml-4" >
+                <a href="/signin-google">
+                    {{ __('Google') }}
+                </a>
+            </x-jet-button>
+        </div>
+       
+
     </x-jet-authentication-card>
 </x-guest-layout>
