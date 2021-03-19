@@ -13,6 +13,7 @@
 -   npm run dev
 -   php artisan storage:link
 -   php artisan migrate
+-  
 
 ## Packages
 
@@ -20,6 +21,6 @@
 -   Socialite - composer require laravel/socialite
 
 ## Note.
-
+-   always pull/push from development brach, ignore main branch for now.
 -   Update your composer and node.js for less error/and faster installations. ty pakyu.
 -   Don't forget to clear cache ;) sometimes that the only problem. happens to me everytime.
