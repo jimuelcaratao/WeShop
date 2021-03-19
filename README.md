@@ -11,12 +11,13 @@
 -   weshopdb (dbname)
 -   npm install
 -   npm run dev
+-   php artisan storage:link
 -   php artisan migrate
 
 ## Packages
 
--   Jetstream
--   https://jetstream.laravel.com/2.x/introduction.html
+-   Jetstream - https://jetstream.laravel.com/2.x/introduction.html
+-   Socialite - composer require laravel/socialite
 
 ## Note.
 
