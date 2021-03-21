@@ -37,23 +37,14 @@ class SocialAuthController extends Controller
             Auth::login($existingUser);
         } else {
 
-            // $fbavatar = $user->avatar + "?type=large&access_token=zrqd4621_GnESiR5NEUhvrMTHEw";
-            // $newUser                  = new User;
-            // $newUser->name            = $user->name;
-            // $newUser->email           = $user->email;
-            // $newUser->password       =  Hash::make("test1");
-            // // $newUser->google_id       = $user->id;
-            // // $newUser->profile_photo_path          =  +"?type=large&access_token=zrqd4621_GnESiR5NEUhvrMTHEw";
-            // // $newUser->avatar_original = $user->avatar_original;
-            // $newUser->save();
 
-            $sa = User::create([
+            $create_user = User::create([
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
-                'password' => Hash::make("test1"),
+                // 'password' => Hash::make("test1"),
             ]);
 
-            Auth::login($sa, true);
+            Auth::login($create_user, true);
             Auth::loginUsingId(Auth::id(), true);
         }
         return redirect()->to('/dashboard');
@@ -71,23 +62,14 @@ class SocialAuthController extends Controller
             Auth::login($existingUser);
         } else {
 
-            // $fbavatar = $user->avatar + "?type=large&access_token=zrqd4621_GnESiR5NEUhvrMTHEw";
-            // $newUser                  = new User;
-            // $newUser->name            = $user->name;
-            // $newUser->email           = $user->email;
-            // $newUser->password       =  Hash::make("test1");
-            // // $newUser->google_id       = $user->id;
-            // // $newUser->profile_photo_path          =  +"?type=large&access_token=zrqd4621_GnESiR5NEUhvrMTHEw";
-            // // $newUser->avatar_original = $user->avatar_original;
-            // $newUser->save();
 
-            $sa = User::create([
+            $create_user = User::create([
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
-                'password' => Hash::make("test1"),
+                // 'password' => Hash::make("test1"),
             ]);
 
-            Auth::login($sa, true);
+            Auth::login($create_user, true);
             Auth::loginUsingId(Auth::id(), true);
         }
         return redirect()->to('/dashboard');

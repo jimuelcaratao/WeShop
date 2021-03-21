@@ -18,6 +18,12 @@
 -   Jetstream
 -   https://jetstream.laravel.com/2.x/introduction.html
 
+### configured
+
+-   env
+-   session
+-   file storage
+
 ## Note.
 
 -   Update your composer and node.js for less error/and faster installations. ty pakyu.
