@@ -28,9 +28,9 @@ class SocialAuthController extends Controller
     public function callback()
     {
 
-        $user = Socialite::driver('facebook')->stateless()->user();
+        $user = Socialite::driver('facebook')->user();
 
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('external_id', $user->getId())->first();
 
         if ($existingUser) {
 
@@ -41,6 +41,7 @@ class SocialAuthController extends Controller
             $create_user = User::create([
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
+                'external_id' =>  $user->getId(),
                 // 'password' => Hash::make("test1"),
             ]);
 
@@ -53,17 +54,18 @@ class SocialAuthController extends Controller
     public function callbackGoogle()
     {
 
-        $user = Socialite::driver('google')->stateless()->user();
+        $user = Socialite::driver('google')->user();
 
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('external_id', $user->getId())->first();
 
         if ($existingUser) {
 
             Auth::login($existingUser);
         } else {
-
+            $token = $user->token;
 
             $create_user = User::create([
+                'external_id' => $user->getId(),
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
                 // 'password' => Hash::make("test1"),
