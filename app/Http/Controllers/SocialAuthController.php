@@ -11,15 +11,7 @@ use PHPUnit\Framework\MockObject\DuplicateMethodException;
 
 class SocialAuthController extends Controller
 {
-    /**
-     * Create a redirect method to facebook api.
-     *
-     * @return void
-     */
-    public function redirect()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
+
     /**
      * Return a callback method from facebook api.
      *
@@ -28,28 +20,33 @@ class SocialAuthController extends Controller
     public function callback()
     {
 
+
+        // add stateless if error
         $user = Socialite::driver('facebook')->user();
 
         $existingUser = User::where('external_id', $user->getId())->first();
 
         if ($existingUser) {
-
             Auth::login($existingUser);
-        } else {
+        }
 
-
-            $create_user = User::create([
+        if ($existingUser === null) {
+            $new_user = User::create([
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
                 'external_id' =>  $user->getId(),
-                // 'password' => Hash::make("test1"),
             ]);
-
-            Auth::login($create_user, true);
-            Auth::loginUsingId(Auth::id(), true);
+            Auth::login($new_user, true);
         }
+
         return redirect()->to('/dashboard');
     }
+
+    /**
+     * Return a callback method from google api.
+     *
+     * @return callback URL from google
+     */
 
     public function callbackGoogle()
     {
@@ -58,21 +55,21 @@ class SocialAuthController extends Controller
 
         $existingUser = User::where('external_id', $user->getId())->first();
 
+        // already exist callback need 
+
         if ($existingUser) {
 
             Auth::login($existingUser);
         } else {
             $token = $user->token;
 
-            $create_user = User::create([
+            $new_user = User::create([
                 'external_id' => $user->getId(),
                 'name' => $user->getName(),
                 'email' =>  $user->getEmail(),
-                // 'password' => Hash::make("test1"),
             ]);
 
-            Auth::login($create_user, true);
-            Auth::loginUsingId(Auth::id(), true);
+            Auth::login($new_user, true);
         }
         return redirect()->to('/dashboard');
     }
