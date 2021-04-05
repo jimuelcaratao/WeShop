@@ -28,6 +28,7 @@ class SocialAuthController extends Controller
 
         if ($existingUser) {
             Auth::login($existingUser);
+            return redirect()->to('/dashboard');
         }
 
         if ($existingUser === null) {
@@ -46,7 +47,7 @@ class SocialAuthController extends Controller
                 $errorCode = $e->errorInfo[1];
 
                 if ($errorCode == '1062') {
-                    return redirect()->to('/login')->withErrors('Email is already taken. Please user another email.');
+                    return redirect()->to('/register')->withErrors('Cannot create a account email is already taken. Please use another email.');
                 }
             }
         }
@@ -68,7 +69,6 @@ class SocialAuthController extends Controller
         // already exist callback need 
 
         if ($existingUser) {
-
             Auth::login($existingUser);
             return redirect()->to('/dashboard');
         }
@@ -81,13 +81,15 @@ class SocialAuthController extends Controller
                     'name' => $user->getName(),
                     'email' =>  $user->getEmail(),
                 ]);
+
                 Auth::login($new_user, true);
+                return redirect()->to('/dashboard');
             } catch (QueryException $e) {
 
                 $errorCode = $e->errorInfo[1];
 
                 if ($errorCode == '1062') {
-                    return redirect()->to('/login')->withErrors('Email is already taken. Please user another email.');
+                    return redirect()->to('/register')->withErrors('Cannot create a account email is already taken. Please use another email.');
                 }
             }
         }
