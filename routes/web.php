@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\NormalUser\HomeController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -14,10 +16,6 @@ use Laravel\Socialite\Facades\Socialite;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 // Facebook Auth
@@ -36,6 +34,20 @@ Route::get('/signin-google', function () {
 Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Routings for pages
+
+//Normal Users
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+// Admin Users
+Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
+
+    // dashboard pages
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('Pages.Admin.dashboard');
+// })->name('dashboard');
