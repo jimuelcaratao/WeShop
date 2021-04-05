@@ -13,11 +13,13 @@
 -   php artisan storage:link
 -   php artisan migrate
 -   composer require laravel/socialite
+-   composer require realrashid/sweet-alert
 
 ## Packages
 
 -   Jetstream - https://jetstream.laravel.com/2.x/introduction.html
 -   Socialite - composer require laravel/socialite
+-   Sweetalert - https://realrashid.github.io/sweet-alert/install
 
 ## Note.
 -   always pull/push from development brach, ignore main branch for now.
