@@ -1,5 +1,4 @@
 # WeShop
-
 ---
 
 ## Step to run
@@ -13,7 +12,7 @@
 -   npm run dev
 -   php artisan storage:link
 -   php artisan migrate
--  
+-   composer require laravel/socialite
 
 ## Packages
 
