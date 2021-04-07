@@ -12,17 +12,20 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        
         @livewireStyles
         
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/navigation-menu-guest.js') }}" defer></script>
+
     </head>
     <body class="font-sans antialiased bg-gray-100">
 
         {{-- Main navbar for normal users --}}
-        @livewire('normal-navigation')
+        @livewire('navbar.navigation-menu-guest')
 
             <!-- Page Heading -->
             @if (isset($header))
