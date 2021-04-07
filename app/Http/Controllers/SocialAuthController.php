@@ -22,7 +22,7 @@ class SocialAuthController extends Controller
     {
 
         // add stateless if error
-        $user = Socialite::driver('facebook')->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
 
         $existingUser = User::where('external_id', $user->getId())->first();
 
