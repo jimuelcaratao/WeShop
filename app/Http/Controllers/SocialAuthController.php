@@ -73,7 +73,6 @@ class SocialAuthController extends Controller
             return redirect()->to('/dashboard');
         }
 
-
         if ($existingUser === null) {
             try {
                 $new_user = User::create([
