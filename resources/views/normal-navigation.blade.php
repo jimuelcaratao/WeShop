@@ -1,12 +1,12 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="border-b border-gray-100" style="background-color: #304F52">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="{{ route('dashboard') }}">
-                            <x-jet-application-mark class="block h-9 w-auto" />
+                        <a href="{{ route('login') }}">
+                            <h1 class="text-gray-100">WeShop</h1>
                         </a>
                     </div>
     
@@ -23,14 +23,18 @@
                             @livewire('navbar.dropdown-nav')
                             
                         </div>
-
-                         
-                        {{-- <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
-                            {{ __('About') }}
+                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('WFH Essentials') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('contact-us') }}" :active="request()->routeIs('contact-us')">
-                            {{ __('Contact Us') }}
-                        </x-jet-nav-link> --}}
+                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('Community') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('Support') }}
+                        </x-jet-nav-link>
+                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('Track Orders') }}
+                        </x-jet-nav-link>
                     </div>
                 </div>
     
@@ -123,6 +127,19 @@
 
                     {{-- Responsive resolution dropdown --}}
                     @livewire('navbar.responsive-dropdown-nav')
+
+                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{ __('WFH Essentials') }}
+                    </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{ __('Community') }}
+                    </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{ __('Support') }}
+                    </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{ __('Track Orders') }}
+                    </x-jet-responsive-nav-link>
 
                 </div>
 
