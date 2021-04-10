@@ -1,5 +1,4 @@
-<div>
-    <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -16,14 +15,14 @@
                         <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
+                        
                         {{-- Dropdown --}}
                         <div class="mt-5">
-                 
-                            {{-- normal resolution dropdown --}}
+                            
+                            {{-- Normal resolution dropdown --}}
                             @livewire('navbar.dropdown-nav')
-
-
-                        </div> {{-- End of Dropdown --}}
+                            
+                        </div>
 
                          
                         {{-- <x-jet-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
@@ -122,7 +121,7 @@
                     </x-jet-responsive-nav-link>
 
 
-                    {{-- responsinve resolution dropdown --}}
+                    {{-- Responsive resolution dropdown --}}
                     @livewire('navbar.responsive-dropdown-nav')
 
                 </div>
@@ -178,5 +177,4 @@
                    
         </div>
     </nav>
-</div>
     
