@@ -25,7 +25,7 @@
     <body class="font-sans antialiased bg-gray-100">
 
         {{-- Main navbar for normal users --}}
-        @livewire('normal-navigation')
+        @include('normal-navigation')
 
             <!-- Page Heading -->
             @if (isset($header))
