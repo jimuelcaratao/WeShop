@@ -23,6 +23,8 @@
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
+
+            {{-- main navbar for admin --}}
             @livewire('navigation-menu')
 
             <!-- Page Heading -->
@@ -38,6 +40,7 @@
             <main>
                 {{ $slot }}
             </main>
+            
         </div>
 
         @stack('modals')
