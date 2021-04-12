@@ -1,3 +1,19 @@
 .toggleNav {
     display: block !important;
 }
+
+/* Login styles */
+
+.text-seperator {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgb(193, 193, 193);
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+    color: rgb(193, 193, 193);
+}
+
+.text-seperator span {
+    background: #fff;
+    padding: 0 10px;
+}
