@@ -13,13 +13,15 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+
         @livewireStyles
         
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="{{ asset('js/navigation-menu-guest.js') }}" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
     </head>
     <body class="font-sans antialiased bg-gray-100">
@@ -41,6 +43,32 @@
             <main>
                 {{ $slot }}
             </main>
-        @livewireScripts
+       
+            @livewireScripts
+
+        <script>
+
+            new Glider(document.querySelector('.glider'), {
+            slidesToShow: 1,
+            dots: '.dots',
+            draggable: false,
+            rewind: true,
+            arrows: {
+                prev: '.glider-prev',
+                next: '.glider-next'
+            }
+            });
+
+            new Glider(document.querySelector('.products'), {
+            slidesToShow: 1,
+            dots: '.dots-products',
+            draggable: false,
+            arrows: {
+                prev: '.glider-prev-products',
+                next: '.glider-next-products'
+            }
+            });
+            
+        </script>
     </body>
 </html>
