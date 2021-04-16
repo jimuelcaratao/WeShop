@@ -60,7 +60,7 @@
             });
 
             new Glider(document.querySelector('.products'), {
-            slidesToShow: 1,
+            slidesToShow: 4,
             dots: '.dots-products',
             draggable: false,
             arrows: {

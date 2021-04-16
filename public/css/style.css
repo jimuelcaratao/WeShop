@@ -22,3 +22,15 @@ body {
 .glider-prev {
     left: 40px !important;
 }
+
+.glider-next-products {
+    position: absolute;
+    margin-top: -250px;
+    right: 40px !important;
+}
+
+.glider-prev-products {
+    position: absolute;
+    margin-top: -250px;
+    left: 40px !important;
+}

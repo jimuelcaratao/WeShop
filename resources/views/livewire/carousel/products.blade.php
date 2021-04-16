@@ -1,13 +1,67 @@
 <div>
    {{-- Carousel Container --}}
-   <div class="glider-contain relative h-1/2 md:h-screen md:w-screen">
+   <div class="glider-contain relative h-1/2 h-1/2 w-screen">
     {{-- Slide Container --}}
-    <div class="products">
-        <div><img src="{{ asset('./img/home-banner/Banner_1.jpg') }}" class="h-full w-full" alt=""></div>
-        <div><img src="{{ asset('./img/home-banner/Banner_2.jpg') }}" class="h-full w-full" alt=""></div>
-        <div><img src="{{ asset('./img/home-banner/Banner_3.jpg') }}" class="h-full w-full" alt=""></div>
-        <div><img src="{{ asset('./img/home-banner/Banner_1.jpg') }}" class="h-full w-full" alt=""></div>
-        <div><img src="{{ asset('./img/home-banner/Banner_2.jpg') }}" class="h-full w-full" alt=""></div>
+      <div class="products bg-white flex justify-center items-center">
+        {{-- Height: 4/5 = 80%, 2/5 = 20% --}}
+          <div class="flex justify-center items-center">
+              <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+                <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+                <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+                <p class="text-sm text-green-700">₱1,835.00</p>
+              </div>
+          </div>
+          <div class="flex justify-center items-center">
+            <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+              <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-sm text-green-700">₱1,835.00</p>
+            </div>
+          </div>
+          <div class="flex justify-center items-center">
+            <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+              <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-sm text-green-700">₱1,835.00</p>
+            </div>
+          </div>
+        <div class="flex justify-center items-center">
+          <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+            <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+            <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+            <p class="text-sm text-green-700">₱1,835.00</p>
+          </div>
+      </div>
+      {{-- 5th --}}
+        <div class="flex justify-center items-center">
+            <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+              <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-sm text-green-700">₱1,835.00</p>
+            </div>
+        </div>
+        <div class="flex justify-center items-center">
+          <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+            <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+            <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+            <p class="text-sm text-green-700">₱1,835.00</p>
+          </div>
+      </div>
+      <div class="flex justify-center items-center">
+        <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+          <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+          <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+          <p class="text-sm text-green-700">₱1,835.00</p>
+        </div>
+    </div>
+    <div class="flex justify-center items-center">
+      <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
+        <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
+        <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+        <p class="text-sm text-green-700">₱1,835.00</p>
+      </div>
+  </div>
+      </div>
     </div>
     {{-- Buttons for previous and next --}}
     <button aria-label="Previous" class="glider-prev-products"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current text-purple-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
