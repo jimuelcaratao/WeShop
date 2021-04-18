@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +18,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+// Facebook Auth
+Route::get('/signin-facebook', function () {
+    return Socialite::driver('facebook')->redirect();
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/callback', [SocialAuthController::class, 'callback']);
+
+// Google Auth
+
+Route::get('/signin-google', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
+
+
+// Routings for pages
+
+//Normal Users
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+
+// Admin Users
+Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
+
+    // dashboard pages
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // product pages
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
+
+    Route::resource('products', ProductController::class)->except(['index', 'show', 'update']);
+});
+
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('Pages.Admin.dashboard');
+// })->name('dashboard');

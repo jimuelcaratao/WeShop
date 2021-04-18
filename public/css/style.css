@@ -1,0 +1,36 @@
+/* :root {
+    --nav-color: #1a3c40;
+    --dark-green: #307672;
+} */
+
+body {
+    overflow-x: hidden !important;
+}
+
+.toggleNav {
+    display: block !important;
+}
+
+/* .bg-nav-color {
+    background-color: var(--nav-color);
+} */
+
+.glider-next {
+    right: 40px !important;
+}
+
+.glider-prev {
+    left: 40px !important;
+}
+
+.glider-next-products {
+    position: absolute;
+    margin-top: -250px;
+    right: 40px !important;
+}
+
+.glider-prev-products {
+    position: absolute;
+    margin-top: -250px;
+    left: 40px !important;
+}

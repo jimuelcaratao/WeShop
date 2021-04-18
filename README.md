@@ -21,6 +21,12 @@
 -   Socialite - composer require laravel/socialite
 -   Sweetalert - https://realrashid.github.io/sweet-alert/install
 
+### configured
+
+-   env
+-   session
+-   file storage
+
 ## Note.
 -   always pull/push from development brach, ignore main branch for now.
 -   Update your composer and node.js for less error/and faster installations. ty pakyu.
