@@ -65,16 +65,19 @@ productPrebuildSmall.addEventListener('mouseover', () => {
     preBuildContentSmall.style.display = "block";
     peripheralsContentSmall.style.display = "none";
     componentsContentSmall.style.display = "none";
+    productPrebuildSmall.style.backgroundColor = "#047857";
 });
 
 productPeripheralsSmall.addEventListener('mouseover', () => {
     preBuildContentSmall.style.display = "none";
     peripheralsContentSmall.style.display = "block";
     componentsContentSmall.style.display = "none";
+    productPrebuildSmall.style.backgroundColor = "#064E3B";
 });
 
 productComponentsSmall.addEventListener('mouseover', () => {
     preBuildContentSmall.style.display = "none";
     peripheralsContentSmall.style.display = "none";
     componentsContentSmall.style.display = "block";
+    productPrebuildSmall.style.backgroundColor = "#064E3B";
 });
