@@ -25,7 +25,9 @@ class CreateProductsTable extends Migration
             $table->string('stock');
             $table->string('price');
             $table->softDeletes();
-            $table->timestamps();
+            $table->text('default_photo');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('brand_id')->references('brand_id')->on('brands');
         });
