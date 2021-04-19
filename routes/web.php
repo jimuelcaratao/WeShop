@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\NormalUser\HomeController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,11 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
 
     // dashboard pages
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // product pages
+    Route::get('/products', [ProductController::class, 'index'])->name('products');
+
+    Route::resource('products', ProductController::class)->except(['index', 'show', 'update']);
 });
 
 

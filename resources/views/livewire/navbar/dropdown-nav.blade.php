@@ -4,7 +4,7 @@
       </svg>
 </x-jet-nav-link>
 
-<div class="bg-white hidden space-x-7 mx-auto mt-24 h-1/2 w-4/5 shadow-md absolute inset-0 z-10" id="product-content">
+<div class="bg-white hidden space-x-7 mx-auto mt-24 h-1/2 w-4/5 shadow-md absolute inset-0 z-50" id="product-content">
     <div class="flex flex-row">
          {{-- Navbar products content --}}
         <div class="w-1/6 flex flex-col border-r border-gray-400">
@@ -74,6 +74,6 @@
     </div>{{-- End of navbar product content --}}
 </div>
 
-<div class='hidden bg-black bg-opacity-75 mx-auto mt-16 h-screen w-full absolute inset-0' id="overlay"></div>
+<div class='hidden bg-black bg-opacity-75 mx-auto mt-16 h-screen w-full absolute inset-0 z-40' id="overlay"></div>
 
 
