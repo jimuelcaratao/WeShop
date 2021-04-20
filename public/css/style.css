@@ -1,7 +1,8 @@
-/* :root {
-    --nav-color: #1a3c40;
-    --dark-green: #307672;
-} */
+:root {
+    --primary-color: #1A3C40;
+    --secondary-color: #307672;
+    --black-secondary-color: #282828;
+}
 
 body {
     overflow-x: hidden !important;
@@ -11,9 +12,21 @@ body {
     display: block !important;
 }
 
-/* .bg-nav-color {
-    background-color: var(--nav-color);
-} */
+.toggleRotate {
+    transform: rotate(180deg);
+}
+
+.bg-primary-color {
+    background-color: var(--primary-color);
+}
+
+.bg-secondary-color {
+    background-color: var(--secondary-color);
+}
+
+.bg-black-secondary-color {
+    background-color: var(--black-secondary-color);
+}
 
 .glider-next {
     right: 40px !important;
