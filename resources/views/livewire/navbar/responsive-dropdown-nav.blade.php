@@ -1,7 +1,7 @@
 
                     <x-jet-responsive-nav-link href="#" id="product-dropdown-small">
                         <div class="flex flex-row">
-                         Shop Now<svg xmlns="http://www.w3.org/2000/svg" class="mt-1 ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         Shop Now<svg xmlns="http://www.w3.org/2000/svg" class="mt-1 ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="arrow-down-med">
                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                            </svg>
                         </div>
@@ -10,28 +10,28 @@
                      <div class="hidden space-x-7 mx-auto mt-24 h-auto w-full shadow-md" id="product-content-small">
                          <div class="flex flex-col">
                               {{-- Navbar products content --}}
-                             <div class="w-auto flex flex-row border-r border-gray-400 bg-green-900 text-gray-300">
-                                 <a href="#" class="py-2 px-4 bg-green-700 hover:bg-green-700 flex flex-row justify-between" id="product-prebuild-small">
+                             <div class="w-auto flex flex-row border-r border-gray-400 bg-primary-color text-gray-300">
+                                 <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-prebuild-small">
                                     Pre-Build <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>
-                                <a href="#" class="py-2 px-4 hover:bg-green-700 flex flex-row justify-between" id="product-peripherals-small">
+                                <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-peripherals-small">
                                     Peripherals <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>
-                                <a href="#" class="py-2 px-4 hover:bg-green-700 flex flex-row justify-between" id="product-components-small">
+                                <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-components-small">
                                     Components <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>
                                
                              </div>
-                             <div class="hidden bg-green-700" id="prebuild-content-small">
+                             <div class="hidden bg-secondary-color" id="prebuild-content-small">
                                 <div class="flex flex-col h-48">
                                     <a href="#" class="py-1 px-4 mt-3 text-gray-300 hover:text-gray-100 hover:underline">Gaming Pre-build</a>
                                     <a href="#" class="py-1 px-4 text-gray-300 hover:text-gray-100 hover:underline">Productive Pre-build</a>  
                                 </div>
                             </div>
-                            <div class="hidden bg-green-700" id="peripherals-content-small">
+                            <div class="hidden bg-secondary-color" id="peripherals-content-small">
                                 <div class="flex flex-row">
                                     <div class="flex flex-col h-48">
                                         <a href="#" class="py-1 px-4 mt-3 text-gray-300 hover:text-gray-100 hover:underline">Mouse</a>
@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="hidden bg-green-700" id="components-content-small">
+                            <div class="hidden bg-secondary-color" id="components-content-small">
                                 <div class="flex flex-row">
                                     <div class="flex flex-col h-48">
                                         <a href="#" class="py-1 px-4 mt-3 text-gray-300 hover:text-gray-100 hover:underline">Motherboard</a>
