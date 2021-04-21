@@ -17,7 +17,9 @@ class CreateBrandsTable extends Migration
             $table->id('brand_id');
             $table->string('brand_name')->unique();
             $table->string('status');
-            $table->timestamps();
+            $table->softDeletes();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

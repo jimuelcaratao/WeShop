@@ -17,7 +17,8 @@ class CreateProductPhotosTable extends Migration
             $table->id('product_photo_id');
             $table->string('product_code', 20);
             $table->string('photo')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('product_code')->references('product_code')->on('products');
         });
