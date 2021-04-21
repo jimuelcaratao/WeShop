@@ -4,7 +4,7 @@ namespace App\View\Components\Admin;
 
 use Illuminate\View\Component;
 
-class AddModal extends Component
+class EditProductModal extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class AddModal extends Component
      */
     public function render()
     {
-        return view('components.admin.add-modal');
+        return view('components.admin.edit-product-modal');
     }
 }

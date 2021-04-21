@@ -1,11 +1,49 @@
 <x-app-layout>
 
     @push('styles')
+        {{-- <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet"> --}}
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
     @endpush
 
     @push('scripts')
+
+    {{-- <script src="{{ asset('js/dropzone.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+
+    <script type="text/javascript">
+
+
+        // Dropzone.options.myAwesomeDropzone = {
+        //     paramName: "file", // The name that will be used to transfer the file
+        //     maxFilesize: 2, // MB
+        //     accept: function (file, done) {
+        //         if (file.name == "justinbieber.jpg") {
+        //             done("Naha, you don't.");
+        //         }
+        //         else { done(); }
+        //     }
+        // };
+
+
+        // Material Select Initialization
+            $('.my-select').selectpicker();
+    </script>
+       
     @endpush
-    
+    <select class="my-select selectpicker">
+        <option>Mustard</option>
+        <option>Ketchup</option>
+        <option>Relish</option>
+    </select>
+
     <x-slot name="header">
         <div class="lg:flex lg:items-center lg:justify-between">
             <div class="flex-1 min-w-0">
@@ -24,7 +62,11 @@
                     </button>
                 </span>
 
-                <x-admin.add-modal></x-admin.add-modal>
+                <x-admin.add-product-modal></x-admin.add-product-modal>
+                   
+           
+                  
+                  
                 
             </div>
           </div>
@@ -109,7 +151,25 @@
 
                             <td colspan="2"  class="pr-4 py-4 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
                                 
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
+                                <a 
+                                href="#"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#edit-modal"
+                                data-tooltip="tooltip"
+                                data-placement="top"
+                                title="Edit"
+                                data-community="{{ json_encode($product) }}"
+                                data-item-product_code="{{ $product->product_code }}"
+                                data-item-product_name="{{ $product->product_name }}"
+                                data-item-description="{{ $product->description }}"
+                                data-item-category="{{ $product->category_name }}"
+                                data-item-sub_category="{{ $product->sub_category_name }}"
+                                data-item-brand="{{ $product->brand->brand_name }}"
+                                data-item-details="{{ $product->details }}"
+                                data-item-price="{{ $product->price }}"
+                                data-item-stock="{{ $product->stock }}"
+                                id="edit-item"
+                                class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
 
                                 <form action="{{ route('products.destroy', [$product->product_code]) }}" method="POST">
                                     @csrf
@@ -134,4 +194,8 @@
             </div>
         </div>
     </div>
+
+
+    <x-admin.edit-product-modal></x-admin.edit-product-modal>
+
 </x-app-layout>

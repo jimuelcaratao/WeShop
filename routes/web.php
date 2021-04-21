@@ -41,6 +41,11 @@ Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
+// Route::get('/error', function () {
+//     return abort(500);;
+// });
+
+
 // Admin Users
 Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
 
