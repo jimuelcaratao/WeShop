@@ -7,7 +7,7 @@
 body {
     overflow-x: hidden !important;
 }
-
+/* Navbar stuff */
 .toggleNav {
     display: block !important;
 }
@@ -16,18 +16,20 @@ body {
     transform: rotate(180deg);
 }
 
-.bg-primary-color {
+/* Custom colors */
+.bg-primary {
     background-color: var(--primary-color);
 }
 
-.bg-secondary-color {
+.bg-secondary {
     background-color: var(--secondary-color);
 }
 
-.bg-black-secondary-color {
+.bg-black-secondary {
     background-color: var(--black-secondary-color);
 }
 
+/* Carousel stuff */
 .glider-next {
     right: 40px !important;
 }

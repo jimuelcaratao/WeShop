@@ -7,7 +7,7 @@
               </svg></x-jet-nav-link>
         </div>
         <div>
-            <h1 class="text-3xl font-bold">Search</h1>
+            <h1 class="text-2xl md:text-3xl font-bold">Search</h1>
         </div>
         <div class="w-screen px-3 mt-5">
             <form class="flex justify-center items-center">
@@ -20,7 +20,7 @@
 <div class="hidden h-screen w-screen bg-black bg-opacity-75 absolute inset-0 z-40" id="search-overlay"></div>
 
 {{-- First navbar --}}
-<nav class="bg-black-secondary-color hidden sm:block">
+<nav class="bg-black-secondary hidden sm:block">
 
     <div class="flex justify-end items-center p-4 sm:px-6 lg:px-8">
         @guest
@@ -83,14 +83,14 @@
     </div>
 </nav>
 
-<nav x-data="{ open: false }" class="bg-primary-color">
+<nav x-data="{ open: false }" class="bg-primary">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
                     <div class="flex-shrink-0 flex items-center">
-                        <a href="{{ route('login') }}">
+                        <a href="{{ route('home') }}">
                             <h1 class="text-gray-100">WeShop</h1>
                         </a>
                     </div>
