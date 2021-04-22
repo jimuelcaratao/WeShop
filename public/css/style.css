@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap');
+
 :root {
     --primary-color: #1A3C40;
     --secondary-color: #307672;
@@ -6,7 +8,13 @@
 
 body {
     overflow-x: hidden !important;
+    font-family: 'Poppins', sans-serif !important;
 }
+
+p {
+    font-family: 'Raleway', sans-serif !important;
+}
+
 /* Navbar stuff */
 .toggleNav {
     display: block !important;
@@ -14,6 +22,10 @@ body {
 
 .toggleRotate {
     transform: rotate(180deg);
+}
+
+.toggleSort {
+    display: none !important;
 }
 
 /* Custom colors */
