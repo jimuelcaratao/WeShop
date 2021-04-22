@@ -10,11 +10,11 @@ class Category extends Model
     use HasFactory;
 
     protected $table = 'categories';
-    protected $primaryKey = 'category_name';
+    protected $primaryKey = 'category_id';
 
 
     public function sub_categories()
     {
-        return $this->hasMany(SubCategory::class);
+        return $this->hasMany(SubCategory::class, 'category_id', 'category_id');
     }
 }
