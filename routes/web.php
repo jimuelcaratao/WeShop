@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
     Route::resource('products', ProductController::class)->except(['index', 'show', 'update']);
 });
 
+Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('Pages.Admin.dashboard');

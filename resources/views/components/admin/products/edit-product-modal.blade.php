@@ -9,7 +9,7 @@
         <div class="modal-body">
             
             <div>
-                <form action="#" method="POST">
+                <form action="#" method="POST" id="edit-form">
 
                 <h4> Basic information </h4>
                 <div class="mt-10 sm:mt-0">
@@ -21,6 +21,7 @@
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="edit_category" class="block text-sm font-medium text-gray-700">Category*</label>
                                     <select id="edit_category" name="edit_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option selected disabled value="">Choose...</option>
                                         <option>United States</option>
                                         <option>Canada</option>
                                         <option>Mexico</option>

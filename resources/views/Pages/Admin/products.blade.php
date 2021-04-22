@@ -32,17 +32,55 @@
         //     }
         // };
 
+        // Fetch Sub Categories
+        $('#input_category').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
 
-        // Material Select Initialization
-            $('.my-select').selectpicker();
+            $.ajax({
+                type: "GET",
+                url: `/fetchcat?Id=${id}`,
+                success: function(response) {
+                    console.log(response.data);
+                    let htmls = "";
+                    x = null;
+
+                    $("#input_sub_category").html(null);
+
+                    $("#input_sub_category").append(
+                        `<option selected disabled value="">Choose...</option>`
+                    );
+                    response.data.map(x => {
+                        var sub_category_name = x.sub_category_name;
+                        // console.log(photo_id);
+                        $("#input_sub_category").append(
+                            `<option>${sub_category_name}</option>`
+                        );
+                    });
+                  
+                    $('#input_sub_category').removeAttr('disabled');
+
+                    // sub category display
+                    $('#input_sub_category_label').show();
+                    $('#input_sub_category').show();
+
+                }
+            });
+        });
+
+        // display shop form
+        $('#input_sub_category').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
+            $('.form-basic').show();
+
+            $('#submit_product').removeAttr('disabled');
+        });
+
     </script>
        
     @endpush
-    <select class="my-select selectpicker">
-        <option>Mustard</option>
-        <option>Ketchup</option>
-        <option>Relish</option>
-    </select>
+
 
     <x-slot name="header">
         <div class="lg:flex lg:items-center lg:justify-between">
@@ -62,16 +100,34 @@
                     </button>
                 </span>
 
-                <x-admin.add-product-modal></x-admin.add-product-modal>
-                   
-           
+                <x-admin.products.add-product-modal>
+                    <x-slot name="categoryOptions">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                        @endforeach
+                    </x-slot>
+
+                    <x-slot name="brandOptions">
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+                        @endforeach
+                    </x-slot>
+
+                </x-admin.products.add-product-modal>
                   
-                  
-                
+               
+                {{-- @foreach ($subcategories as $cat)
+                    <p>{{ $cat->category_name }}</p>
+
+                    @foreach ($cat->sub_categories as $item)
+                        <p>{{$item->sub_category_name}}</p>
+                    @endforeach
+                @endforeach --}}
+
             </div>
           </div>
     </x-slot>
-
+ 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
@@ -80,7 +136,7 @@
                 <x-admin.table>
 
                     <x-slot name="tableColumn">
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             SKU
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -110,15 +166,15 @@
                     <x-slot name="tableRow">
 
                         @forelse ($products as $product)
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $product->sku }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $product->product_code }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
                                 <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
@@ -131,25 +187,25 @@
                             </div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ \Illuminate\Support\Str::limit($product->description, 20) }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               {{ $product->category_name }} / {{ $product->sub_category_name }}
                             </span>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                 {{ $product->brand->brand_name }}
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                PHP @convert($product->price)
                             </td>
 
-                            <td colspan="2"  class="pr-4 py-4 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
+                            <td colspan="2"  class="pr-4 py-2 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
                                 
                                 <a 
                                 href="#"
@@ -181,7 +237,7 @@
 
                             </td>
                         @empty
-                            <td colspan="8" class="pr-4 py-4 whitespace-nowrap text-sm font-medium text-center">
+                            <td colspan="8" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
                                 <img class="mx-auto d-block text-center py-4" style="width: 275px" src="{{ asset('images/components/no-products.svg') }}" alt="no products">
                                     Hmmm.. There is no Products in here.
                             </td>
@@ -196,6 +252,6 @@
     </div>
 
 
-    <x-admin.edit-product-modal></x-admin.edit-product-modal>
+    <x-admin.products.edit-product-modal></x-admin.products.edit-product-modal>
 
 </x-app-layout>

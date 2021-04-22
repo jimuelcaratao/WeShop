@@ -9,8 +9,8 @@
         <div class="modal-body">
             
             <div>
-                <form action="#" method="POST">
-
+                <form action="{{ route('products.store') }}" method="POST" id="add-form">
+                @csrf
                 <h4> Basic information </h4>
                 <div class="mt-10 sm:mt-0">
                     <div class="mt-3 md:mt-0 md:col-span-2">
@@ -19,28 +19,25 @@
                             <div class="grid grid-cols-6 gap-6">
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="input_category" class="block text-sm font-medium text-gray-700">Category</label>
+                                    <label for="input_category" class="block text-sm font-medium text-gray-700">Category*</label>
                                     <select id="input_category" name="input_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                        <option selected disabled value="">Choose...</option>
+                                        {{ $categoryOptions }}
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="input_sub_category" class="block text-sm font-medium text-gray-700">Sub Category</label>
-                                    <select id="input_sub_category" name="input_sub_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                    <label for="input_sub_category" id="input_sub_category_label" class="block text-sm font-medium text-gray-700">Sub Category*</label>
+                                    <select id="input_sub_category" name="input_sub_category" disabled class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        {{-- <option selected disabled value="">Choose...</option> --}}
+                                        {{-- {{ $subCategoryOptions }} --}}
                                     </select>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-4">
-                                    <label for="input_brand" class="block text-sm font-medium text-gray-700">Brand</label>
+                                <div class="form-basic col-span-6 sm:col-span-4">
+                                    <label for="input_brand" class="block text-sm font-medium text-gray-700">Brand*</label>
                                     <select id="input_brand" name="input_brand" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                        <option selected disabled value="">Choose...</option>
+                                        {{ $brandOptions }}
                                     </select>
                                 </div>
 
@@ -53,13 +50,13 @@
                                 <label for="last_name" class="block text-sm font-medium text-gray-700">SKU</label>
                                 <input type="text" name="last_name" id="last_name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div> --}}
-                                <div class="col-span-6 sm:col-span-4">
+                                <div class="form-basic col-span-6 sm:col-span-4">
                                     <label for="input_product_code" class="block text-sm font-medium text-gray-700">Product code*</label>
-                                    <input type="text" name="input_product_code" id="input_product_code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <input type="text" name="input_product_code" id="input_product_code" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-4">
-                                    <label for="input_sku" class="block text-sm font-medium text-gray-700">SKU</label>
+                                <div class="form-basic col-span-6 sm:col-span-4">
+                                    <label for="input_sku" class="block text-sm font-medium text-gray-700">SKU*</label>
                                     <input type="text" name="input_sku" id="input_sku"class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
@@ -68,14 +65,14 @@
                                     <input type="text" name="street_address" id="street_address" autocomplete="street-address" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div> --}}
 
-                                <div class="col-span-6 sm:col-span-4">
-                                    <label for="input_product_name" class="block text-sm font-medium text-gray-700">Product Name</label>
+                                <div class="form-basic col-span-6 sm:col-span-4">
+                                    <label for="input_product_name" class="block text-sm font-medium text-gray-700">Product Name*</label>
                                     <input type="text" name="input_product_name" id="input_product_name"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
-                                <div class="col-span-8 sm:col-span-6">
+                                <div class="form-basic col-span-8 sm:col-span-6">
                                     <label for="input_description" class="block text-sm font-medium text-gray-700">
-                                        Description
+                                        Description*
                                     </label>
                                     <div class="mt-1">
                                         <textarea id="input_description" name="input_description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
@@ -85,9 +82,9 @@
                                     </p>
                                 </div>
 
-                                <div class="col-span-8 sm:col-span-6">
+                                <div class="form-basic col-span-8 sm:col-span-6">
                                     <label for="input_specs" class="block text-sm font-medium text-gray-700">
-                                        Specs
+                                        Specs*
                                     </label>
                                     <div class="mt-1">
                                         <textarea id="input_specs" name="input_specs" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
@@ -100,9 +97,9 @@
                 
                              
                 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="form-basic col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
-                                        <label for="input_price" class="block text-sm font-medium text-gray-700">Price</label>
+                                        <label for="input_price" class="block text-sm font-medium text-gray-700">Price*</label>
                                         <div class="mt-1 relative rounded-md shadow-sm">
                                           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <span class="text-gray-500 sm:text-sm">
@@ -115,9 +112,9 @@
                                       </div>
                                 </div>
                 
-                                <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label for="input_stock" class="block text-sm font-medium text-gray-700">Stock</label>
-                                <input type="text" name="input_stock" id="input_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <div class="form-basic col-span-6 sm:col-span-3 lg:col-span-2">
+                                    <label for="input_stock" class="block text-sm font-medium text-gray-700">Stock*</label>
+                                    <input type="text" name="input_stock" id="input_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                 
                              
@@ -129,14 +126,14 @@
                 </div>
                 
               
-                <div class="hidden sm:block" aria-hidden="true">
+                <div class="form-basic hidden sm:block" aria-hidden="true">
                     <div class="py-5">
                     <div class="border-t border-gray-200"></div>
                     </div>
                 </div>
 
-                <h4>Media Management</h4>
-                    <div class="mt-3 md:mt-0 md:col-span-2">
+                <h4 class="form-basic">Media Management</h4>
+                    <div class="form-basic mt-3 md:mt-0 md:col-span-2">
                         <div class=" sm:overflow-hidden">
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
@@ -144,7 +141,7 @@
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        Cover photo
+                                        Cover photo*
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
@@ -157,7 +154,7 @@
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        photo 1
+                                        photo 1 (optional)
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
@@ -214,7 +211,7 @@
 
                   <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button disabled id="submit_product" type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>
 
@@ -227,3 +224,28 @@
     </div>
 </div>
 
+@push('scripts')
+
+    <script>
+         $(document).ready(function() {
+            
+            // on modal hide
+            $("#add-modal").on("hide.bs.modal", function() {
+                
+                $("#add-form").trigger("reset");
+
+
+                $('#input_sub_category').prop('selectedIndex',0);
+                $('#input_sub_category').attr('disabled', 'disabled');
+
+                // sub category display
+                $('#input_sub_category_label').hide();
+                $('#input_sub_category').hide();
+
+                // form category display 
+                $('.form-basic').hide();
+            });
+        });
+    </script>
+
+@endpush
