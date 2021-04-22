@@ -223,8 +223,8 @@
                 cursor: pointer;
             }
 
-            .bg-transparent {
-                background-color: transparent;
+            .bg-green {
+                background-color: #307672;
             }
 
             .bg-white {
@@ -243,8 +243,8 @@
                 background-color: #7886d7;
             }
 
-            .bg-purple-light {
-                background-color: #a779e9;
+            .bg-green-light {
+                background-color: #307672;
             }
 
             .bg-no-repeat {
@@ -371,16 +371,24 @@
                 color: #22292f;
             }
 
-            .text-grey-darkest {
-                color: #3d4852;
+            .text-light {
+                color: #fff;
             }
 
-            .text-grey-darker {
+            .text-green-darker {
+                color: #1A3C40;
+            }
+
+            .text-grey-light {
                 color: #606f7b;
             }
 
             .text-2xl {
                 font-size: 1.5rem;
+            }
+
+            .text-base {
+                font-size: 1rem;
             }
 
             .text-5xl {
@@ -440,6 +448,10 @@
                     font-size: 1.875rem;
                 }
 
+                .md\:text-base {
+                    font-size: 1rem;
+                }
+
                 .md\:text-15xl {
                     font-size: 9rem;
                 }
@@ -464,14 +476,22 @@
                         @yield('code', __('Oh no'))
                     </div>
 
-                    <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
+                    <div class="w-16 h-1 bg-green-light my-3 md:my-6"></div>
 
-                    <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
+                    <p class="text-green-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
                         @yield('message')
+                    </p>
+                    
+                    <p class="text-grey-light text-base md:text-base font-light leading-normal">
+                        @yield('subMessage')
+                    </p>
+
+                    <p class="text-grey-light text-base md:text-base font-light mb-8 leading-normal">
+                        @yield('subMessage2')
                     </p>
 
                     <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
-                        <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                        <button class="bg-green text-light font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                             {{ __('Go Home') }}
                         </button>
                     </a>

@@ -37,9 +37,12 @@ Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 
 // Routings for pages
 
-//Normal Users
+// Normal Users
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/catalog', function() {
+    return view('Pages.NormalUser.catalog');
+});
 
 // Route::get('/error', function () {
 //     return abort(500);;

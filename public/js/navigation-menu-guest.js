@@ -89,3 +89,36 @@ productComponentsSmall.addEventListener('mouseover', () => {
     productPeripheralsSmall.style.backgroundColor = "#1A3C40";
     productComponentsSmall.style.backgroundColor = "#307672";
 });
+
+// Search for medium devices
+const searchButton = document.getElementById('search-button');
+const searchClose = document.getElementById('search-close');
+const searchContainer = document.getElementById('search-container');
+const searchOverlay = document.getElementById('search-overlay');
+
+searchButton.addEventListener('click', () => {
+    searchContainer.style.display = "block";
+    searchOverlay.style.display = "block";
+    document.body.style.overflowY = "hidden";
+});
+
+searchClose.addEventListener('click', () => {
+    searchContainer.style.display = "none";
+    searchOverlay.style.display = "none";
+    document.body.style.overflowY = "auto";
+});
+
+searchOverlay.addEventListener('click', () => {
+    searchContainer.style.display = "none";
+    searchOverlay.style.display = "none";
+    document.body.style.overflowY = "auto";
+});
+
+// Search for small devices
+const searchButtonSmall = document.getElementById('search-button-small');
+
+searchButtonSmall.addEventListener('click', () => {
+    searchContainer.style.display = "block";
+    searchOverlay.style.display = "block";
+    document.body.style.overflowY = "hidden";
+});
