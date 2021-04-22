@@ -22,7 +22,7 @@
 {{-- First navbar --}}
 <nav class="bg-black-secondary hidden sm:block">
 
-    <div class="flex justify-end items-center p-4 sm:px-6 lg:px-8">
+    <div class="flex justify-end items-center py-2 px-4 sm:px-6 lg:px-8">
         @guest
             <x-jet-nav-link href="{{ route('login') }}">Log in</x-jet-nav-link>
                                 @if (Route::has('register'))
