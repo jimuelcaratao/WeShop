@@ -1,11 +1,87 @@
 <x-app-layout>
 
     @push('styles')
+        {{-- <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet"> --}}
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
     @endpush
 
     @push('scripts')
+
+    {{-- <script src="{{ asset('js/dropzone.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+
+    <script type="text/javascript">
+
+
+        // Dropzone.options.myAwesomeDropzone = {
+        //     paramName: "file", // The name that will be used to transfer the file
+        //     maxFilesize: 2, // MB
+        //     accept: function (file, done) {
+        //         if (file.name == "justinbieber.jpg") {
+        //             done("Naha, you don't.");
+        //         }
+        //         else { done(); }
+        //     }
+        // };
+
+        // Fetch Sub Categories
+        $('#input_category').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
+
+            $.ajax({
+                type: "GET",
+                url: `/fetchcat?Id=${id}`,
+                success: function(response) {
+                    console.log(response.data);
+                    let htmls = "";
+                    x = null;
+
+                    $("#input_sub_category").html(null);
+
+                    $("#input_sub_category").append(
+                        `<option selected disabled value="">Choose...</option>`
+                    );
+                    response.data.map(x => {
+                        var sub_category_name = x.sub_category_name;
+                        // console.log(photo_id);
+                        $("#input_sub_category").append(
+                            `<option>${sub_category_name}</option>`
+                        );
+                    });
+                  
+                    $('#input_sub_category').removeAttr('disabled');
+
+                    // sub category display
+                    $('#input_sub_category_label').show();
+                    $('#input_sub_category').show();
+
+                }
+            });
+        });
+
+        // display shop form
+        $('#input_sub_category').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
+            $('.form-basic').show();
+
+            $('#submit_product').removeAttr('disabled');
+        });
+
+    </script>
+       
     @endpush
-    
+
+
     <x-slot name="header">
         <div class="lg:flex lg:items-center lg:justify-between">
             <div class="flex-1 min-w-0">
@@ -24,12 +100,34 @@
                     </button>
                 </span>
 
-                <x-admin.add-modal></x-admin.add-modal>
-                
+                <x-admin.products.add-product-modal>
+                    <x-slot name="categoryOptions">
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+                        @endforeach
+                    </x-slot>
+
+                    <x-slot name="brandOptions">
+                        @foreach ($brands as $brand)
+                            <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+                        @endforeach
+                    </x-slot>
+
+                </x-admin.products.add-product-modal>
+                  
+               
+                {{-- @foreach ($subcategories as $cat)
+                    <p>{{ $cat->category_name }}</p>
+
+                    @foreach ($cat->sub_categories as $item)
+                        <p>{{$item->sub_category_name}}</p>
+                    @endforeach
+                @endforeach --}}
+
             </div>
           </div>
     </x-slot>
-
+ 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
@@ -38,7 +136,7 @@
                 <x-admin.table>
 
                     <x-slot name="tableColumn">
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             SKU
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -68,15 +166,15 @@
                     <x-slot name="tableRow">
 
                         @forelse ($products as $product)
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $product->sku }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $product->product_code }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
                                 <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
@@ -89,27 +187,45 @@
                             </div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ \Illuminate\Support\Str::limit($product->description, 20) }}</div>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-2 whitespace-nowrap">
                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               {{ $product->category_name }} / {{ $product->sub_category_name }}
                             </span>
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                 {{ $product->brand->brand_name }}
                             </td>
 
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
                                PHP @convert($product->price)
                             </td>
 
-                            <td colspan="2"  class="pr-4 py-4 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
+                            <td colspan="2"  class="pr-4 py-2 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
                                 
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
+                                <a 
+                                href="#"
+                                data-bs-toggle="modal" 
+                                data-bs-target="#edit-modal"
+                                data-tooltip="tooltip"
+                                data-placement="top"
+                                title="Edit"
+                                data-community="{{ json_encode($product) }}"
+                                data-item-product_code="{{ $product->product_code }}"
+                                data-item-product_name="{{ $product->product_name }}"
+                                data-item-description="{{ $product->description }}"
+                                data-item-category="{{ $product->category_name }}"
+                                data-item-sub_category="{{ $product->sub_category_name }}"
+                                data-item-brand="{{ $product->brand->brand_name }}"
+                                data-item-details="{{ $product->details }}"
+                                data-item-price="{{ $product->price }}"
+                                data-item-stock="{{ $product->stock }}"
+                                id="edit-item"
+                                class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
 
                                 <form action="{{ route('products.destroy', [$product->product_code]) }}" method="POST">
                                     @csrf
@@ -121,7 +237,7 @@
 
                             </td>
                         @empty
-                            <td colspan="8" class="pr-4 py-4 whitespace-nowrap text-sm font-medium text-center">
+                            <td colspan="8" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
                                 <img class="mx-auto d-block text-center py-4" style="width: 275px" src="{{ asset('images/components/no-products.svg') }}" alt="no products">
                                     Hmmm.. There is no Products in here.
                             </td>
@@ -134,4 +250,8 @@
             </div>
         </div>
     </div>
+
+
+    <x-admin.products.edit-product-modal></x-admin.products.edit-product-modal>
+
 </x-app-layout>

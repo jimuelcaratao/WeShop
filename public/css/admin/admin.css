@@ -40,6 +40,18 @@
 
 /* end of .sidenav */
 
+/* Forms */
+#input_sub_category {
+    display: none;
+}
+#input_sub_category_label {
+    display: none;
+}
+
+.form-basic {
+    display: none;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .sidenav {

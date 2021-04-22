@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Admin;
+namespace App\View\Components\Admin\Products;
 
 use Illuminate\View\Component;
 
-class AddModal extends Component
+class AddProductModal extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class AddModal extends Component
      */
     public function render()
     {
-        return view('components.admin.add-modal');
+        return view('components.admin.products.add-product-modal');
     }
 }
