@@ -22,7 +22,7 @@
 {{-- First navbar --}}
 <nav class="bg-black-secondary hidden sm:block">
 
-    <div class="flex justify-end items-center py-2 px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-end items-center space-x-5 py-2 px-4 sm:px-6 lg:px-8">
         @guest
             <x-jet-nav-link href="{{ route('login') }}">Log in</x-jet-nav-link>
                                 @if (Route::has('register'))
@@ -89,9 +89,10 @@
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="flex-shrink-0 flex items-center">
+                    <div class="flex-shrink-0 flex justify-start items-center">
                         <a href="{{ route('home') }}">
-                            <h1 class="text-gray-100">WeShop</h1>
+                            {{-- <h1 class="text-gray-100">WeShop.</h1> --}}
+                            <img src="{{ asset('img/logo/LogoV2.png') }}" class="navbar-logo" alt="">
                         </a>
                     </div>
     
@@ -127,7 +128,7 @@
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     
                     <!-- Settings Dropdown -->
-                    <div class="ml-3 relative">
+                    <div class="lg:ml-3 relative">
                             <x-jet-nav-link href="#" id="search-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                               </svg>

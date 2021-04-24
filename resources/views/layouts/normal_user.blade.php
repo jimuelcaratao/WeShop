@@ -59,13 +59,22 @@
             });
 
             new Glider(document.querySelector('.products'), {
-            slidesToShow: 4,
+            // Mobile-first defaults
+            slidesToShow: 2,
+            itemWidth: 150,
             dots: '.dots-products',
             draggable: false,
             arrows: {
                 prev: '.glider-prev-products',
                 next: '.glider-next-products'
-            }
+            },
+            responsive: [ {
+                // screens greater than >= 640px
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: '4',
+                }
+                } ]
             });
             
         </script>
