@@ -44,6 +44,10 @@ Route::get('/catalog', function() {
     return view('Pages.NormalUser.catalog');
 });
 
+Route::get('/cart', function() {
+    return view('Pages.NormalUser.cart');
+})->name('cart');
+
 // Route::get('/error', function () {
 //     return abort(500);;
 // });
