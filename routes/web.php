@@ -48,6 +48,10 @@ Route::get('/cart', function() {
     return view('Pages.NormalUser.cart');
 })->name('cart');
 
+Route::get('/wishlist', function() {
+    return view('Pages.NormalUser.wishlist');
+})->name('wishlist');
+
 // Route::get('/error', function () {
 //     return abort(500);;
 // });
