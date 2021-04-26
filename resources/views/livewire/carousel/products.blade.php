@@ -7,28 +7,28 @@
           <div class="flex justify-center items-center">
               <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
                 <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-                <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+                <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
                 <p class="text-sm text-green-700">₱1,835.00</p>
               </div>
           </div>
           <div class="flex justify-center items-center">
             <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
               <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
               <p class="text-sm text-green-700">₱1,835.00</p>
             </div>
           </div>
           <div class="flex justify-center items-center">
             <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
               <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
               <p class="text-sm text-green-700">₱1,835.00</p>
             </div>
           </div>
         <div class="flex justify-center items-center">
           <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
             <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-            <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+            <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
             <p class="text-sm text-green-700">₱1,835.00</p>
           </div>
       </div>
@@ -36,28 +36,28 @@
         <div class="flex justify-center items-center">
             <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
               <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-              <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+              <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
               <p class="text-sm text-green-700">₱1,835.00</p>
             </div>
         </div>
         <div class="flex justify-center items-center">
           <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
             <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-            <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+            <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
             <p class="text-sm text-green-700">₱1,835.00</p>
           </div>
       </div>
       <div class="flex justify-center items-center">
         <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
           <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-          <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+          <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
           <p class="text-sm text-green-700">₱1,835.00</p>
         </div>
     </div>
     <div class="flex justify-center items-center">
       <div class="h-4/5 w-auto flex flex-col justify-center items-center space-y-5">
         <img src="{{ asset('./img/RAM.jpg') }}" alt="" class="block h-1/2 w-auto mx-auto">
-        <p class="text-md w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
+        <p class="text-md w-3/4 sm:w-1/2">G.Skill Ripjaws V 8gb 1x8 3200mhz Ddr4 Memory</p>
         <p class="text-sm text-green-700">₱1,835.00</p>
       </div>
   </div>
