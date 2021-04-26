@@ -1,15 +1,17 @@
+
+
 <!-- Modal -->
-<div class="modal fade" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="add-modalLabel" aria-hidden="true">
+<div class="modal fade" id="add-modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="add-modalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg ">
         <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="add-modalLabel">Add Products</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close closeModalClick"aria-label="Close"></button>
         </div>
         <div class="modal-body">
             
             <div>
-                <form action="{{ route('products.store') }}" method="POST" id="add-form">
+                <form action="{{ route('products.store') }}" method="POST" id="add-form" enctype="multipart/form-data">
                 @csrf
                 <h4> Basic information </h4>
                 <div class="mt-10 sm:mt-0">
@@ -19,23 +21,23 @@
                             <div class="grid grid-cols-6 gap-6">
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="input_category" class="block text-sm font-medium text-gray-700">Category*</label>
-                                    <select id="input_category" name="input_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <label for="category_name" class="block text-sm font-medium text-gray-700">Category*</label>
+                                    <select id="category_name" name="category_name" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option selected disabled value="">Choose...</option>
                                         {{ $categoryOptions }}
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="input_sub_category" id="input_sub_category_label" class="block text-sm font-medium text-gray-700">Sub Category*</label>
-                                    <select id="input_sub_category" name="input_sub_category" disabled class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <label for="sub_category_name" id="sub_category_name_label" class="block text-sm font-medium text-gray-700">Sub Category*</label>
+                                    <select id="sub_category_name" name="sub_category_name" required disabled class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         {{-- <option selected disabled value="">Choose...</option> --}}
                                         {{-- {{ $subCategoryOptions }} --}}
                                     </select>
                                 </div>
 
                                 <div class="form-basic col-span-6 sm:col-span-4">
-                                    <label for="input_brand" class="block text-sm font-medium text-gray-700">Brand*</label>
-                                    <select id="input_brand" name="input_brand" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <label for="brand_id" class="block text-sm font-medium text-gray-700">Brand*</label>
+                                    <select id="brand_id" name="brand_id" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option selected disabled value="">Choose...</option>
                                         {{ $brandOptions }}
                                     </select>
@@ -51,13 +53,13 @@
                                 <input type="text" name="last_name" id="last_name" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div> --}}
                                 <div class="form-basic col-span-6 sm:col-span-4">
-                                    <label for="input_product_code" class="block text-sm font-medium text-gray-700">Product code*</label>
-                                    <input type="text" name="input_product_code" id="input_product_code" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <label for="product_code" class="block text-sm font-medium text-gray-700">Product code*</label>
+                                    <input type="text" name="product_code" id="product_code" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="form-basic col-span-6 sm:col-span-4">
-                                    <label for="input_sku" class="block text-sm font-medium text-gray-700">SKU*</label>
-                                    <input type="text" name="input_sku" id="input_sku"class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <label for="sku" class="block text-sm font-medium text-gray-700">SKU*</label>
+                                    <input type="text" name="sku" id="sku" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 {{-- <div class="col-span-6">
@@ -66,16 +68,16 @@
                                 </div> --}}
 
                                 <div class="form-basic col-span-6 sm:col-span-4">
-                                    <label for="input_product_name" class="block text-sm font-medium text-gray-700">Product Name*</label>
-                                    <input type="text" name="input_product_name" id="input_product_name"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <label for="product_name" class="block text-sm font-medium text-gray-700">Product Name*</label>
+                                    <input type="text" name="product_name" id="product_name" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="form-basic col-span-8 sm:col-span-6">
-                                    <label for="input_description" class="block text-sm font-medium text-gray-700">
+                                    <label for="description" class="block text-sm font-medium text-gray-700">
                                         Description*
                                     </label>
                                     <div class="mt-1">
-                                        <textarea id="input_description" name="input_description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
+                                        <textarea id="description" name="description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
                                     </div>
                                     <p class="mt-2 text-sm text-gray-500">
                                         Brief description for your Product. URLs are hyperlinked.
@@ -83,11 +85,11 @@
                                 </div>
 
                                 <div class="form-basic col-span-8 sm:col-span-6">
-                                    <label for="input_specs" class="block text-sm font-medium text-gray-700">
+                                    <label for="specs" class="block text-sm font-medium text-gray-700">
                                         Specs*
                                     </label>
                                     <div class="mt-1">
-                                        <textarea id="input_specs" name="input_specs" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
+                                        <textarea id="specs" name="specs" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
                                     </div>
                                     <p class="mt-2 text-sm text-gray-500">
                                         Brief description for your Product. URLs are hyperlinked.
@@ -99,22 +101,22 @@
                 
                                 <div class="form-basic col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
-                                        <label for="input_price" class="block text-sm font-medium text-gray-700">Price*</label>
+                                        <label for="price" class="block text-sm font-medium text-gray-700">Price*</label>
                                         <div class="mt-1 relative rounded-md shadow-sm">
                                           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <span class="text-gray-500 sm:text-sm">
                                               $
                                             </span>
                                           </div>
-                                          <input type="text" name="input_price" id="input_price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                                          <input type="text" name="price" id="price" required class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
                                          
                                         </div>
                                       </div>
                                 </div>
                 
                                 <div class="form-basic col-span-6 sm:col-span-3 lg:col-span-2">
-                                    <label for="input_stock" class="block text-sm font-medium text-gray-700">Stock*</label>
-                                    <input type="text" name="input_stock" id="input_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <label for="stock" class="block text-sm font-medium text-gray-700">Stock*</label>
+                                    <input type="text" name="stock" id="stock" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                 
                              
@@ -145,7 +147,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <input type="file" id="default_photo" name="default_photo" accept=".jpg,.gif,.png,.jpeg" required>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +160,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                  
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +212,7 @@
                     </div>
 
                   <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary closeModalClick">Cancel</button>
                         <button disabled id="submit_product" type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>
@@ -226,25 +228,83 @@
 
 @push('scripts')
 
+
     <script>
          $(document).ready(function() {
-            
-            // on modal hide
-            $("#add-modal").on("hide.bs.modal", function() {
-                
-                $("#add-form").trigger("reset");
+            $(".closeModalClick").click(function(){
+                swal({
+                        title: "Are you sure?",
+                        text: "Once you Discard, theres no turning back!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                        })
+                        .then((willDelete) => {
+                            if (willDelete) {
+                                // OnClose
+                                $('#add-modal').modal('hide');
+                                $("#add-form").trigger("reset");
 
+                                $('#sub_category_name').prop('selectedIndex',0);
+                                $('#sub_category_name').attr('disabled', 'disabled');
 
-                $('#input_sub_category').prop('selectedIndex',0);
-                $('#input_sub_category').attr('disabled', 'disabled');
+                                // sub category display
+                                $('#sub_category_name_label').hide();
+                                $('#sub_category_name').hide();
 
-                // sub category display
-                $('#input_sub_category_label').hide();
-                $('#input_sub_category').hide();
+                                // form category display 
+                                $('.form-basic').hide();
 
-                // form category display 
-                $('.form-basic').hide();
+                                $('#submit_product').attr('disabled', 'disabled');
+                            } else {
+                                return false;
+                            }
+                    });
             });
+
+            // $('#add-modal').on("hide.bs.modal", function (e) {
+                  
+            //     if(confirm("Are you sure, you want to Discard this?")){ 
+            //         $("#add-form").trigger("reset");
+
+            //         $('#sub_category_name').prop('selectedIndex',0);
+            //         $('#sub_category_name').attr('disabled', 'disabled');
+
+            //         // sub category display
+            //         $('#sub_category_name_label').hide();
+            //         $('#sub_category_name').hide();
+
+            //         // form category display 
+            //         $('.form-basic').hide();
+
+            //         $('#submit_product').attr('disabled', 'disabled');
+            //         return true;
+            //     }
+            //     else{ 
+            //         return false;
+            //     }
+            // });
+            
+            // // on modal hide
+            // $("#add-modal").on("hide.bs.modal", function() {
+                
+            //     $("#add-form").trigger("reset");
+
+
+            //     $('#sub_category_name').prop('selectedIndex',0);
+            //     $('#sub_category_name').attr('disabled', 'disabled');
+
+            //     // sub category display
+            //     $('#sub_category_name_label').hide();
+            //     $('#sub_category_name').hide();
+
+            //     // form category display 
+            //     $('.form-basic').hide();
+
+            //     $('#submit_product').attr('disabled', 'disabled');
+            // });
+
+          
         });
     </script>
 

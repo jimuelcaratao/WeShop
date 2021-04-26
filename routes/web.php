@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\NormalUser\HomeController;
@@ -40,7 +41,7 @@ Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 // Normal Users
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/catalog', function() {
+Route::get('/catalog', function () {
     return view('Pages.NormalUser.catalog');
 });
 
@@ -66,7 +67,14 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
     // product pages
     Route::get('/products', [ProductController::class, 'index'])->name('products');
 
+    Route::put('/products/update', [ProductController::class, 'update'])->name('products.update');
+
     Route::resource('products', ProductController::class)->except(['index', 'show', 'update']);
+
+    // category pages
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category');
+
+    Route::resource('categories', CategoryController::class)->except(['index', 'update']);
 });
 
 Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
