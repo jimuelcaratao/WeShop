@@ -11,10 +11,10 @@ class SubCategory extends Model
 
 
     protected $table = 'sub_categories';
-    protected $primaryKey = 'sub_category_name';
+    protected $primaryKey = 'sub_category_id';
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'category_id')->withDefault();
     }
 }

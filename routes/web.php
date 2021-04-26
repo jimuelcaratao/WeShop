@@ -37,8 +37,16 @@ Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 
 // Routings for pages
 
-//Normal Users
+// Normal Users
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/catalog', function() {
+    return view('Pages.NormalUser.catalog');
+});
+
+// Route::get('/error', function () {
+//     return abort(500);;
+// });
 
 
 // Admin Users
@@ -53,6 +61,7 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
     Route::resource('products', ProductController::class)->except(['index', 'show', 'update']);
 });
 
+Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('Pages.Admin.dashboard');
