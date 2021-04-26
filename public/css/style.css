@@ -11,7 +11,7 @@ body {
     font-family: 'Poppins', sans-serif !important;
 }
 
-p {
+p, a {
     font-family: 'Raleway', sans-serif !important;
 }
 
@@ -28,6 +28,11 @@ p {
     display: none !important;
 }
 
+.navbar-logo {
+    height: 100px;
+    width: 140px;
+}
+
 /* Custom colors */
 .bg-primary {
     background-color: var(--primary-color);
@@ -42,22 +47,65 @@ p {
 }
 
 /* Carousel stuff */
-.glider-next {
+ .glider-next {
     right: 40px !important;
 }
 
 .glider-prev {
     left: 40px !important;
-}
+} 
 
 .glider-next-products {
     position: absolute;
     margin-top: -250px;
-    right: 40px !important;
+    right: 40px;
 }
 
 .glider-prev-products {
     position: absolute;
     margin-top: -250px;
-    left: 40px !important;
+    left: 40px;
+}
+
+/* Tablet devices */
+@media (min-width: 768px) {
+    .glider-next {
+        right: 40px !important;
+    }
+    
+    .glider-prev {
+        left: 40px !important;
+    }
+
+    .glider-next-products {
+        margin-top: -250px;
+        right: 10px;
+    }
+    
+    .glider-prev-products {
+        margin-top: -250px;
+        left: 10px;
+    }
+
+}
+
+/* Mobile devices */
+@media (min-width: 300px) {
+    .glider-next {
+        right: 20px !important;
+    }
+    
+    .glider-prev {
+        left: 20px !important;
+    }
+
+    .glider-next-products {
+        margin-top: -180px;
+        right: 5px;
+    }
+    
+    .glider-prev-products {
+        margin-top: -180px;
+        left: 5px;
+    }
 }
