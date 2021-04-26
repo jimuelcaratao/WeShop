@@ -1,39 +1,39 @@
 <x-app-layout>
 
     @push('styles')
-        {{-- <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet"> --}}
-
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
     @endpush
 
     @push('scripts')
-
-    {{-- <script src="{{ asset('js/dropzone.js') }}"></script> --}}
+    {{-- Sweet alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
-
-
     <script type="text/javascript">
+        //delete
+        $(".delete-product").click(function(e) {
+            e.preventDefault();
+            swal({
+                title: "Are you sure to Delete?",
+                text: "Once you Deleted, theres no turning back!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $(e.target)
+                        .closest("form")
+                        .submit(); // Post the surrounding form
+                    } else {
+                        return false;
+                    }
+            });
+        });
 
-
-        // Dropzone.options.myAwesomeDropzone = {
-        //     paramName: "file", // The name that will be used to transfer the file
-        //     maxFilesize: 2, // MB
-        //     accept: function (file, done) {
-        //         if (file.name == "justinbieber.jpg") {
-        //             done("Naha, you don't.");
-        //         }
-        //         else { done(); }
-        //     }
-        // };
-
-        // Fetch Sub Categories
-        $('#input_category').change(function () {
+        // Fetch Add Sub Categories
+        $('#category_name').change(function () {
             var id = $(this).find(':selected')[0].value;
             // alert(id); 
 
@@ -45,31 +45,61 @@
                     let htmls = "";
                     x = null;
 
-                    $("#input_sub_category").html(null);
+                    $("#sub_category_name").html(null);
 
-                    $("#input_sub_category").append(
+                    $("#sub_category_name").append(
                         `<option selected disabled value="">Choose...</option>`
                     );
                     response.data.map(x => {
                         var sub_category_name = x.sub_category_name;
                         // console.log(photo_id);
-                        $("#input_sub_category").append(
+                        $("#sub_category_name").append(
                             `<option>${sub_category_name}</option>`
                         );
                     });
                   
-                    $('#input_sub_category').removeAttr('disabled');
+                    $('#sub_category_name').removeAttr('disabled');
 
                     // sub category display
-                    $('#input_sub_category_label').show();
-                    $('#input_sub_category').show();
+                    $('#sub_category_name_label').show();
+                    $('#sub_category_name').show();
 
                 }
             });
         });
 
+        $('#edit-modal').on('show.bs.modal', function (e) {
+           
+        })
+        $('#edit_category_name').change(function () {
+            var id = $("#edit_category_name").find(':selected')[0].value;
+           
+            $.ajax({
+                type: "GET",
+                url: `/fetchcat?Id=${id}`,
+                success: function(response) {
+                    console.log(response.data);
+                    let htmls = "";
+                    x = null;
+
+                    $("#edit_sub_category_name").html(null);
+
+                    $("#edit_sub_category_name").append(
+                        `<option selected disabled value="">Choose...</option>`
+                    );
+                    response.data.map(x => {
+                        var sub_category_name = x.sub_category_name;
+                        // console.log(photo_id);
+                        $("#edit_sub_category_name").append(
+                            `<option>${sub_category_name}</option>`
+                        );
+                    });
+                }
+            });
+        });
+
         // display shop form
-        $('#input_sub_category').change(function () {
+        $('#sub_category_name').change(function () {
             var id = $(this).find(':selected')[0].value;
             // alert(id); 
             $('.form-basic').show();
@@ -89,6 +119,9 @@
                 Products
               </h2>
             </div>
+
+            {{-- <x-jet-validation-errors class="mb-4" /> --}}
+       
             <div class=" flex lg:mt-0 lg:ml-4">
                 <span class="sm:ml-3">
                     <button data-bs-toggle="modal" data-bs-target="#add-modal" type="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600">
@@ -99,32 +132,8 @@
                     Add product
                     </button>
                 </span>
-
-                <x-admin.products.add-product-modal>
-                    <x-slot name="categoryOptions">
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
-                        @endforeach
-                    </x-slot>
-
-                    <x-slot name="brandOptions">
-                        @foreach ($brands as $brand)
-                            <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
-                        @endforeach
-                    </x-slot>
-
-                </x-admin.products.add-product-modal>
-                  
-               
-                {{-- @foreach ($subcategories as $cat)
-                    <p>{{ $cat->category_name }}</p>
-
-                    @foreach ($cat->sub_categories as $item)
-                        <p>{{$item->sub_category_name}}</p>
-                    @endforeach
-                @endforeach --}}
-
             </div>
+
           </div>
     </x-slot>
  
@@ -136,6 +145,7 @@
                 <x-admin.table>
 
                     <x-slot name="tableColumn">
+                        <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             SKU
                             </th>
@@ -157,15 +167,20 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Price
                             </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Stock
+                            </th>
                             <th scope="col-2" class="relative px-6 py-3">
                                 <span class="sr-only">Edit</span>
                                 <span class="sr-only">Delete</span>
                             </th>
+                        </tr>
                     </x-slot>
 
                     <x-slot name="tableRow">
 
                         @forelse ($products as $product)
+                        <tr>
                             <td class="px-6 py-2 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $product->sku }}</div>
                             </td>
@@ -177,7 +192,8 @@
                             <td class="px-6 py-2 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
-                                <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                                    {{-- src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" --}}
+                                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/media/products/'.$product->product_code.'_'.$product->default_photo) }}" alt="">
                                 </div>
                                 <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
@@ -205,6 +221,19 @@
                                PHP @convert($product->price)
                             </td>
 
+                            <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+
+                                @if ($product->stock <= 10)
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        {{ $product->stock }}
+                                    </span>
+                                @else
+                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{ $product->stock }}
+                                    </span>
+                                @endif
+                             </td>
+
                             <td colspan="2"  class="pr-4 py-2 mt-2 whitespace-nowrap text-sm font-medium flex justify-between">
                                 
                                 <a 
@@ -215,43 +244,89 @@
                                 data-placement="top"
                                 title="Edit"
                                 data-community="{{ json_encode($product) }}"
+                                data-item-sku="{{ $product->sku }}"
                                 data-item-product_code="{{ $product->product_code }}"
                                 data-item-product_name="{{ $product->product_name }}"
                                 data-item-description="{{ $product->description }}"
                                 data-item-category="{{ $product->category_name }}"
                                 data-item-sub_category="{{ $product->sub_category_name }}"
                                 data-item-brand="{{ $product->brand->brand_name }}"
-                                data-item-details="{{ $product->details }}"
+                                data-item-description="{{ $product->description }}"
+                                data-item-specs="{{ $product->specs }}"
                                 data-item-price="{{ $product->price }}"
                                 data-item-stock="{{ $product->stock }}"
                                 id="edit-item"
                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
 
-                                <form action="{{ route('products.destroy', [$product->product_code]) }}" method="POST">
+                                <form class="delete-product" action="{{ route('products.destroy', [$product->product_code]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
 
                                     <button type="submit"class="text-red-600 hover:text-red-900">Delete</button>
                                 </form>
-
-
                             </td>
+                        </tr>
+
                         @empty
+                        <tr>
                             <td colspan="8" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
                                 <img class="mx-auto d-block text-center py-4" style="width: 275px" src="{{ asset('images/components/no-products.svg') }}" alt="no products">
                                     Hmmm.. There is no Products in here.
                             </td>
+                        </tr>
                         @endforelse
                        
 
                     </x-slot>
                 </x-admin.table>
 
+              
+
             </div>
         </div>
     </div>
 
 
-    <x-admin.products.edit-product-modal></x-admin.products.edit-product-modal>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 d-flex justify-content-center" >
+          {{-- pagination --}}
+          <div class="pagination">
+            {{ $products->render("pagination::bootstrap-4") }}
+          </div>
+        </div>
+    </div>
+
+
+    {{-- Modals --}}
+
+    <x-admin.products.add-product-modal>
+        <x-slot name="categoryOptions">
+            @foreach ($categories as $category)
+                <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+            @endforeach
+        </x-slot>
+
+        <x-slot name="brandOptions">
+            @foreach ($brands as $brand)
+                <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+            @endforeach
+        </x-slot>
+
+    </x-admin.products.add-product-modal>
+    
+    <x-admin.products.edit-product-modal>
+        <x-slot name="categoryOptions">
+            @foreach ($categories as $category)
+                <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+            @endforeach
+        </x-slot>
+
+        <x-slot name="brandOptions">
+            @foreach ($brands as $brand)
+                <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+            @endforeach
+        </x-slot>
+    </x-admin.products.edit-product-modal>
 
 </x-app-layout>

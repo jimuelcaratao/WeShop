@@ -3,14 +3,15 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg ">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="edit-modalLabel">Add Products</h5>
+            <h5 class="modal-title" id="edit-modalLabel">Edit Products</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             
             <div>
-                <form action="#" method="POST" id="edit-form">
-
+                <form action="{{ route('products.update') }}" method="POST" id="edit-form">
+                @csrf
+                @method('PUT')
                 <h4> Basic information </h4>
                 <div class="mt-10 sm:mt-0">
                     <div class="mt-3 md:mt-0 md:col-span-2">
@@ -19,29 +20,24 @@
                             <div class="grid grid-cols-6 gap-6">
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="edit_category" class="block text-sm font-medium text-gray-700">Category*</label>
-                                    <select id="edit_category" name="edit_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <label for="edit_category_name" class="block text-sm font-medium text-gray-700">Category*</label>
+                                    <select id="edit_category_name" name="edit_category_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option selected disabled value="">Choose...</option>
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                        {{ $categoryOptions }}
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="edit_sub_category" class="block text-sm font-medium text-gray-700">Sub Category*</label>
-                                    <select id="edit_sub_category" name="edit_sub_category" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                    <label for="edit_sub_category_name" class="block text-sm font-medium text-gray-700">Sub Category*</label>
+                                    <select id="edit_sub_category_name" name="edit_sub_category_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                      
                                     </select>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
                                     <label for="edit_brand" class="block text-sm font-medium text-gray-700">Brand</label>
                                     <select id="edit_brand" name="edit_brand" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>Mexico</option>
+                                        <option selected disabled value="">Choose...</option>
+                                        {{ $brandOptions }}
                                     </select>
                                 </div>
 
@@ -201,7 +197,7 @@
 
                   <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
 
@@ -228,14 +224,72 @@
                 $("#edit-modal").modal(options);
                 var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
                 var row = el.closest(".data-row");
+
+
                 // get the data
+                var sku = el.data("item-sku");
+                var product_name = el.data("item-product_name");
                 var product_code = el.data("item-product_code");
-            
+                var brand = el.data("item-brand");
+                var category = el.data("item-category");
+                var sub_category = el.data("item-sub_category");
+                var description = el.data("item-description");
+                var specs = el.data("item-specs");
+                var price = el.data("item-price");
+                var stock = el.data("item-stock");
+
                 // var description = row.children("item-email").text();
                 // fill the data in the input fields
+                $("#edit_sku").val(sku);
+                $("#edit_product_name").val(product_name);
                 $("#edit_product_code").val(product_code);
-         
+                
+                $("select#edit_brand option")
+                .each(function() { this.selected = (this.text == brand); });
+
+                $("select#edit_category_name option")
+                .each(function() { this.selected = (this.text == category); });
+
+               
      
+                $("#edit_description").val(description);
+                $("#edit_specs").val(specs);
+                $("#edit_price").val(price);
+                $("#edit_stock").val(stock);
+
+
+                    // fetch edit sub category
+                    var id = $("select#edit_category_name option").filter(":selected").val();
+                    // alert(id); 
+
+                    $.ajax({
+                        type: "GET",
+                        url: `/fetchcat?Id=${id}`,
+                        success: function(response) {
+                            console.log(response.data);
+                            let htmls = "";
+                            x = null;
+
+                            $("#edit_sub_category_name").html(null);
+
+                            $("#edit_sub_category_name").append(
+                                `<option selected disabled value="">Choose...</option>`
+                            );
+                            response.data.map(x => {
+                                var sub_category_name = x.sub_category_name;
+                                // console.log(photo_id);
+                                $("#edit_sub_category_name").append(
+                                    `<option>${sub_category_name}</option>`
+                                );
+                            });
+                        
+                            // actually select the sub
+                            $("select#edit_sub_category_name option")
+                            .each(function() { this.selected = (this.text == sub_category); });
+                        }
+                    });
+
+               
             });
             // on modal hide
             $("#edit-modal").on("hide.bs.modal", function() {

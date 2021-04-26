@@ -6,14 +6,10 @@
                 {{-- table start --}}
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
-                        <tr>
                             {{ $tableColumn }}
-                        </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        <tr>
                             {{ $tableRow }}
-                        </tr>
                     </tbody>
                 </table>{{-- table end --}}
             </div>
