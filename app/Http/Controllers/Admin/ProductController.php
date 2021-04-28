@@ -30,9 +30,66 @@ class ProductController extends Controller
 
         $categories = Category::get();
 
-        $subcategories = Category::get();
+        // $subcategories = Category::get();
 
-        $products = Product::latest()->paginate(5);
+        $tableProducts = Product::all();
+        $categories_search = null;
+        $brands_search = null;
+
+
+        if ($tableProducts->isEmpty()) {
+            $products = Product::paginate();
+        }
+
+        if ($tableProducts->isNotEmpty()) {
+            // $products = Product::paginate(5);
+
+            // search validation
+            $search = Product::where('product_code', 'like', '%' . request()->search . '%')
+                ->OrWhere('product_name', 'like', '%' . request()->search . '%')
+                ->OrWhere('sku', 'like', '%' . request()->search . '%')
+                ->first();
+
+            $searchAdvance = Product::where('product_code', 'like', '%' . request()->advanceSearch . '%')
+                ->OrWhere('product_name', 'like', '%' . request()->advanceSearch . '%')
+                ->OrWhere('sku', 'like', '%' . request()->advanceSearch . '%')
+                ->first();
+
+            if ($search === null) {
+                return redirect('products')->with('info', 'No "' . request()->search . '" found in the database.');
+            }
+
+            if ($searchAdvance === null) {
+                return redirect('products')->with('info', 'No "' . request()->advanceSearch . '" found in the database.');
+            }
+
+            if ($search != null) {
+                // default returning
+                $products = Product::Where('product_code', 'like', '%' . request()->search . '%')
+                    ->OrWhere('product_name', 'like', '%' . request()->search . '%')
+                    ->OrWhere('sku', 'like', '%' . request()->search . '%')
+                    ->latest()
+                    ->paginate(5);
+            }
+
+            if (!empty(request()->advanceSearch)  ||  !empty(request()->searchBrand) || !empty(request()->searchCategory)) {
+
+                // converting category value to text
+                if (!empty(request()->searchCategory)) {
+                    $categories_searchConvert = Category::where('category_id', request()->searchCategory)->first();
+                    $categories_search = $categories_searchConvert->category_name;
+                }
+                // converting category value to text
+                if (!empty(request()->searchBrand)) {
+                    $searchBrandConvert = Brand::where('brand_id', request()->searchBrand)->first();
+                    $brands_search = $searchBrandConvert->brand_name;
+                }
+
+                // filtered
+                $products = Product::productfilter()->brandfilter()->categoryfilter()->latest()
+                    ->paginate(5, ['*'], 'products');
+            }
+        }
 
         // $subcat = Category::with('sub_categories')->get();
 
@@ -41,8 +98,9 @@ class ProductController extends Controller
             'products' => $products,
             'brands' => $brands,
             'categories' => $categories,
-            'subcategories' => $subcategories,
-
+            'categories_search' => $categories_search,
+            'brands_search' => $brands_search,
+            // 'subcategories' => $subcategories,
         ]);
     }
 
