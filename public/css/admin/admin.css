@@ -39,12 +39,17 @@
 }
 
 /* end of .sidenav */
-
+.swall-overlay {
+    z-index: 100005;
+}
+.swal-modal {
+    z-index: 99999;
+}
 /* Forms */
-#input_sub_category {
+#sub_category_name {
     display: none;
 }
-#input_sub_category_label {
+#sub_category_name_label {
     display: none;
 }
 

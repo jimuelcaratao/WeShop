@@ -11,15 +11,15 @@
                          <div class="flex flex-col">
                               {{-- Navbar products content --}}
                              <div class="w-auto flex flex-row border-r border-gray-400 bg-primary text-gray-300">
-                                 <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-prebuild-small">
+                                 <a href="#" class="py-2 px-4 flex flex-row justify-between hover:text-gray-100" id="product-prebuild-small">
                                     Pre-Build <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>
-                                <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-peripherals-small">
+                                <a href="#" class="py-2 px-4 flex flex-row justify-between hover:text-gray-100" id="product-peripherals-small">
                                     Peripherals <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>
-                                <a href="#" class="py-2 px-4 flex flex-row justify-between" id="product-components-small">
+                                <a href="#" class="py-2 px-4 flex flex-row justify-between hover:text-gray-100" id="product-components-small">
                                     Components <svg xmlns="http://www.w3.org/2000/svg" class="mt-1 h-4 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                       </svg></a>

@@ -19,10 +19,10 @@
 </div>
 <div class="hidden h-screen w-screen bg-black bg-opacity-75 absolute inset-0 z-40" id="search-overlay"></div>
 
-{{-- First navbar --}}
+{{-- First navbar || Log in and Register --}}
 <nav class="bg-black-secondary hidden sm:block">
 
-    <div class="flex justify-end items-center p-4 sm:px-6 lg:px-8">
+    <div class="flex justify-end items-center space-x-5 py-2 px-4 sm:px-6 lg:px-8">
         @guest
             <x-jet-nav-link href="{{ route('login') }}">Log in</x-jet-nav-link>
                                 @if (Route::has('register'))
@@ -83,20 +83,22 @@
     </div>
 </nav>
 
+{{-- Second navbar || Home, Shop Now etc.. --}}
 <nav x-data="{ open: false }" class="bg-primary">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex">
                     <!-- Logo -->
-                    <div class="flex-shrink-0 flex items-center">
+                    <div class="flex-shrink-0 flex justify-start items-center">
                         <a href="{{ route('home') }}">
-                            <h1 class="text-gray-100">WeShop</h1>
+                            {{-- <h1 class="text-gray-100">WeShop.</h1> --}}
+                            <img src="{{ asset('img/logo/LogoV2.png') }}" class="navbar-logo" alt="Navbar logo">
                         </a>
                     </div>
     
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <!-- Navigation Links for Tablets and Larger Devies -->
+                    <div class="hidden space-x-8 md:-my-px md:ml-10 md:flex">
                         <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
                             {{ __('Home') }}
                         </x-jet-nav-link>
@@ -124,19 +126,19 @@
                 </div>
                 
                 {{-- Navbar medium devices --}}
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <div class="hidden md:flex md:items-center md:ml-6">
                     
                     <!-- Settings Dropdown -->
-                    <div class="ml-3 relative">
+                    <div class="lg:ml-3 relative space-x-2">
                             <x-jet-nav-link href="#" id="search-button"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                               </svg>
                             </x-jet-nav-link>
-                            <x-jet-nav-link href="#"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <x-jet-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                               </svg>
                             </x-jet-nav-link>
-                            <x-jet-nav-link href="#"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <x-jet-nav-link href="{{ route('wishlist') }}"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                               </svg>
                             </x-jet-nav-link>
@@ -144,7 +146,7 @@
                 </div>
     
                 <!-- Hamburger -->
-                <div class="-mr-2 flex items-center sm:hidden">
+                <div class="-mr-2 flex items-center md:hidden">
                     <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -153,10 +155,10 @@
                     </button>
                 </div>
             </div>
-        </div>
+         </div> {{-- End of Navigation Links for Tablets and Larger Devies --}}
     
         <!-- Responsive Navigation Menu -->
-        <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden">
           
                 <div class="pt-2 pb-3 space-y-1">
             
@@ -185,12 +187,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                           </svg>
                     </x-jet-responsive-nav-link>
-                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    <x-jet-responsive-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                           </svg>
                     </x-jet-responsive-nav-link>
-                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    <x-jet-responsive-nav-link href="{{ route('wishlist') }}" :active="request()->routeIs('wishlist')">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                           </svg>

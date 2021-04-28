@@ -2,10 +2,10 @@
     {{-- Parent container for the whole page --}}
     <div class="w-screen my-5 mx-auto px-5 flex md:flex-row relative">
         
-        {{-- Sort products --}}
+        {{-- Sorting for products --}}
         @livewire('catalog.sorting')
 
-        {{-- Products --}}
+        {{-- List of products --}}
         @livewire('catalog.products')
 
     </div>

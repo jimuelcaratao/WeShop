@@ -15,29 +15,40 @@ const componentsContent = document.getElementById('components-content');
 overlay.addEventListener('click', () => {
     overlay.classList.toggle('toggleNav');
     productContent.classList.toggle('toggleNav');
+    document.body.style.overflowY = "auto";
 });
 
 productDropdown.addEventListener('click', () => {
     overlay.classList.toggle('toggleNav');
     productContent.classList.toggle('toggleNav');
+    document.body.style.overflowY = "hidden";
 });
 
 productPrebuild.addEventListener('mouseover', () => {
     preBuildContent.style.display = "block";
     peripheralsContent.style.display = "none";
     componentsContent.style.display = "none";
+    // productPrebuild.style.backgroundColor = "#307672";
+    // productPeripherals.style.backgroundColor = "#1A3C40";
+    // productComponents.style.backgroundColor = "#1A3C40";
 });
 
 productPeripherals.addEventListener('mouseover', () => {
     preBuildContent.style.display = "none";
     peripheralsContent.style.display = "block";
     componentsContent.style.display = "none";
+    // productPrebuild.style.backgroundColor = "#1A3C40";
+    // productPeripherals.style.backgroundColor = "#307672";
+    // productComponents.style.backgroundColor = "#1A3C40";
 });
 
 productComponents.addEventListener('mouseover', () => {
     preBuildContent.style.display = "none";
     peripheralsContent.style.display = "none";
     componentsContent.style.display = "block";
+    // productPrebuild.style.backgroundColor = "#1A3C40";
+    // productPeripherals.style.backgroundColor = "#1A3C40";
+    // productComponents.style.backgroundColor = "#307672";
 });
 
 
