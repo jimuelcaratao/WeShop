@@ -1,5 +1,5 @@
-<div class="hidden md:block absolute top-0 left-0 p-5 bg-white shadow-md">
-   <div class="flex flex-col h-screen mr-5 uppercase">
+<div class="hidden md:block p-5 mr-4 bg-white shadow-md">
+   <div class="flex flex-col h-auto mr-5 uppercase">
       {{-- Sorting for product categories --}}
       <div>
          
