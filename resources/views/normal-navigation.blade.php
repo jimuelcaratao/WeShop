@@ -93,7 +93,7 @@
                     <div class="flex-shrink-0 flex justify-start items-center">
                         <a href="{{ route('home') }}">
                             {{-- <h1 class="text-gray-100">WeShop.</h1> --}}
-                            <img src="{{ asset('img/logo/LogoV2.png') }}" class="navbar-logo" alt="Navbar logo">
+                            <img src="{{ asset('img/logo/LogoV2.png') }}" class="h-12 w-12 block mx-auto" alt="Site's logo">
                         </a>
                     </div>
     

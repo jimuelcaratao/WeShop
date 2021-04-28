@@ -1,4 +1,4 @@
-<div class="absolute top-0 right-0 md:right-5 w-full md:w-3/4">
+<div class="w-full md:w-screen">
    <div class="flex flex-col bg-white">
      
     {{-- First row --}}
