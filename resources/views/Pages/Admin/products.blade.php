@@ -134,13 +134,56 @@
                 </span>
             </div>
 
-          </div>
+        </div>
     </x-slot>
- 
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+
+            <div class="lg:flex lg:items-center lg:justify-between mb-3">
+                <div class="flex-1 min-w-0">
+                    {{-- search --}}
+                    <form class="flex">
+                        <input class="" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
+                        
+                        <button type="submit" class="btn btn-secondary  mx-2">
+                            <i class="fas fa-search">ser</i>
+                        </button>
+
+                        {{-- advance search --}}
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-modal" title="Advance search">
+                                advance search
+                            </button>
+
+                            {{-- search labels --}}
+                            @if (!empty(request()->advanceSearch))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    word: {{ request()->advanceSearch }}
+                                </span> 
+                            @endif
+
+                            @if (!empty(request()->searchCategory))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    category: {{ $categories_search  }}
+                                </span> 
+                            @endif
+                         
+                            @if (!empty(request()->searchBrand))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    brand: {{ $brands_search  }}
+                                </span> 
+                            @endif
+                          
+                    </form>
+                </div>
+            </div>
+
+
+            
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
 
+                
                 {{-- Table --}}
                 <x-admin.table>
 
@@ -328,5 +371,20 @@
             @endforeach
         </x-slot>
     </x-admin.products.edit-product-modal>
+
+
+    <x-admin.products.search-modal>
+        <x-slot name="categoryOptions">
+            @foreach ($categories as $category)
+                <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+            @endforeach
+        </x-slot>
+
+        <x-slot name="brandOptions">
+            @foreach ($brands as $brand)
+                <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+            @endforeach
+        </x-slot>
+    </x-admin.products.search-modal>
 
 </x-app-layout>
