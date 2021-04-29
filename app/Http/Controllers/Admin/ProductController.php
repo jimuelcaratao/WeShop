@@ -25,6 +25,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // text display for filter
+        $categories_search = null;
+        $sub_categories_search = null;
+        $brands_search = null;
 
         $brands = Brand::where('status', 'active')->get();
 
@@ -33,9 +37,6 @@ class ProductController extends Controller
         // $subcategories = Category::get();
 
         $tableProducts = Product::all();
-        $categories_search = null;
-        $brands_search = null;
-
 
         if ($tableProducts->isEmpty()) {
             $products = Product::paginate();
@@ -72,7 +73,7 @@ class ProductController extends Controller
                     ->paginate(5);
             }
 
-            if (!empty(request()->advanceSearch)  ||  !empty(request()->searchBrand) || !empty(request()->searchCategory)) {
+            if (!empty(request()->advanceSearch)  ||  !empty(request()->searchBrand) || !empty(request()->searchCategory) || !empty(request()->searchSubCategory)) {
 
                 // converting category value to text
                 if (!empty(request()->searchCategory)) {
@@ -85,8 +86,16 @@ class ProductController extends Controller
                     $brands_search = $searchBrandConvert->brand_name;
                 }
 
+                if (!empty(request()->searchSubCategory)) {
+                    $sub_categories_search = request()->searchSubCategory;
+                }
+
                 // filtered
-                $products = Product::productfilter()->brandfilter()->categoryfilter()->latest()
+                $products = Product::productfilter()
+                ->brandfilter()
+                ->categoryfilter()
+                ->subcategoryfilter()
+                ->latest()
                     ->paginate(5, ['*'], 'products');
             }
         }
@@ -99,6 +108,7 @@ class ProductController extends Controller
             'brands' => $brands,
             'categories' => $categories,
             'categories_search' => $categories_search,
+            'sub_categories_search' => $sub_categories_search,
             'brands_search' => $brands_search,
             // 'subcategories' => $subcategories,
         ]);

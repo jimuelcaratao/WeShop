@@ -24,6 +24,13 @@
                         </select>
                     </div>
                     <!-- /Category --> 
+                    <!-- Sub Category --> 
+                    <div class="form-group input-group-sm">
+                        <label for="searchSubCategory" id="searchSubCategoryLabel">Sub Category</label>
+                        <select name="searchSubCategory" id="searchSubCategory" class="form-control">
+                        </select>
+                    </div>
+                    <!-- /Sub Category --> 
                     <!-- Brand --> 
                     <div class="form-group input-group-sm">
                       <label for="searchBrand">Brand</label>
