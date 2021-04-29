@@ -68,6 +68,42 @@
             });
         });
 
+          // Fetch Search Sub Categories
+          $('#searchCategory').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
+
+            $.ajax({
+                type: "GET",
+                url: `/fetchcat?Id=${id}`,
+                success: function(response) {
+                    console.log(response.data);
+                    let htmls = "";
+                    x = null;
+
+                    $("#searchSubCategory").html(null);
+
+                    $("#searchSubCategory").append(
+                        `<option selected disabled value="">Choose...</option>`
+                    );
+                    response.data.map(x => {
+                        var sub_category_name = x.sub_category_name;
+                        // console.log(photo_id);
+                        $("#searchSubCategory").append(
+                            `<option>${sub_category_name}</option>`
+                        );
+                    });
+                  
+                    $('#searchSubCategory').removeAttr('disabled');
+
+                    // sub category display
+                    $('#searchSubCategoryLabel').show();
+                    $('#searchSubCategory').show();
+
+                }
+            });
+        });
+
         $('#edit-modal').on('show.bs.modal', function (e) {
            
         })
@@ -166,6 +202,12 @@
                             @if (!empty(request()->searchCategory))
                                 <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                     category: {{ $categories_search  }}
+                                </span> 
+                            @endif
+
+                            @if (!empty(request()->searchSubCategory))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Sub category: {{ $sub_categories_search  }}
                                 </span> 
                             @endif
                          

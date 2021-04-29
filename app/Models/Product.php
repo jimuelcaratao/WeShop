@@ -68,6 +68,15 @@ class Product extends Model
         return $q;
     }
 
+    public function scopeSubCategoryFilter($q)
+    {
+        if (!empty(request()->searchSubCategory)) {
+            $q->Where('sub_category_name', 'LIKE', '%' .  request()->searchSubCategory  .  '%');
+        }
+
+        return $q;
+    }
+
     public function scopeBrandFilter($q)
     {
         if (!empty(request()->searchBrand)) {
