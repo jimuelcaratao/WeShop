@@ -46,6 +46,28 @@
                 </ul>
             </div>  
         </div>
+         {{-- For product's review --}}
+         <div class="p-5 w-4/5 border-b border-gray-400">
+            <h1 class="text-center font-bold">Reviews</h1>
+            @livewire('product.review-content')
+
+            @livewire('product.review-content') 
+
+            @livewire('product.review-content')
+
+            <x-jet-button class="mt-5" id="review-show-more">Show more reviews</x-jet-button>
+            
+            {{-- Reviews hidden by default --}}
+            <div class="hidden" id="review-container-show">
+                @livewire('product.review-content')
+
+                @livewire('product.review-content') 
+
+                @livewire('product.review-content')
+
+                <x-jet-button class="mt-5" id="review-show-less">Show less reviews</x-jet-button>
+            </div>    
+        </div>
     </div>  
 
 </x-normal_user>    
