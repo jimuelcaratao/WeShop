@@ -9,7 +9,7 @@
         <div class="modal-body">
             
             <div>
-                <form action="{{ route('products.update') }}" method="POST" id="edit-form">
+                <form action="{{ route('products.update') }}" method="POST" id="edit-form" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <h4> Basic information </h4>
@@ -129,22 +129,26 @@
                                         <label class="block text-sm font-medium text-gray-700">
                                         Cover photo
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="mt-1 flex justify-center border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <img id="output" src="" style="width:200px;height:200px;">
+                                                <input id="default_photo" name="default_photo" type="file" accept=".jpg,.gif,.png,.jpeg" >
+
                                             </div>
+
                                         </div>
                                     </div>
-                                </div>
+                                </div>  
 
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        photo 1
+                                        photo 1 (optional)
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <img id="output_edit_photo_1" src="" style="width:200px;height:200px;">
+                                                <input type="file" id="photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +161,8 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <img id="output_edit_photo_2" src="" style="width:200px;height:200px;">
+                                                <input type="file" id="photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -170,25 +175,12 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <img id="output_edit_photo_3" src="" style="width:200px;height:200px;">
+                                                <input type="file" id="photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">
-                                        photo 4
-                                        </label>
-                                        <div class="mt-1 flex justify-center px-6 py-4 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class=" text-center">
-                                                Upload a Photo
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                             </div>
                     
@@ -215,7 +207,22 @@
 @push('scripts')
 
     <script>
-         $(document).ready(function() {
+
+        // image preview
+        $(document).on("change", "#default_photo", function() {
+            document.getElementById('output').src = window.URL.createObjectURL(this.files[0])
+        });
+        $(document).on("change", "#photo_1", function() {
+            document.getElementById('output_edit_photo_1').src = window.URL.createObjectURL(this.files[0])
+        });     
+        $(document).on("change", "#photo_2", function() {
+            document.getElementById('output_edit_photo_2').src = window.URL.createObjectURL(this.files[0])
+        });
+        $(document).on("change", "#photo_3", function() {
+            document.getElementById('output_edit_photo_3').src = window.URL.createObjectURL(this.files[0])
+        });
+
+        $(document).ready(function() {
             $(document).on("click", "#edit-item", function() {
                 $(this).addClass("edit-item-trigger-clicked"); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
                 var options = {
@@ -237,6 +244,8 @@
                 var specs = el.data("item-specs");
                 var price = el.data("item-price");
                 var stock = el.data("item-stock");
+                var default_photo = el.data("item-default_photo");
+
 
                 // var description = row.children("item-email").text();
                 // fill the data in the input fields
@@ -244,13 +253,15 @@
                 $("#edit_product_name").val(product_name);
                 $("#edit_product_code").val(product_code);
                 
+                // image preview
+                $("img#output").attr('src' , $("img#output").attr('src') + `{{ asset('storage/media/products/main_${product_code}_${default_photo}')}}`);
+
                 $("select#edit_brand option")
                 .each(function() { this.selected = (this.text == brand); });
 
                 $("select#edit_category_name option")
                 .each(function() { this.selected = (this.text == category); });
 
-               
      
                 $("#edit_description").val(description);
                 $("#edit_specs").val(specs);
@@ -258,36 +269,65 @@
                 $("#edit_stock").val(stock);
 
 
-                    // fetch edit sub category
-                    var id = $("select#edit_category_name option").filter(":selected").val();
-                    // alert(id); 
+          
 
-                    $.ajax({
-                        type: "GET",
-                        url: `/fetchcat?Id=${id}`,
-                        success: function(response) {
-                            console.log(response.data);
-                            let htmls = "";
-                            x = null;
+                // fetch edit sub category
+                var id = $("select#edit_category_name option").filter(":selected").val();
+                // alert(id); 
 
-                            $("#edit_sub_category_name").html(null);
+                $.ajax({
+                    type: "GET",
+                    url: `/fetchcat?Id=${id}`,
+                    success: function(response) {
+                        console.log(response.data);
+                        let htmls = "";
+                        x = null;
 
+                        $("#edit_sub_category_name").html(null);
+
+                        $("#edit_sub_category_name").append(
+                            `<option selected disabled value="">Choose...</option>`
+                        );
+                        response.data.map(x => {
+                            var sub_category_name = x.sub_category_name;
+                            // console.log(photo_id);
                             $("#edit_sub_category_name").append(
-                                `<option selected disabled value="">Choose...</option>`
+                                `<option>${sub_category_name}</option>`
                             );
-                            response.data.map(x => {
-                                var sub_category_name = x.sub_category_name;
-                                // console.log(photo_id);
-                                $("#edit_sub_category_name").append(
-                                    `<option>${sub_category_name}</option>`
-                                );
-                            });
-                        
-                            // actually select the sub
-                            $("select#edit_sub_category_name option")
-                            .each(function() { this.selected = (this.text == sub_category); });
+                        });
+                    
+                        // actually select the sub
+                        $("select#edit_sub_category_name option")
+                        .each(function() { this.selected = (this.text == sub_category); });
+                    }
+                });
+
+                console.log(product_code);
+                // fetching photos
+                $.ajax({
+                    type: "GET",
+                    url: `/fetchProductPhotos?product_code=${product_code}`,
+                    success:function(response) {
+                        // console.log(response.product_photos);
+
+                        var photos = response.product_photos;
+
+                        if (photos.photo_1 != null) {
+                            // image preview
+                            $("img#output_edit_photo_1").attr('src' , $("img#output_edit_photo_1").attr('src') + `{{ asset('storage/media/products/${product_code}_photo_1_${photos.photo_1}')}}`);
                         }
-                    });
+                   
+                        if (photos.photo_2 != null) {
+                            // image preview
+                            $("img#output_edit_photo_2").attr('src' , $("img#output_edit_photo_2").attr('src') + `{{ asset('storage/media/products/${product_code}_photo_2_${photos.photo_2}')}}`);
+                        }
+
+                        if (photos.photo_3 != null) {
+                            // image preview
+                            $("img#output_edit_photo_3").attr('src' , $("img#output_edit_photo_3").attr('src') + `{{ asset('storage/media/products/${product_code}_photo_3_${photos.photo_3}')}}`);
+                        }
+                    }
+                });
 
                
             });
@@ -297,6 +337,15 @@
                     "edit-item-trigger-clicked"
                 );
                 $("#edit-form").trigger("reset");
+
+
+                // image preview reset
+                $('#output').attr('src', '');
+
+                $('#output_edit_photo_1').attr('src', '');
+                $('#output_edit_photo_2').attr('src', '');
+                $('#output_edit_photo_3').attr('src', '');
+
             });
         });
     </script>

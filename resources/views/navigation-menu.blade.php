@@ -18,6 +18,9 @@
         <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('category') }}" :active="request()->routeIs('category')">
             {{ __('Category') }}
         </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('brand') }}" :active="request()->routeIs('brand')">
+            {{ __('Brand') }}
+        </x-jet-nav-link>
     </div>
 
     <!-- Primary Navigation Menu -->

@@ -278,7 +278,7 @@
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
                                     {{-- src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" --}}
-                                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/media/products/'.$product->product_code.'_'.$product->default_photo) }}" alt="">
+                                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="">
                                 </div>
                                 <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
@@ -340,6 +340,7 @@
                                 data-item-specs="{{ $product->specs }}"
                                 data-item-price="{{ $product->price }}"
                                 data-item-stock="{{ $product->stock }}"
+                                data-item-default_photo="{{ $product->default_photo }}"
                                 id="edit-item"
                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
 
