@@ -49,6 +49,12 @@
 #sub_category_name {
     display: none;
 }
+#category_category_id {
+    display: none;
+}
+#edit_sub_sub_category_id {
+    display: none;
+}
 #sub_category_name_label {
     display: none;
 }

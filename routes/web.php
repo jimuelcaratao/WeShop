@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
@@ -78,10 +79,26 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
     // category pages
     Route::get('/categories', [CategoryController::class, 'index'])->name('category');
 
-    Route::resource('categories', CategoryController::class)->except(['index', 'update']);
+    Route::post('/categories/sub_cat', [CategoryController::class, 'sub_store'])->name('sub_cat.store');
+
+    Route::put('/categories/update', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::put('/categories/update_sub_category', [CategoryController::class, 'update_sub'])->name('categories_sub.update');
+
+    Route::delete('/categories/{sub_category_id}/delete', [CategoryController::class, 'destroy_sub_category'])->name('sub_categories.destroy');
+
+    Route::resource('categories', CategoryController::class)->only(['destroy','store']);
+
+    // category pages
+    Route::get('/brands', [BrandController::class, 'index'])->name('brand');
+
+    Route::resource('brands', BrandController::class)->only(['destroy','store']);
 });
 
 Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
+
+Route::get('/fetchProductPhotos', [ProductController::class, 'fetchProductPhoto']);
+
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('Pages.Admin.dashboard');
