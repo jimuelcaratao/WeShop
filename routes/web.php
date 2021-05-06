@@ -54,6 +54,10 @@ Route::get('/wishlist', function () {
     return view('Pages.NormalUser.wishlist');
 })->name('wishlist');
 
+Route::get('/product/item', function () {
+    return view('Pages.NormalUser.product');
+})->name('product');
+
 // Route::get('/error', function () {
 //     return abort(500);;
 // });
