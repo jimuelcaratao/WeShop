@@ -7,10 +7,10 @@
                 <h1 class="text-left text-2xl sm:text-3xl font-bold">Cart (2 item)</h1>
                 <hr class="my-2 border-b border-gray-500">
                 <div class="flex flex-col md:flex-row p-2 border-b border-gray-500">
-                    <img src="{{ asset('./img/RAM.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
+                    <img src="{{ asset('./img/RAM1.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
                     <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
-                        <h1 class="text-gray-600 font-bold">RAM ITEM NO.1 TEST PRODUCT</h1>
-                        <p>Brand: ASUS</p>
+                        <h1 class="text-gray-600 font-bold">HyperX FURY DDR4 RGB</h1>
+                        <p>Brand: HYPERX</p>
                         <div class="flex flex-row space-x-2">
                             <x-jet-button><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -25,14 +25,14 @@
                             <label for="quantity">Quantity</label>
                             <input class="" type="number" name="quantity" min="1" value="1">
                         </div>
-                        <p class="font-bold mt-5">&#8369; 12,000</p>
+                        <p class="font-bold mt-5">&#8369; 2,448.00</p>
                     </div>
                 </div> {{-- end of item --}}
                 <div class="flex flex-col md:flex-row p-2 border-b border-gray-500">
-                    <img src="{{ asset('./img/RAM.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
+                    <img src="{{ asset('./img/RAM1.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
                     <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
-                        <h1 class="text-gray-600 font-bold">RAM ITEM NO.2 TEST PRODUCT</h1>
-                        <p>Brand: ASUS</p>
+                        <h1 class="text-gray-600 font-bold">HyperX FURY DDR4 RGB</h1>
+                        <p>Brand: HYPERX</p>
                         <div class="flex flex-row space-x-2">
                             <x-jet-button><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -47,7 +47,7 @@
                             <label for="quantity">Quantity</label>
                             <input class="" type="number" name="quantity" min="1" value="1">
                         </div>
-                        <p class="font-bold mt-5">&#8369; 12,000</p>
+                        <p class="font-bold mt-5">&#8369; 2,448.00</p>
                     </div>
                 </div> {{-- end of item --}}
             </div>
@@ -56,7 +56,7 @@
                 <div class="flex flex-col">
                     <div class="flex flex-row justify-between items-center">
                         <p>Temporary Amount</p>
-                        <p>&#8369; 12,000</p>
+                        <p>&#8369; 2,448.00</p>
                     </div>
                      <div class="flex flex-row justify-between items-center">
                           <p>Shipping</p>
@@ -66,7 +66,7 @@
                     <hr class="my-5 border-b border-gray-500">
                     <div class="flex flex-row justify-between items-center font-bold mb-5">
                         <p class="text-sm">The total amount of (including VAT)</p>
-                        <p>&#8369; 12,000</p>
+                        <p>&#8369; 2,448.00</p>
                     </div>
                     <x-jet-button>Go to checkout</x-jet-button>
             </div>
