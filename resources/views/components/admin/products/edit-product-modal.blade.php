@@ -124,14 +124,14 @@
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         Cover photo <span class="text-red-600">*</span>
                                         </label>
-                                        <div class="mt-1 flex justify-center border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input id="default_photo" name="default_photo" type="file" accept=".jpg,.gif,.png,.jpeg" >
 
                                             </div>
@@ -140,42 +140,42 @@
                                     </div>
                                 </div>  
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 1 (optional)
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_1" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_1" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 2
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_2" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_2" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 3
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_3" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_3" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>

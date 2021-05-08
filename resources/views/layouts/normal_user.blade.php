@@ -81,6 +81,25 @@
                 } ]
             });
             
+            new Glider(document.querySelector('.most-viewed'), {
+            // Mobile-first defaults
+            slidesToShow: 2,
+            itemWidth: 150,
+            dots: '.dots-most-viewed',
+            draggable: false,
+            arrows: {
+                prev: '.glider-prev-most-viewed',
+                next: '.glider-next-most-viewed'
+            },
+            responsive: [ {
+                // screens greater than >= 640px
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: '4',
+                }
+                } ]
+            });
+
         </script>
     </body>
 </html>
