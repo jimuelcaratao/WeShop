@@ -303,7 +303,7 @@
                             </td>
 
                             <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
-                               PHP @convert($product->price)
+                               PHP @convert($product->product_price->price)
                             </td>
 
                             <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">

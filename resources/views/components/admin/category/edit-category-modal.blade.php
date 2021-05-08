@@ -20,12 +20,12 @@
                                 <div class="px-4 py-5 bg-white sm:p-6">
                                     <div class="grid grid-cols-6 gap-6">
                                         <div class=" col-span-6 sm:col-span-4">
-                                            <label for="edit_category_id" class="block text-sm font-medium text-gray-700">Category ID*</label>
+                                            <label for="edit_category_id" class="block text-sm font-medium text-gray-700">Category ID <span class="text-red-600">*</span></label>
                                             <input type="text" name="category_id" id="edit_category_id" readonly required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 
                                         <div class=" col-span-6 sm:col-span-4">
-                                            <label for="edit_category_name" class="block text-sm font-medium text-gray-700">Category name*</label>
+                                            <label for="edit_category_name" class="block text-sm font-medium text-gray-700">Category name <span class="text-red-600">*</span></label>
                                             <input type="text" name="category_name" id="edit_category_name" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 
