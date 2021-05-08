@@ -24,8 +24,8 @@ class CreateProductsTable extends Migration
             $table->foreignId('brand_id');
             $table->string('stock');
             $table->string('price');
+            $table->text('default_photo')->nullable();
             $table->softDeletes();
-            $table->text('default_photo');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

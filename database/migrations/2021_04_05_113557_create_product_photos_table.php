@@ -15,10 +15,10 @@ class CreateProductPhotosTable extends Migration
     {
         Schema::create('product_photos', function (Blueprint $table) {
             $table->id('product_photo_id');
-            $table->string('product_code', 20);
-            $table->string('photo')->nullable();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
+            $table->string('product_code', 20)->unique();
+            $table->string('photo_1')->nullable();
+            $table->string('photo_2')->nullable();
+            $table->string('photo_3')->nullable();
 
             $table->foreign('product_code')->references('product_code')->on('products');
         });

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductPhotoCollection;
 use App\Http\Resources\ProductSubCategory;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductPhoto;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,14 +27,80 @@ class ProductController extends Controller
      */
     public function index()
     {
+        // text display for filter
+        $categories_search = null;
+        $sub_categories_search = null;
+        $brands_search = null;
 
         $brands = Brand::where('status', 'active')->get();
 
         $categories = Category::get();
 
-        $subcategories = Category::get();
+        // $subcategories = Category::get();
 
-        $products = Product::latest()->paginate(5);
+        $tableProducts = Product::all();
+
+        if ($tableProducts->isEmpty()) {
+            $products = Product::paginate();
+        }
+
+        if ($tableProducts->isNotEmpty()) {
+            // $products = Product::paginate(5);
+
+            // search validation
+            $search = Product::where('product_code', 'like', '%' . request()->search . '%')
+                ->OrWhere('product_name', 'like', '%' . request()->search . '%')
+                ->OrWhere('sku', 'like', '%' . request()->search . '%')
+                ->first();
+
+            $searchAdvance = Product::where('product_code', 'like', '%' . request()->advanceSearch . '%')
+                ->OrWhere('product_name', 'like', '%' . request()->advanceSearch . '%')
+                ->OrWhere('sku', 'like', '%' . request()->advanceSearch . '%')
+                ->first();
+
+            if ($search === null) {
+                return redirect('products')->with('info', 'No "' . request()->search . '" found in the database.');
+            }
+
+            if ($searchAdvance === null) {
+                return redirect('products')->with('info', 'No "' . request()->advanceSearch . '" found in the database.');
+            }
+
+            if ($search != null) {
+                // default returning
+                $products = Product::Where('product_code', 'like', '%' . request()->search . '%')
+                    ->OrWhere('product_name', 'like', '%' . request()->search . '%')
+                    ->OrWhere('sku', 'like', '%' . request()->search . '%')
+                    ->latest()
+                    ->paginate(5);
+            }
+
+            if (!empty(request()->advanceSearch)  ||  !empty(request()->searchBrand) || !empty(request()->searchCategory) || !empty(request()->searchSubCategory)) {
+
+                // converting category value to text
+                if (!empty(request()->searchCategory)) {
+                    $categories_searchConvert = Category::where('category_id', request()->searchCategory)->first();
+                    $categories_search = $categories_searchConvert->category_name;
+                }
+                // converting category value to text
+                if (!empty(request()->searchBrand)) {
+                    $searchBrandConvert = Brand::where('brand_id', request()->searchBrand)->first();
+                    $brands_search = $searchBrandConvert->brand_name;
+                }
+
+                if (!empty(request()->searchSubCategory)) {
+                    $sub_categories_search = request()->searchSubCategory;
+                }
+
+                // filtered
+                $products = Product::productfilter()
+                    ->brandfilter()
+                    ->categoryfilter()
+                    ->subcategoryfilter()
+                    ->latest()
+                    ->paginate(5, ['*'], 'products');
+            }
+        }
 
         // $subcat = Category::with('sub_categories')->get();
 
@@ -41,8 +109,10 @@ class ProductController extends Controller
             'products' => $products,
             'brands' => $brands,
             'categories' => $categories,
-            'subcategories' => $subcategories,
-
+            'categories_search' => $categories_search,
+            'sub_categories_search' => $sub_categories_search,
+            'brands_search' => $brands_search,
+            // 'subcategories' => $subcategories,
         ]);
     }
 
@@ -54,6 +124,15 @@ class ProductController extends Controller
         );
     }
 
+    public function fetchProductPhoto(Request $request)
+    {
+        // dd($request->product_code);
+        $product_photos = ProductPhoto::where('product_code', $request->product_code)
+            ->first();
+
+        return ['product_photos' => $product_photos];
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -62,6 +141,78 @@ class ProductController extends Controller
     public function create()
     {
         //
+    }
+    public function upload_product_image($request)
+    {
+        if ($request->hasFile('photo_1') != null) {
+            // create images
+            $image       = $request->file('photo_1');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_1')->isValid()) {
+                // create product_code path 
+                $photo_1 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_1' => $photo_1,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_1_' . $filename));
+            }
+        }
+
+        if ($request->hasFile('photo_2') != null) {
+            // create images
+            $image       = $request->file('photo_2');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_2')->isValid()) {
+                // create product_code path 
+                $photo_2 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_2' => $photo_2,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_2_' . $filename));
+            }
+        }
+
+
+        if ($request->hasFile('photo_3') != null) {
+            // create images
+            $image       = $request->file('photo_3');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_3')->isValid()) {
+                // create product_code path 
+                $photo_3 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_3' => $photo_3,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_3_' . $filename));
+            }
+        }
     }
 
     /**
@@ -101,12 +252,12 @@ class ProductController extends Controller
             'product_name' => $request->input('product_name'),
             'description' => $request->input('description'),
             'specs' => $request->input('specs'),
-            'category_name' => $categories->category_name,
+            'category_name' => $categories->category_name ?? null,
             'sub_category_name' => $request->input('sub_category_name'),
             'brand_id' => $request->input('brand_id'),
             'stock' => $request->input('stock'),
             'price' => $request->input('price'),
-            'default_photo' => $request->input('price'),
+            // 'default_photo' => $request->input('price'),
         ]);
 
 
@@ -120,7 +271,7 @@ class ProductController extends Controller
                 $image_resize = Image::make($image);
                 $image_resize->resize(300, 300);
 
-                $image_resize->save(public_path('storage/media/products/'
+                $image_resize->save(public_path('storage/media/products/main_'
                     . $product_code . '_' . $filename));
 
                 // create barcode 
@@ -131,6 +282,8 @@ class ProductController extends Controller
                     ]);
             }
         }
+
+        $this->upload_product_image($request);
 
         // dd($sad);
         return Redirect::route('products')->withSuccess('Product :' . $request->input('product_name') . '. Created Successfully!');
@@ -181,8 +334,32 @@ class ProductController extends Controller
                 'brand_id' => $request->input('edit_brand'),
                 'stock' => $request->input('edit_stock'),
                 'price' => $request->input('edit_price'),
-                'default_photo' => $request->input('edit_price'),
+                // 'default_photo' => $request->input('edit_price'),
             ]);
+
+        if ($request->hasFile('default_photo') != null) {
+            if ($request->file('default_photo')->isValid()) {
+                // create images
+                $image       = $request->file('default_photo');
+                $filename    = $image->getClientOriginalName();
+                $product_code =  $request->input('edit_product_code');
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(300, 300);
+
+                $image_resize->save(public_path('storage/media/products/main_'
+                    . $product_code . '_' . $filename));
+
+                // create barcode 
+                $char = strval($filename);
+                Product::where('product_code', $product_code)
+                    ->update([
+                        'default_photo' => $char,
+                    ]);
+            }
+        }
+
+        $this->upload_product_image($request);
 
         return Redirect::route('products')->withSuccess('Product :' . $request->input('edit_product_name') . '. Edited Successfully!');
     }
@@ -201,6 +378,6 @@ class ProductController extends Controller
         // Softdeletes
         Product::find($product_code)->delete();
 
-        return Redirect::route('products')->withSuccess('Product (Product code: ' . $product_code . '). Deleted Succussfull Created Successfully!');
+        return Redirect::route('products')->withSuccess('Product (Product code: ' . $product_code . '). Deleted Successfully!');
     }
 }

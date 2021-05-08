@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        {{-- <link rel="icon" href="{{ asset("img/logo/LogoV3.png") }}"> --}}
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -20,6 +21,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="{{ asset('js/navigation-menu-guest.js') }}" defer></script>
         <script src="{{ asset('js/catalog-sorting.js') }}" defer></script>
+        <script src="{{ asset('js/product-reviews.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
     </head>
@@ -42,8 +44,9 @@
             <main>
                 {{ $slot }}
             </main>
-       
-            @livewireScripts
+        @include('footer')
+            
+        @livewireScripts
 
         <script>
 

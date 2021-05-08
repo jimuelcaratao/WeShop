@@ -68,6 +68,42 @@
             });
         });
 
+          // Fetch Search Sub Categories
+          $('#searchCategory').change(function () {
+            var id = $(this).find(':selected')[0].value;
+            // alert(id); 
+
+            $.ajax({
+                type: "GET",
+                url: `/fetchcat?Id=${id}`,
+                success: function(response) {
+                    console.log(response.data);
+                    let htmls = "";
+                    x = null;
+
+                    $("#searchSubCategory").html(null);
+
+                    $("#searchSubCategory").append(
+                        `<option selected disabled value="">Choose...</option>`
+                    );
+                    response.data.map(x => {
+                        var sub_category_name = x.sub_category_name;
+                        // console.log(photo_id);
+                        $("#searchSubCategory").append(
+                            `<option>${sub_category_name}</option>`
+                        );
+                    });
+                  
+                    $('#searchSubCategory').removeAttr('disabled');
+
+                    // sub category display
+                    $('#searchSubCategoryLabel').show();
+                    $('#searchSubCategory').show();
+
+                }
+            });
+        });
+
         $('#edit-modal').on('show.bs.modal', function (e) {
            
         })
@@ -134,13 +170,62 @@
                 </span>
             </div>
 
-          </div>
+        </div>
     </x-slot>
- 
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+
+            <div class="lg:flex lg:items-center lg:justify-between mb-3">
+                <div class="flex-1 min-w-0">
+                    {{-- search --}}
+                    <form class="flex">
+                        <input class="" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
+                        
+                        <button type="submit" class="btn btn-secondary  mx-2">
+                            <i class="fas fa-search">ser</i>
+                        </button>
+
+                        {{-- advance search --}}
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-modal" title="Advance search">
+                                advance search
+                            </button>
+
+                            {{-- search labels --}}
+                            @if (!empty(request()->advanceSearch))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    word: {{ request()->advanceSearch }}
+                                </span> 
+                            @endif
+
+                            @if (!empty(request()->searchCategory))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    category: {{ $categories_search  }}
+                                </span> 
+                            @endif
+
+                            @if (!empty(request()->searchSubCategory))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    Sub category: {{ $sub_categories_search  }}
+                                </span> 
+                            @endif
+                         
+                            @if (!empty(request()->searchBrand))
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    brand: {{ $brands_search  }}
+                                </span> 
+                            @endif
+                          
+                    </form>
+                </div>
+            </div>
+
+
+            
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg">
 
+                
                 {{-- Table --}}
                 <x-admin.table>
 
@@ -193,7 +278,7 @@
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-10 w-10">
                                     {{-- src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" --}}
-                                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/media/products/'.$product->product_code.'_'.$product->default_photo) }}" alt="">
+                                <img class="h-10 w-10 rounded-full" src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="">
                                 </div>
                                 <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
@@ -255,6 +340,7 @@
                                 data-item-specs="{{ $product->specs }}"
                                 data-item-price="{{ $product->price }}"
                                 data-item-stock="{{ $product->stock }}"
+                                data-item-default_photo="{{ $product->default_photo }}"
                                 id="edit-item"
                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
 
@@ -328,5 +414,20 @@
             @endforeach
         </x-slot>
     </x-admin.products.edit-product-modal>
+
+
+    <x-admin.products.search-modal>
+        <x-slot name="categoryOptions">
+            @foreach ($categories as $category)
+                <option value="{{ $category->category_id }}">{{ $category->category_name }}</option>
+            @endforeach
+        </x-slot>
+
+        <x-slot name="brandOptions">
+            @foreach ($brands as $brand)
+                <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
+            @endforeach
+        </x-slot>
+    </x-admin.products.search-modal>
 
 </x-app-layout>

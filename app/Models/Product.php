@@ -41,4 +41,49 @@ class Product extends Model
     {
         return $this->hasOne(Brand::class, 'brand_id', 'brand_id');
     }
+
+    // filtering product
+    public function scopeProductFilter($q)
+    {
+        if (!empty(request()->advanceSearch)) {
+
+            $q->Where('sku', 'LIKE', '%' . request()->advanceSearch .  '%')
+                ->OrWhere('product_code', 'LIKE', '%' . request()->advanceSearch .  '%')
+                ->OrWhere('product_name', 'LIKE', '%' . request()->advanceSearch .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeCategoryFilter($q)
+    {
+        if (!empty(request()->searchCategory)) {
+            $categories_searchConvert = Category::where('category_id', request()->searchCategory)->first();
+
+            $categories_search = $categories_searchConvert->category_name;
+
+            $q->Where('category_name', 'LIKE', '%' .  $categories_search  .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeSubCategoryFilter($q)
+    {
+        if (!empty(request()->searchSubCategory)) {
+            $q->Where('sub_category_name', 'LIKE', '%' .  request()->searchSubCategory  .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeBrandFilter($q)
+    {
+        if (!empty(request()->searchBrand)) {
+
+            $q->Where('brand_id', 'LIKE', '%' . request()->searchBrand .  '%');
+        }
+
+        return $q;
+    }
 }

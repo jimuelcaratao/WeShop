@@ -147,6 +147,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
+                                                <img id="output_default_photo" src="" width="200" height="200">
                                                 <input type="file" id="default_photo" name="default_photo" accept=".jpg,.gif,.png,.jpeg" required>
                                             </div>
                                         </div>
@@ -160,7 +161,8 @@
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                  
+                                                <img id="output_photo_1" src="" width="200" height="200">
+                                                <input type="file" id="input_photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -169,11 +171,12 @@
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        photo 2
+                                        photo 2 (optional)
                                         </label>
                                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
+                                                <img id="output_photo_2" src="" width="200" height="200">
+                                                <input type="file" id="input_photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -182,24 +185,12 @@
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        photo 3
+                                        photo 3 (optional)
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                        <div class="mt-1  justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="space-y-1 text-center">
-                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">
-                                        photo 4
-                                        </label>
-                                        <div class="mt-1 flex justify-center px-6 py-4 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class=" text-center">
-                                                Upload a Photo
+                                                <img id="output_photo_3" src="" width="200" height="200">
+                                                <input type="file" id="input_photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
@@ -230,6 +221,20 @@
 
 
     <script>
+
+        $(document).on("change", "#default_photo", function() {
+            document.getElementById('output_default_photo').src = window.URL.createObjectURL(this.files[0])
+        });
+        $(document).on("change", "#input_photo_1", function() {
+            document.getElementById('output_photo_1').src = window.URL.createObjectURL(this.files[0])
+        });
+        $(document).on("change", "#input_photo_2", function() {
+            document.getElementById('output_photo_2').src = window.URL.createObjectURL(this.files[0])
+        });
+        $(document).on("change", "#input_photo_3", function() {
+            document.getElementById('output_photo_3').src = window.URL.createObjectURL(this.files[0])
+        });
+
          $(document).ready(function() {
             $(".closeModalClick").click(function(){
                 swal({

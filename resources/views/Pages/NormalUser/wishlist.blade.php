@@ -7,10 +7,10 @@
                 <h1 class="text-left text-2xl sm:text-3xl font-bold">Wish list (1 item)</h1>
                 <hr class="my-2 border-b border-gray-500">
                 <div class="flex flex-col md:flex-row p-2">
-                    <img src="{{ asset('./img/RAM.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
+                    <img src="{{ asset('./img/RAM1.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
                     <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
-                        <h1 class="text-gray-600 font-bold">RAM V2. X2111111X2111111X2111111X2111111</h1>
-                        <p>Brand: ASUS</p>
+                        <h1 class="text-gray-600 font-bold">HyperX FURY DDR4 RGB</h1>
+                        <p>Brand: HYPERX</p>
                         <p class="font-bold">&#8369; 12,000</p>
                         <div class="flex flex-row space-x-2">
                             <x-jet-button><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
