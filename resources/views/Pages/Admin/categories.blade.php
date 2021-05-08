@@ -215,7 +215,7 @@
                                                 data-item-sub_category_id="{{ $item->sub_category_id }}"
                                                 data-item-sub_category_name="{{ $item->sub_category_name }}"
                                                 id="edit-item-sub"
-                                                class="text-indigo-600 hover:text-indigo-900 mr-5">Edit Sub</a>
+                                                class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">

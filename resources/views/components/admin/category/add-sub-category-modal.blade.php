@@ -24,12 +24,12 @@
                                         </div>
 
                                         <div class=" col-span-6 sm:col-span-4">
-                                            <label for="category_category_name" class="block text-sm font-medium text-gray-700">Category Name*</label>
+                                            <label for="category_category_name" class="block text-sm font-medium text-gray-700">Category Name <span class="text-red-600">*</span></label>
                                             <input type="text" name="category_name" id="category_category_name" readonly required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 
                                         <div class=" col-span-6 sm:col-span-4">
-                                            <label for="category_sub_category_name" class="block text-sm font-medium text-gray-700">Sub Category name*</label>
+                                            <label for="category_sub_category_name" class="block text-sm font-medium text-gray-700">Sub Category name <span class="text-red-600">*</span></label>
                                             <input type="text" name="sub_category_name" id="category_sub_category_name" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 

@@ -35,6 +35,7 @@ class SocialAuthController extends Controller
             try {
 
                 $new_user = User::create([
+                    'external_provider' => 'Facebook',
                     'name' => $user->getName(),
                     'email' =>  $user->getEmail(),
                     'external_id' =>  $user->getId(),
@@ -76,6 +77,7 @@ class SocialAuthController extends Controller
         if ($existingUser === null) {
             try {
                 $new_user = User::create([
+                    'external_provider' => 'Google',
                     'external_id' => $user->getId(),
                     'name' => $user->getName(),
                     'email' =>  $user->getEmail(),
