@@ -63,8 +63,8 @@ Route::get('/product/item', function () {
 // });
 
 
-// Admin Users
-Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
+// Admin Users 'verified',
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     // dashboard pages
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
