@@ -79,10 +79,26 @@
                                         Brief description for your Product. URLs are hyperlinked.
                                     </p>
                                 </div>
-                       
-                
                              
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
                 
+                <div class=" hidden sm:block" aria-hidden="true">
+                    <div class="py-5">
+                        <div class="border-t border-gray-200"></div>
+                    </div>
+                </div>
+
+                <h4 class="">Sales Management</h4>
+                <div class="mt-3 md:mt-0 md:col-span-2">
+                    <div class=" sm:overflow-hidden">
+                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <div class="grid grid-cols-6 gap-6">
+
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
                                         <label for="edit_price" class="block text-sm font-medium text-gray-700">Price <span class="text-red-600">*</span></label>
@@ -92,25 +108,54 @@
                                               $
                                             </span>
                                           </div>
-                                          <input type="text" name="edit_price" id="edit_price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                                          <input type="number" min="0" step="0.01" name="edit_price" id="edit_price" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
                                          
                                         </div>
                                       </div>
                                 </div>
                 
                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label for="edit_stock" class="block text-sm font-medium text-gray-700">Stock <span class="text-red-600">*</span></label>
-                                <input type="text" name="edit_stock" id="edit_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <label for="edit_stock" class="block text-sm font-medium text-gray-700">Stock <span class="text-red-600">*</span></label>
+                                    <input type="number" name="edit_stock" min="0" id="edit_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
-                
+
+                                <x-jet-secondary-button class="col-span-6 sm:col-span-3 lg:col-span-2" type="button" id="discount_button_edit">
+                                    {{ __('Add Discount') }}
+                                </x-jet-secondary-button>
                              
+                                <div class="discount-form-edit col-span-6 sm:col-span-4">
+                                    <label for="edit_discount_type" class="block text-sm font-medium text-gray-700">Discount Type</label>
+                                    <select id="edit_discount_type" name="discount_type"  class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                        <option selected disabled value="">Choose...</option>
+                                        <option value="Money">Money</option>
+                                        <option value="Percentage">Percentage</option>
+                                        {{-- minimum - 0 max - 100 --}}
+                                    </select>
+                                </div>
+    
+                                <div class="discount-form-edit col-span-6 sm:col-span-6 lg:col-span-2">
+                                    <div>
+                                        <label for="edit_discount_price" class="block text-sm font-medium text-gray-700">Discount</label>
+                                        <div class="mt-1 relative rounded-md shadow-sm">
+                                          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-500 sm:text-sm">
+                                              $
+                                            </span>
+                                          </div>
+                                          <input type="text" name="discount_price" id="edit_discount_price"  class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                                         
+                                        </div>
+                                      </div>
+                                </div>
+
+                                <x-jet-secondary-button class="discount-form-edit col-span-6 sm:col-span-3 lg:col-span-2" type="button" id="discount_button_cancel_edit">
+                                    {{ __('Remove Discount') }}
+                                </x-jet-secondary-button>
                             </div>
-                            </div>
-                            
                         </div>
+                
                     </div>
                 </div>
-                
               
                 <div class="hidden sm:block" aria-hidden="true">
                     <div class="py-5">
@@ -131,7 +176,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="flex flex-col place-items-center space-y-1 text-center">
-                                                <img id="output" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
+                                                <img id="output" src="" style="width:200px;height:200px;">
                                                 <input id="default_photo" name="default_photo" type="file" accept=".jpg,.gif,.png,.jpeg" >
 
                                             </div>
@@ -147,7 +192,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="flex flex-col place-items-center space-y-1 text-center">
-                                                <img id="output_edit_photo_1" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
+                                                <img id="output_edit_photo_1" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
@@ -161,7 +206,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="flex flex-col place-items-center space-y-1 text-center">
-                                                <img id="output_edit_photo_2" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
+                                                <img id="output_edit_photo_2" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
@@ -175,7 +220,7 @@
                                         </label>
                                         <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div class="flex flex-col place-items-center space-y-1 text-center">
-                                                <img id="output_edit_photo_3" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
+                                                <img id="output_edit_photo_3" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
@@ -222,6 +267,18 @@
             document.getElementById('output_edit_photo_3').src = window.URL.createObjectURL(this.files[0])
         });
 
+        $( "#discount_button_edit" ).click(function() {
+            $('.discount-form-edit').show();
+            $('#discount_button_edit').hide();
+        });
+
+        $( "#discount_button_cancel_edit" ).click(function() {
+            $('.discount-form-edit').hide();
+            $('#discount_button_edit').show();
+            $('#edit_discount_type').val(null);
+            $('#edit_discount_price').val(null);
+        });
+
         $(document).ready(function() {
             $(document).on("click", "#edit-item", function() {
                 $(this).addClass("edit-item-trigger-clicked"); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
@@ -245,7 +302,8 @@
                 var price = el.data("item-price");
                 var stock = el.data("item-stock");
                 var default_photo = el.data("item-default_photo");
-
+                var discount_type = el.data("item-discount_type");
+                var discount_price = el.data("item-discount_price");
 
                 // var description = row.children("item-email").text();
                 // fill the data in the input fields
@@ -268,8 +326,23 @@
                 $("#edit_price").val(price);
                 $("#edit_stock").val(stock);
 
+                if (discount_type == '') {
+                    $('.discount-form-edit').hide();
+                    $('#discount_button_edit').show();
+                    $('#edit_discount_type').val(null);
+                    $('#edit_discount_price').val(null);
+                }
 
-          
+                if (discount_type != '') {
+                    $('#discount-form-edit').show();
+                    $('#discount_button_edit').hide();
+                    
+                    // select discount type
+                    $("select#edit_discount_type option")
+                    .each(function() { this.selected = (this.text == discount_type); });
+                }
+
+                $("#edit_discount_price").val(discount_price);
 
                 // fetch edit sub category
                 var id = $("select#edit_category_name option").filter(":selected").val();
@@ -345,6 +418,9 @@
                 $('#output_edit_photo_1').attr('src', '');
                 $('#output_edit_photo_2').attr('src', '');
                 $('#output_edit_photo_3').attr('src', '');
+
+                $("select#edit_discount_type option")
+                    .each(function() { this.selected = (this.text == null); });
 
             });
         });

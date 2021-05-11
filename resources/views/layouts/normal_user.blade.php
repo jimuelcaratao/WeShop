@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
 
+        @stack('styles')
+
         @livewireStyles
         
 
@@ -101,5 +103,9 @@
             });
 
         </script>
+
+
+        @stack('scripts')
+
     </body>
 </html>

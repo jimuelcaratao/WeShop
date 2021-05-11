@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\NormalUser\SingleProductController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -57,14 +58,20 @@ Route::get('/wishlist', function () {
     return view('Pages.NormalUser.wishlist');
 })->name('wishlist');
 
-Route::get('/product/item', function () {
-    return view('Pages.NormalUser.product');
-})->name('product');
+// Route::get('/product/item', function () {
+//     return view('Pages.NormalUser.product');
+// })->name('product');
+
+Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');
 
 // Route::get('/error', function () {
 //     return abort(500);;
 // });
 
+// Normal Users with Auth 'verified',
+Route::middleware(['auth:sanctum'])->group(function () {
+
+});
 
 // Admin Users 'verified',
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
