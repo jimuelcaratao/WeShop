@@ -11,9 +11,12 @@
 
 
         <!-- Styles -->
+        @stack('styles')
+
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+
 
         @livewireStyles
         
@@ -48,6 +51,8 @@
         @include('footer')
             
         @livewireScripts
+        @stack('scripts')
+
 
         <script>
 
@@ -101,5 +106,8 @@
             });
 
         </script>
+
+
+
     </body>
 </html>

@@ -35,7 +35,7 @@ class Product extends Model
 
     public function product_photos()
     {
-        return $this->hasMany(ProductPhoto::class);
+        return $this->hasOne(ProductPhoto::class, 'product_code', 'product_code');
     }
 
     public function brand()
@@ -46,6 +46,12 @@ class Product extends Model
     public function product_price()
     {
         return $this->hasOne(ProductPrice::class, 'product_code', 'product_code');
+    }
+
+
+    public function product_reviews()
+    {
+        return $this->hasMany(Review::class, 'product_code', 'product_code');
     }
 
     // filtering product

@@ -10,7 +10,10 @@
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
+    <script src="{{ asset('js/autosize.min.js') }}"></script>
+
     <script type="text/javascript">
+
         //delete
         $(".delete-product").click(function(e) {
             e.preventDefault();
@@ -180,44 +183,63 @@
             <div class="lg:flex lg:items-center lg:justify-between mb-3">
                 <div class="flex-1 min-w-0">
                     {{-- search --}}
-                    <form class="flex">
-                        <input class="" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
-                        
-                        <button type="submit" class="btn btn-secondary  mx-2">
-                            <i class="fas fa-search">ser</i>
-                        </button>
+                    <div class="flex">
+                        <form >
+                            <input class="focus:ring-indigo-500 focus:border-indigo-500  sm:text-sm border-gray-300 rounded-md" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
+                            
+                            <button type="submit" class="text-green-600 hover:text-green-800 mx-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mt-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
 
-                        {{-- advance search --}}
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-modal" title="Advance search">
-                                advance search
+                            {{-- advance search --}}
+                                {{-- <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#search-modal" title="Advance search">
+                                    advance search
+                                </button> --}}
+
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#search-modal" title="Advance search" class="mr-3 mt-2 bg-green-500 w-6 h-6 p-2 text-sm font-bold tracking-wider text-white rounded-full hover:bg-green-600 inline-flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>
                             </button>
 
                             {{-- search labels --}}
                             @if (!empty(request()->advanceSearch))
-                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     word: {{ request()->advanceSearch }}
                                 </span> 
                             @endif
 
                             @if (!empty(request()->searchCategory))
-                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     category: {{ $categories_search  }}
                                 </span> 
                             @endif
 
                             @if (!empty(request()->searchSubCategory))
-                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     Sub category: {{ $sub_categories_search  }}
                                 </span> 
                             @endif
-                         
+                        
                             @if (!empty(request()->searchBrand))
-                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                <span class="px-2 inline-flex text-center text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                     brand: {{ $brands_search  }}
                                 </span> 
                             @endif
-                          
-                    </form>
+
+                        </form>
+
+                        @if ( !empty(request()->advanceSearch) || !empty(request()->searchCategory) || !empty(request()->searchSubCategory) || !empty(request()->searchBrand ))
+                            <form class="flex" action="{{ route('products') }}">
+                                <button type="submit" class="ml-3 mr-3 text-sm font-bold tracking-wider text-red-600 hover:text-red-800 inline-flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </form>
+                        @endif
+
+                    </div>
                 </div>
             </div>
 
@@ -251,6 +273,9 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Price
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Discounted Price
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Stock
@@ -306,6 +331,22 @@
                                PHP @convert($product->product_price->price)
                             </td>
 
+                            @if ($product->product_price->discounted_price != null)
+                                <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                    PHP @convert($product->product_price->discounted_price)
+                                    @if ($product->product_price->discount_type == 'Money')
+                                        ( {{ $product->product_price->discount_price }}₱ )
+                                    @else
+                                        ( {{ $product->product_price->discount_price }}% )
+                                    @endif
+                                </td>
+                            @else
+                                <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
+                                    No sale
+                                </td>
+                            @endif
+                            
+
                             <td class="px-6 py-2 whitespace-nowrap text-sm text-gray-500">
 
                                 @if ($product->stock <= 10)
@@ -338,7 +379,9 @@
                                 data-item-brand="{{ $product->brand->brand_name }}"
                                 data-item-description="{{ $product->description }}"
                                 data-item-specs="{{ $product->specs }}"
-                                data-item-price="{{ $product->price }}"
+                                data-item-price="{{ $product->product_price->price }}"
+                                data-item-discount_type="{{ $product->product_price->discount_type }}"
+                                data-item-discount_price="{{ $product->product_price->discount_price }}"
                                 data-item-stock="{{ $product->stock }}"
                                 data-item-default_photo="{{ $product->default_photo }}"
                                 id="edit-item"

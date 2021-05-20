@@ -210,30 +210,51 @@ class ProductController extends Controller
 
     public function store_product_price($request)
     {
-        if(!empty($request->input('discount_price'))) {
-          
-            if ($request->input('discount_type') == 'Money'){
-                $price = $request->input('price');
-                $discount_price = $request->input('discount_price');
-    
-                $discounted_price = $price - $discount_price;
-            }
+        if ($request->input('discount_type') == 'Money'){
+            $price = $request->input('price') ?? $request->input('edit_price');
+            $discount_price = $request->input('discount_price');
 
-            if ($request->input('discount_type') == 'Percentage'){
-                $price = $request->input('price');
-                $discount_price = $request->input('discount_price');
-    
-                $discounted_price = $price - ($price * $discount_price / 100);
-            }
-
-            ProductPrice::where('product_code',  $request->input('product_code'))
-            ->update([
-                'discount_type' =>  $request->input('discount_type'),
-                'discount_price' =>  $discount_price ?? null,
-                'discounted_price' =>  $discounted_price ?? null,
-            ]);
+            $discounted_price = $price - $discount_price;
         }
+
+        if ($request->input('discount_type') == 'Percentage'){
+            $price = $request->input('price') ?? $request->input('edit_price');
+            $discount_price = $request->input('discount_price');
+
+            $discounted_price = $price - ($price * $discount_price / 100);
+        }
+
+        ProductPrice::where('product_code',  $request->input('product_code') ?? $request->input('edit_product_code'))
+        ->update([
+            'discount_type' =>  $request->input('discount_type') ?? null,
+            'discount_price' =>  $discount_price ?? null,
+            'discounted_price' =>  $discounted_price ?? null,
+        ]);
     }
+
+    // public function update_product_price($request)
+    // {
+    //     if ($request->input('edit_discount_type') == 'Money'){
+    //         $price = $request->input('price') ?? $request->input('edit_price');
+    //         $discount_price = $request->input('discount_price');
+
+    //         $discounted_price = $price - $discount_price;
+    //     }
+
+    //     if ($request->input('discount_type') == 'Percentage'){
+    //         $price = $request->input('price') ?? $request->input('edit_price');
+    //         $discount_price = $request->input('discount_price');
+
+    //         $discounted_price = $price - ($price * $discount_price / 100);
+    //     }
+
+    //     ProductPrice::where('product_code',  $request->input('edit_product_code'))
+    //     ->update([
+    //         'discount_type' =>  $request->input('discount_type') ?? null,
+    //         'discount_price' =>  $discount_price ?? null,
+    //         'discounted_price' =>  $discounted_price ?? null,
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -326,6 +347,22 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'edit_sku' => 'required',
+            'edit_product_code' => 'required|numeric',
+            'edit_category_name' => 'required',
+            'edit_sub_category_name' => 'required',
+            'edit_brand' => 'required',
+            'edit_product_name' => 'required',
+            'edit_stock' => 'required|numeric|min:0',
+            'edit_price' => 'required|numeric|min:0'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('products')
+                ->with('toast_error', $validator->messages()->all())
+                ->withInput();
+        }
         // converting category value to text
         $categories = Category::where('category_id', $request->input('edit_category_name'))->first();
 
@@ -340,9 +377,14 @@ class ProductController extends Controller
                 'sub_category_name' => $request->input('edit_sub_category_name'),
                 'brand_id' => $request->input('edit_brand'),
                 'stock' => $request->input('edit_stock'),
-                // 'price' => $request->input('edit_price'),
-                // 'default_photo' => $request->input('edit_price'),
             ]);
+
+        ProductPrice::where('product_code',  $request->input('edit_product_code'))
+        ->update([
+            'price' => $request->input('edit_price'),
+        ]); 
+
+        $this->store_product_price($request);
 
         if ($request->hasFile('default_photo') != null) {
             if ($request->file('default_photo')->isValid()) {

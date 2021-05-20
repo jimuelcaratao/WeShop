@@ -85,7 +85,7 @@
 </nav>
 
 {{-- Second navbar || Home, Shop Now etc.. --}}
-<nav x-data="{ open: false }" class="bg-primary">
+<nav x-data="{ open: false }" class="bg-main">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
@@ -105,8 +105,7 @@
                         </x-jet-nav-link>
                         
                         {{-- Dropdown --}}
-                        <div class="mt-5">
-                            
+                        <div class=" nav-shop">
                             {{-- Normal resolution dropdown --}}
                             @livewire('navbar.dropdown-nav')
                             
