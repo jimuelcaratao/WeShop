@@ -48,6 +48,12 @@ class Product extends Model
         return $this->hasOne(ProductPrice::class, 'product_code', 'product_code');
     }
 
+
+    public function product_reviews()
+    {
+        return $this->hasMany(Review::class, 'product_code', 'product_code');
+    }
+
     // filtering product
     public function scopeProductFilter($q)
     {

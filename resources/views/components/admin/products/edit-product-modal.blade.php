@@ -252,7 +252,10 @@
 @push('scripts')
 
     <script>
-
+        $(document).ready(function(){
+            elem=document.getElementById('#edit_description');
+            if (elem.clientHeight < elem.scrollHeight) elem.style.height=elem.scrollHeight+"px";
+        });
         // image preview
         $(document).on("change", "#default_photo", function() {
             document.getElementById('output').src = window.URL.createObjectURL(this.files[0])
@@ -288,6 +291,9 @@
                 $("#edit-modal").modal(options);
                 var el = $(".edit-item-trigger-clicked"); // See how its usefull right here?
                 var row = el.closest(".data-row");
+
+                autosize($('#edit_description'));
+                autosize($('#edit_specs'));
 
 
                 // get the data
@@ -421,6 +427,8 @@
 
                 $("select#edit_discount_type option")
                     .each(function() { this.selected = (this.text == null); });
+
+            
 
             });
         });

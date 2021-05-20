@@ -58,6 +58,7 @@
     $('#edit_category_name').on('input',function(e){
         $('#edit_submit_category').removeAttr('disabled');
     });
+    
      $(document).ready(function() {
         $(document).on("click", "#edit-item-category", function() {
             $(this).addClass("edit-item-trigger-clicked"); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.

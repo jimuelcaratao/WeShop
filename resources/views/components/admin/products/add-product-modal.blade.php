@@ -274,6 +274,9 @@
 
     <script>
 
+        autosize($('#description'));
+        autosize($('#specs'));
+
         $(document).on("change", "#default_photo", function() {
             document.getElementById('output_default_photo').src = window.URL.createObjectURL(this.files[0])
         });

@@ -141,6 +141,11 @@
     }
 }
 
+/* textarea */
+textarea {
+    overflow: hidden;
+}
+
 /* The Close Button */
 .close {
     position: absolute;

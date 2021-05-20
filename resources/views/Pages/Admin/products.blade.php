@@ -10,7 +10,10 @@
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
+    <script src="{{ asset('js/autosize.min.js') }}"></script>
+
     <script type="text/javascript">
+
         //delete
         $(".delete-product").click(function(e) {
             e.preventDefault();
@@ -182,7 +185,7 @@
                     {{-- search --}}
                     <div class="flex">
                         <form >
-                            <input class="" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
+                            <input class="focus:ring-indigo-500 focus:border-indigo-500  sm:text-sm border-gray-300 rounded-md" type="search" name="search" placeholder="Search.." aria-label="Search" value="{{ request()->search }}">
                             
                             <button type="submit" class="text-green-600 hover:text-green-800 mx-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="mt-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
