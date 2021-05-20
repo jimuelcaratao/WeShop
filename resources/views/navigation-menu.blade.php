@@ -11,7 +11,9 @@
         <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             {{ __('Dashboard') }}
         </x-jet-nav-link>
-
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+            {{ __('Orders') }}
+        </x-jet-nav-link>
         <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('products') }}" :active="request()->routeIs('products')">
             {{ __('Products') }}
         </x-jet-nav-link>
@@ -19,7 +21,14 @@
             {{ __('Category') }}
         </x-jet-nav-link>
         <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('brand') }}" :active="request()->routeIs('brand')">
-            {{ __('Brand') }}
+            {{ __('Brands') }}
+        </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('user') }}" :active="request()->routeIs('user')">
+            {{ __('Users') }}
+        </x-jet-nav-link>
+
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('sales') }}" :active="request()->routeIs('sales')">
+            {{ __('Sales') }}
         </x-jet-nav-link>
     </div>
 

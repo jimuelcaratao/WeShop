@@ -118,7 +118,7 @@
                                             <a 
                                             href="#"
                                             data-bs-toggle="modal" 
-                                            data-bs-target="#edit-modal"
+                                            data-bs-target="#edit-modal-brand"
                                             data-tooltip="tooltip"
                                             data-placement="top"
                                             title="Edit"
@@ -126,7 +126,7 @@
                                             data-item-brand_id="{{ $brand->brand_id }}"
                                             data-item-brand_name="{{ $brand->brand_name }}"
                                             data-item-status="{{ $brand->status }}"
-                                            id="edit-item"
+                                            id="edit-item-brand"
                                             class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
                                         </div>
                                         <div class="ml-4">
@@ -162,5 +162,9 @@
 
     <x-admin.brand.add-brand-modal>
     </x-admin.brand.add-brand-modal>
+
+    <x-admin.brand.edit-brand-modal>
+    </x-admin.brand.edit-brand-modal>
+
 
 </x-app-layout>

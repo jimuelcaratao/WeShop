@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        {{-- <link rel="icon" href="{{ asset("img/logo/LogoV3.png") }}"> --}}
+
+        <link rel="icon" href="{{ asset("img/logo/LogoV2.png") }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -80,6 +81,25 @@
                 } ]
             });
             
+            new Glider(document.querySelector('.most-viewed'), {
+            // Mobile-first defaults
+            slidesToShow: 2,
+            itemWidth: 150,
+            dots: '.dots-most-viewed',
+            draggable: false,
+            arrows: {
+                prev: '.glider-prev-most-viewed',
+                next: '.glider-next-most-viewed'
+            },
+            responsive: [ {
+                // screens greater than >= 640px
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: '4',
+                }
+                } ]
+            });
+
         </script>
     </body>
 </html>

@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <div>
-                <form action="{{ route('categories.store') }}" method="POST" id="add-form">
+                <form action="{{ route('brands.store') }}" method="POST" id="add-form">
                     @csrf
                     <h4> Brand information </h4>
                     <div class="mt-10 sm:mt-0">
@@ -20,13 +20,13 @@
                                     <div class="grid grid-cols-6 gap-6">
 
                                         <div class=" col-span-6 sm:col-span-4">
-                                            <label for="brand_name" class="block text-sm font-medium text-gray-700">Brand name*</label>
+                                            <label for="brand_name" class="block text-sm font-medium text-gray-700">Brand name <span class="text-red-600">*</span></label>
                                             <input type="text" name="brand_name" id="brand_name" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-4">
-                                            <label for="brand_id" class="block text-sm font-medium text-gray-700">Brand Status*</label>
-                                            <select id="brand_id" name="brand_id" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            <label for="status" class="block text-sm font-medium text-gray-700">Brand Status <span class="text-red-600">*</span></label>
+                                            <select id="status" name="status" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                 <option selected disabled value="">Choose...</option>
                                                 <option>Active</option>
                                                 <option>Not Active</option>
@@ -42,7 +42,7 @@
                
                     <div div class="modal-footer">
                         <button type="button" class="btn btn-secondary closeModalClick">Cancel</button>
-                        <button disabled id="submit_category" type="submit" class="btn btn-primary">Create</button>
+                        <button disabled id="submit_brand" type="submit" class="btn btn-primary">Create</button>
                     </div>
                 </form>
 
@@ -58,6 +58,12 @@
 @push('scripts')
 
 <script>
+
+    // if brand not null
+    $('#brand_name').on('input',function(e){
+        $('#submit_brand').removeAttr('disabled');
+    });
+
     $(document).ready(function() {
         $(".closeModalClick").click(function(){
             swal({
@@ -73,7 +79,7 @@
                         $('#add-modal').modal('hide');
                         $("#add-form").trigger("reset");
 
-                        $('#submit_category').attr('disabled', 'disabled');
+                        $('#submit_brand').attr('disabled', 'disabled');
                     } else {
                         return false;
                     }

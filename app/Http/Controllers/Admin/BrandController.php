@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class BrandController extends Controller
 {
@@ -32,7 +34,25 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'brand_name' => 'required|unique:brands',
+            'status' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::route('brand')
+                ->with('toast_error', $validator->messages()->all())
+                ->withInput();
+        }
+
+        DB::table('brands')->insert([
+            'brand_name'=> $request->input('brand_name'),
+            'status' => $request->input('status'),
+        ]);
+
+        return Redirect::route('brand')->withSuccess('Brand :' . $request->input('brand_name') . '. Created Successfully!');
+
     }
 
 
@@ -43,9 +63,16 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+
+        Brand::where('brand_id',  $request->input('brand_id'))
+        ->update([
+            'brand_name' => $request->input('brand_name'),
+            'status' => $request->input('status'),
+        ]);
+
+        return Redirect::route('brand')->withSuccess('Brand :' . $request->input('brand_name') . '. Updated Successfully!');
     }
 
     /**

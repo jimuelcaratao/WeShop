@@ -41,7 +41,7 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('categories')
+            return Redirect::route('category')
                 ->with('toast_error', $validator->messages()->all())
                 ->withInput();
         }
@@ -63,7 +63,7 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('categories')
+            return Redirect::route('category')
                 ->with('toast_error', $validator->messages()->all())
                 ->withInput();
         }

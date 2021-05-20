@@ -9,6 +9,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductPhoto;
+use App\Models\ProductPrice;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -133,15 +134,7 @@ class ProductController extends Controller
         return ['product_photos' => $product_photos];
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
     public function upload_product_image($request)
     {
         if ($request->hasFile('photo_1') != null) {
@@ -215,6 +208,33 @@ class ProductController extends Controller
         }
     }
 
+    public function store_product_price($request)
+    {
+        if(!empty($request->input('discount_price'))) {
+          
+            if ($request->input('discount_type') == 'Money'){
+                $price = $request->input('price');
+                $discount_price = $request->input('discount_price');
+    
+                $discounted_price = $price - $discount_price;
+            }
+
+            if ($request->input('discount_type') == 'Percentage'){
+                $price = $request->input('price');
+                $discount_price = $request->input('discount_price');
+    
+                $discounted_price = $price - ($price * $discount_price / 100);
+            }
+
+            ProductPrice::where('product_code',  $request->input('product_code'))
+            ->update([
+                'discount_type' =>  $request->input('discount_type'),
+                'discount_price' =>  $discount_price ?? null,
+                'discounted_price' =>  $discounted_price ?? null,
+            ]);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -233,12 +253,12 @@ class ProductController extends Controller
             // 'description' => 'required',
             // 'specs' => 'required',
             'stock' => 'required|numeric',
-            'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
             'default_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            return redirect('products')
+            return Redirect::route('products')
                 ->with('toast_error', $validator->messages()->all())
                 ->withInput();
         }
@@ -256,11 +276,19 @@ class ProductController extends Controller
             'sub_category_name' => $request->input('sub_category_name'),
             'brand_id' => $request->input('brand_id'),
             'stock' => $request->input('stock'),
-            'price' => $request->input('price'),
             // 'default_photo' => $request->input('price'),
         ]);
 
+        // product price
+        ProductPrice::create([
+            'product_code' =>  $request->input('product_code'),
+            'price' =>  $request->input('price'),
+        ]);
 
+        $this->store_product_price($request);
+
+
+        // photos
         if ($request->hasFile('default_photo') != null) {
             if ($request->file('default_photo')->isValid()) {
                 // create images
@@ -298,27 +326,6 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'sku' => 'required|unique:products',
-        //     'product_code' => 'required|unique:products|numeric',
-        //     'category_name' => 'required',
-        //     'sub_category_name' => 'required',
-        //     'brand_id' => 'required',
-        //     'product_name' => 'required',
-        //     // 'description' => 'required',
-        //     // 'specs' => 'required',
-        //     'stock' => 'required|numeric',
-        //     'price' => 'required|numeric',
-        //     // 'default_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect('products')
-        //         ->with('toast_error', $validator->messages()->all())
-        //         ->withInput();
-        // }
-        // dd($request->all());
-
         // converting category value to text
         $categories = Category::where('category_id', $request->input('edit_category_name'))->first();
 
@@ -333,7 +340,7 @@ class ProductController extends Controller
                 'sub_category_name' => $request->input('edit_sub_category_name'),
                 'brand_id' => $request->input('edit_brand'),
                 'stock' => $request->input('edit_stock'),
-                'price' => $request->input('edit_price'),
+                // 'price' => $request->input('edit_price'),
                 // 'default_photo' => $request->input('edit_price'),
             ]);
 

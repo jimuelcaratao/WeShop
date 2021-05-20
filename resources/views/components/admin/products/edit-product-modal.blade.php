@@ -20,21 +20,21 @@
                             <div class="grid grid-cols-6 gap-6">
 
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="edit_category_name" class="block text-sm font-medium text-gray-700">Category*</label>
+                                    <label for="edit_category_name" class="block text-sm font-medium text-gray-700">Category <span class="text-red-600">*</span></label>
                                     <select id="edit_category_name" name="edit_category_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option selected disabled value="">Choose...</option>
                                         {{ $categoryOptions }}
                                     </select>
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
-                                    <label for="edit_sub_category_name" class="block text-sm font-medium text-gray-700">Sub Category*</label>
+                                    <label for="edit_sub_category_name" class="block text-sm font-medium text-gray-700">Sub Category <span class="text-red-600">*</span></label>
                                     <select id="edit_sub_category_name" name="edit_sub_category_name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                       
                                     </select>
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="edit_brand" class="block text-sm font-medium text-gray-700">Brand</label>
+                                    <label for="edit_brand" class="block text-sm font-medium text-gray-700">Brand <span class="text-red-600">*</span></label>
                                     <select id="edit_brand" name="edit_brand" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option selected disabled value="">Choose...</option>
                                         {{ $brandOptions }}
@@ -42,23 +42,23 @@
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="edit_product_code" class="block text-sm font-medium text-gray-700">Product code*</label>
+                                    <label for="edit_product_code" class="block text-sm font-medium text-gray-700">Product code <span class="text-red-600">*</span></label>
                                     <input type="text" name="edit_product_code" id="edit_product_code" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="edit_sku" class="block text-sm font-medium text-gray-700">SKU*</label>
+                                    <label for="edit_sku" class="block text-sm font-medium text-gray-700">SKU <span class="text-red-600">*</span></label>
                                     <input type="text" name="edit_sku" id="edit_sku"class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-6 sm:col-span-4">
-                                    <label for="edit_product_name" class="block text-sm font-medium text-gray-700">Product Name*</label>
+                                    <label for="edit_product_name" class="block text-sm font-medium text-gray-700">Product Name <span class="text-red-600">*</span></label>
                                     <input type="text" name="edit_product_name" id="edit_product_name"  class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
 
                                 <div class="col-span-8 sm:col-span-6">
                                     <label for="edit_description" class="block text-sm font-medium text-gray-700">
-                                        Description*
+                                        Description <span class="text-red-600">*</span>
                                     </label>
                                     <div class="mt-1">
                                         <textarea id="edit_description" name="edit_description" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
@@ -70,7 +70,7 @@
 
                                 <div class="col-span-8 sm:col-span-6">
                                     <label for="edit_specs" class="block text-sm font-medium text-gray-700">
-                                        Specs*
+                                        Specs <span class="text-red-600">*</span>
                                     </label>
                                     <div class="mt-1">
                                         <textarea id="edit_specs" name="edit_specs" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="you@example.com"></textarea>
@@ -85,7 +85,7 @@
                 
                                 <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                     <div>
-                                        <label for="edit_price" class="block text-sm font-medium text-gray-700">Price*</label>
+                                        <label for="edit_price" class="block text-sm font-medium text-gray-700">Price <span class="text-red-600">*</span></label>
                                         <div class="mt-1 relative rounded-md shadow-sm">
                                           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                             <span class="text-gray-500 sm:text-sm">
@@ -99,7 +99,7 @@
                                 </div>
                 
                                 <div class="col-span-6 sm:col-span-3 lg:col-span-2">
-                                <label for="edit_stock" class="block text-sm font-medium text-gray-700">Stock*</label>
+                                <label for="edit_stock" class="block text-sm font-medium text-gray-700">Stock <span class="text-red-600">*</span></label>
                                 <input type="text" name="edit_stock" id="edit_stock" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                                 </div>
                 
@@ -124,14 +124,14 @@
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
-                                        Cover photo
+                                        Cover photo <span class="text-red-600">*</span>
                                         </label>
-                                        <div class="mt-1 flex justify-center border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input id="default_photo" name="default_photo" type="file" accept=".jpg,.gif,.png,.jpeg" >
 
                                             </div>
@@ -140,42 +140,42 @@
                                     </div>
                                 </div>  
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 1 (optional)
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_1" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_1" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 2
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_2" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_2" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 3
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_edit_photo_3" src="" style="width:200px;height:200px;">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_edit_photo_3" src="{{ asset('img/RAM1.jpg') }}" style="width:200px;height:200px;">
                                                 <input type="file" id="photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>

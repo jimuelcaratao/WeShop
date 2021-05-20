@@ -3,7 +3,10 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SaleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NormalUser\HomeController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
@@ -63,8 +66,8 @@ Route::get('/product/item', function () {
 // });
 
 
-// Admin Users
-Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
+// Admin Users 'verified',
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     // dashboard pages
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -89,10 +92,24 @@ Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
 
     Route::resource('categories', CategoryController::class)->only(['destroy','store']);
 
-    // category pages
+    // brands pages
     Route::get('/brands', [BrandController::class, 'index'])->name('brand');
 
+    Route::put('/brands/update', [BrandController::class, 'update'])->name('brands.update');
+
     Route::resource('brands', BrandController::class)->only(['destroy','store']);
+
+    // users pages
+    Route::get('/users', [UserController::class, 'index'])->name('user');
+
+    Route::resource('users', UserController::class)->only(['destroy']);
+
+    // orders pages
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+
+    // orders pages
+    Route::get('/sales', [SaleController::class, 'index'])->name('sales');
+
 });
 
 Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
