@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        <link rel="icon" href="{{ asset("img/logo/LogoV2.png") }}">
 
 
         <!-- Fonts -->
@@ -39,12 +40,14 @@
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
+
             {{-- main navbar for admin --}}
             @livewire('navigation-menu')
-      
+
+            <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow-sm" id="pageHeader">
-                    <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-7xl mx-auto pt-3 pb-2 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -52,12 +55,10 @@
 
             <!-- Page Content -->
             <div id="pageContent">
-            <!-- Page Heading -->
                 {{ $slot }}
             </div>
             
         </div>
-
         @stack('modals')
         @stack('scripts')
 

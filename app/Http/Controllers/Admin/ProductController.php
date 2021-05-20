@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductPhotoCollection;
 use App\Http\Resources\ProductSubCategory;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductPhoto;
+use App\Models\ProductPrice;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -92,10 +95,10 @@ class ProductController extends Controller
 
                 // filtered
                 $products = Product::productfilter()
-                ->brandfilter()
-                ->categoryfilter()
-                ->subcategoryfilter()
-                ->latest()
+                    ->brandfilter()
+                    ->categoryfilter()
+                    ->subcategoryfilter()
+                    ->latest()
                     ->paginate(5, ['*'], 'products');
             }
         }
@@ -122,15 +125,136 @@ class ProductController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function fetchProductPhoto(Request $request)
     {
-        //
+        // dd($request->product_code);
+        $product_photos = ProductPhoto::where('product_code', $request->product_code)
+            ->first();
+
+        return ['product_photos' => $product_photos];
     }
+
+
+    public function upload_product_image($request)
+    {
+        if ($request->hasFile('photo_1') != null) {
+            // create images
+            $image       = $request->file('photo_1');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_1')->isValid()) {
+                // create product_code path 
+                $photo_1 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_1' => $photo_1,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_1_' . $filename));
+            }
+        }
+
+        if ($request->hasFile('photo_2') != null) {
+            // create images
+            $image       = $request->file('photo_2');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_2')->isValid()) {
+                // create product_code path 
+                $photo_2 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_2' => $photo_2,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_2_' . $filename));
+            }
+        }
+
+
+        if ($request->hasFile('photo_3') != null) {
+            // create images
+            $image       = $request->file('photo_3');
+            $filename    = $image->getClientOriginalName();
+            $product_code =  $request->input('product_code') ?? $request->input('edit_product_code');
+
+            $image_resize = Image::make($image);
+            $image_resize->resize(300, 300);
+
+            if ($request->file('photo_3')->isValid()) {
+                // create product_code path 
+                $photo_3 = strval($filename);
+
+                ProductPhoto::upsert([
+                    'product_code' => $product_code,
+                    'photo_3' => $photo_3,
+                ], 'product_code');
+
+                $image_resize->save(public_path('storage/media/products/'
+                    . $product_code . '_photo_3_' . $filename));
+            }
+        }
+    }
+
+    public function store_product_price($request)
+    {
+        if ($request->input('discount_type') == 'Money'){
+            $price = $request->input('price') ?? $request->input('edit_price');
+            $discount_price = $request->input('discount_price');
+
+            $discounted_price = $price - $discount_price;
+        }
+
+        if ($request->input('discount_type') == 'Percentage'){
+            $price = $request->input('price') ?? $request->input('edit_price');
+            $discount_price = $request->input('discount_price');
+
+            $discounted_price = $price - ($price * $discount_price / 100);
+        }
+
+        ProductPrice::where('product_code',  $request->input('product_code') ?? $request->input('edit_product_code'))
+        ->update([
+            'discount_type' =>  $request->input('discount_type') ?? null,
+            'discount_price' =>  $discount_price ?? null,
+            'discounted_price' =>  $discounted_price ?? null,
+        ]);
+    }
+
+    // public function update_product_price($request)
+    // {
+    //     if ($request->input('edit_discount_type') == 'Money'){
+    //         $price = $request->input('price') ?? $request->input('edit_price');
+    //         $discount_price = $request->input('discount_price');
+
+    //         $discounted_price = $price - $discount_price;
+    //     }
+
+    //     if ($request->input('discount_type') == 'Percentage'){
+    //         $price = $request->input('price') ?? $request->input('edit_price');
+    //         $discount_price = $request->input('discount_price');
+
+    //         $discounted_price = $price - ($price * $discount_price / 100);
+    //     }
+
+    //     ProductPrice::where('product_code',  $request->input('edit_product_code'))
+    //     ->update([
+    //         'discount_type' =>  $request->input('discount_type') ?? null,
+    //         'discount_price' =>  $discount_price ?? null,
+    //         'discounted_price' =>  $discounted_price ?? null,
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -150,12 +274,12 @@ class ProductController extends Controller
             // 'description' => 'required',
             // 'specs' => 'required',
             'stock' => 'required|numeric',
-            'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
             'default_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
-            return redirect('products')
+            return Redirect::route('products')
                 ->with('toast_error', $validator->messages()->all())
                 ->withInput();
         }
@@ -169,15 +293,23 @@ class ProductController extends Controller
             'product_name' => $request->input('product_name'),
             'description' => $request->input('description'),
             'specs' => $request->input('specs'),
-            'category_name' => $categories->category_name,
+            'category_name' => $categories->category_name ?? null,
             'sub_category_name' => $request->input('sub_category_name'),
             'brand_id' => $request->input('brand_id'),
             'stock' => $request->input('stock'),
-            'price' => $request->input('price'),
-            'default_photo' => $request->input('price'),
+            // 'default_photo' => $request->input('price'),
         ]);
 
+        // product price
+        ProductPrice::create([
+            'product_code' =>  $request->input('product_code'),
+            'price' =>  $request->input('price'),
+        ]);
 
+        $this->store_product_price($request);
+
+
+        // photos
         if ($request->hasFile('default_photo') != null) {
             if ($request->file('default_photo')->isValid()) {
                 // create images
@@ -188,7 +320,7 @@ class ProductController extends Controller
                 $image_resize = Image::make($image);
                 $image_resize->resize(300, 300);
 
-                $image_resize->save(public_path('storage/media/products/'
+                $image_resize->save(public_path('storage/media/products/main_'
                     . $product_code . '_' . $filename));
 
                 // create barcode 
@@ -199,6 +331,8 @@ class ProductController extends Controller
                     ]);
             }
         }
+
+        $this->upload_product_image($request);
 
         // dd($sad);
         return Redirect::route('products')->withSuccess('Product :' . $request->input('product_name') . '. Created Successfully!');
@@ -213,27 +347,22 @@ class ProductController extends Controller
      */
     public function update(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'sku' => 'required|unique:products',
-        //     'product_code' => 'required|unique:products|numeric',
-        //     'category_name' => 'required',
-        //     'sub_category_name' => 'required',
-        //     'brand_id' => 'required',
-        //     'product_name' => 'required',
-        //     // 'description' => 'required',
-        //     // 'specs' => 'required',
-        //     'stock' => 'required|numeric',
-        //     'price' => 'required|numeric',
-        //     // 'default_photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'edit_sku' => 'required',
+            'edit_product_code' => 'required|numeric',
+            'edit_category_name' => 'required',
+            'edit_sub_category_name' => 'required',
+            'edit_brand' => 'required',
+            'edit_product_name' => 'required',
+            'edit_stock' => 'required|numeric|min:0',
+            'edit_price' => 'required|numeric|min:0'
+        ]);
 
-        // if ($validator->fails()) {
-        //     return redirect('products')
-        //         ->with('toast_error', $validator->messages()->all())
-        //         ->withInput();
-        // }
-        // dd($request->all());
-
+        if ($validator->fails()) {
+            return Redirect::route('products')
+                ->with('toast_error', $validator->messages()->all())
+                ->withInput();
+        }
         // converting category value to text
         $categories = Category::where('category_id', $request->input('edit_category_name'))->first();
 
@@ -248,9 +377,38 @@ class ProductController extends Controller
                 'sub_category_name' => $request->input('edit_sub_category_name'),
                 'brand_id' => $request->input('edit_brand'),
                 'stock' => $request->input('edit_stock'),
-                'price' => $request->input('edit_price'),
-                'default_photo' => $request->input('edit_price'),
             ]);
+
+        ProductPrice::where('product_code',  $request->input('edit_product_code'))
+        ->update([
+            'price' => $request->input('edit_price'),
+        ]); 
+
+        $this->store_product_price($request);
+
+        if ($request->hasFile('default_photo') != null) {
+            if ($request->file('default_photo')->isValid()) {
+                // create images
+                $image       = $request->file('default_photo');
+                $filename    = $image->getClientOriginalName();
+                $product_code =  $request->input('edit_product_code');
+
+                $image_resize = Image::make($image);
+                $image_resize->resize(300, 300);
+
+                $image_resize->save(public_path('storage/media/products/main_'
+                    . $product_code . '_' . $filename));
+
+                // create barcode 
+                $char = strval($filename);
+                Product::where('product_code', $product_code)
+                    ->update([
+                        'default_photo' => $char,
+                    ]);
+            }
+        }
+
+        $this->upload_product_image($request);
 
         return Redirect::route('products')->withSuccess('Product :' . $request->input('edit_product_name') . '. Edited Successfully!');
     }
@@ -269,6 +427,6 @@ class ProductController extends Controller
         // Softdeletes
         Product::find($product_code)->delete();
 
-        return Redirect::route('products')->withSuccess('Product (Product code: ' . $product_code . '). Deleted Succussfull Created Successfully!');
+        return Redirect::route('products')->withSuccess('Product (Product code: ' . $product_code . '). Deleted Successfully!');
     }
 }

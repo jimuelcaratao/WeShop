@@ -4,15 +4,19 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        {{-- <link rel="icon" href="{{ asset("img/logo/LogoV3.png") }}"> --}}
+
+        <link rel="icon" href="{{ asset("img/logo/LogoV2.png") }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
 
         <!-- Styles -->
+        @stack('styles')
+
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+
 
         @livewireStyles
         
@@ -21,6 +25,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="{{ asset('js/navigation-menu-guest.js') }}" defer></script>
         <script src="{{ asset('js/catalog-sorting.js') }}" defer></script>
+        <script src="{{ asset('js/product-reviews.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
 
     </head>
@@ -46,6 +51,8 @@
         @include('footer')
             
         @livewireScripts
+        @stack('scripts')
+
 
         <script>
 
@@ -79,6 +86,28 @@
                 } ]
             });
             
+            new Glider(document.querySelector('.most-viewed'), {
+            // Mobile-first defaults
+            slidesToShow: 2,
+            itemWidth: 150,
+            dots: '.dots-most-viewed',
+            draggable: false,
+            arrows: {
+                prev: '.glider-prev-most-viewed',
+                next: '.glider-next-most-viewed'
+            },
+            responsive: [ {
+                // screens greater than >= 640px
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: '4',
+                }
+                } ]
+            });
+
         </script>
+
+
+
     </body>
 </html>

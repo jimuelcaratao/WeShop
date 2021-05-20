@@ -25,6 +25,7 @@ class Product extends Model
         'category_name',
         'sub_category_name',
         'brand_id',
+        // 'product_price_id',
         'product_name',
         'description',
         'specs',
@@ -34,12 +35,23 @@ class Product extends Model
 
     public function product_photos()
     {
-        return $this->hasMany(ProductPhoto::class);
+        return $this->hasOne(ProductPhoto::class, 'product_code', 'product_code');
     }
 
     public function brand()
     {
         return $this->hasOne(Brand::class, 'brand_id', 'brand_id');
+    }
+
+    public function product_price()
+    {
+        return $this->hasOne(ProductPrice::class, 'product_code', 'product_code');
+    }
+
+
+    public function product_reviews()
+    {
+        return $this->hasMany(Review::class, 'product_code', 'product_code');
     }
 
     // filtering product

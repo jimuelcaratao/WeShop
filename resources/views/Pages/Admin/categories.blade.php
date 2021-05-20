@@ -9,12 +9,46 @@
     @endpush
 
     @push('scripts')
+    {{-- Sweet alert --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    {{-- <script src="{{ asset('js/dropzone.js') }}"></script> --}}
+    {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+    
 
+
+        //delete
+        $(".delete-category").click(function(e) {
+            e.preventDefault();
+            swal({
+                title: "Are you sure to Delete?",
+                text: "Once you Deleted, theres no turning back!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $(e.target)
+                        .closest("form")
+                        .submit(); // Post the surrounding form
+                    } else {
+                        return false;
+                    }
+            });
+        });
+
+
+        // if category not null
+        $('#category_name').on('input',function(e){
+            $('#submit_category').removeAttr('disabled');
+        });
+
+        $('#category_sub_category_name').on('input',function(e){
+            $('#submit_sub_category').removeAttr('disabled');
+        });
     </script>
        
     @endpush
@@ -102,21 +136,20 @@
                                         <a 
                                         href="#"
                                         data-bs-toggle="modal" 
-                                        data-bs-target="#edit-modal"
+                                        data-bs-target="#edit-modal-category"
                                         data-tooltip="tooltip"
                                         data-placement="top"
                                         title="Edit"
                                         data-community="{{ json_encode($category) }}"
-                                        data-item-sku="{{ $category->sku }}"
                                         data-item-category_id="{{ $category->category_id }}"
                                         data-item-category_name="{{ $category->category_name }}"
-                                        id="edit-item"
+                                        id="edit-item-category"
                                         class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
                                     </div>
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
                                             
-                                            <form action="#" method="POST">
+                                            <form class="delete-category" action="{{ route('categories.destroy', [$category->category_id]) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
 
@@ -129,11 +162,14 @@
                                             <a 
                                             href="#"
                                             data-bs-toggle="modal" 
-                                            data-bs-target="#edit-modal"
+                                            data-bs-target="#add-sub-modal"
                                             data-tooltip="tooltip"
                                             data-placement="top"
-                                            title="Edit"
-                                            id="edit-item"
+                                            title="Add Sub"
+                                            data-community="{{ json_encode($category) }}"
+                                            data-item-category_id="{{ $category->category_id }}"
+                                            data-item-category_name="{{ $category->category_name }}"
+                                            id="add-item-sub"
                                             class="text-green-600 hover:text-green-900 mr-5">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -171,18 +207,20 @@
                                                 <a 
                                                 href="#"
                                                 data-bs-toggle="modal" 
-                                                data-bs-target="#edit-modal"
+                                                data-bs-target="#edit-sub-modal"
                                                 data-tooltip="tooltip"
                                                 data-placement="top"
                                                 title="Edit"
-                                            
-                                                id="edit-item"
+                                                data-item-category_name="{{ $category->category_name }}"
+                                                data-item-sub_category_id="{{ $item->sub_category_id }}"
+                                                data-item-sub_category_name="{{ $item->sub_category_name }}"
+                                                id="edit-item-sub"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Edit</a>
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     
-                                                    <form action="#" method="POST">
+                                                    <form class="delete-category" action="{{ route('sub_categories.destroy', [$item->sub_category_id]) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
         
@@ -216,7 +254,17 @@
     </div>
 
 
+    
+    <x-admin.category.add-category-modal>
+    </x-admin.category.add-category-modal>
 
+    <x-admin.category.add-sub-category-modal>
+    </x-admin.category.add-sub-category-modal>
 
+    <x-admin.category.edit-category-modal>
+    </x-admin.category.edit-category-modal>
+
+    <x-admin.category.edit-sub-category-modal>
+    </x-admin.category.edit-sub-category-modal>
 
 </x-app-layout>
