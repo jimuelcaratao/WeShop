@@ -16,6 +16,7 @@
 -   composer require laravel/socialite
 -   composer require realrashid/sweet-alert
 -   composer require intervention/image
+-   composer require laravelista/comments
 
 ## Packages
 
