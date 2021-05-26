@@ -124,7 +124,7 @@
                                           $
                                         </span>
                                       </div>
-                                      <input type="text" name="price" id="price" required class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                                      <input type="number" min="0" step="0.01"  name="price" id="price" required class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
                                      
                                     </div>
                                   </div>
@@ -132,7 +132,7 @@
             
                             <div class="form-basic col-span-6 sm:col-span-3 lg:col-span-2">
                                 <label for="stock" class="block text-sm font-medium text-gray-700">Stock <span class="text-red-600">*</span></label>
-                                <input type="text" name="stock" id="stock" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                <input type="number" min="0" name="stock" id="stock" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                             </div>
 
                             <x-jet-secondary-button class="col-span-6 sm:col-span-3 lg:col-span-2" type="button" id="discount_button">
@@ -164,6 +164,9 @@
                                   </div>
                             </div>
 
+                            <x-jet-secondary-button class="discount-form col-span-6 sm:col-span-3 lg:col-span-2" type="button" id="discount_button_cancel">
+                                {{ __('Remove Discount') }}
+                            </x-jet-secondary-button>
                         </div>
                         </div>
                 
@@ -183,56 +186,62 @@
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <div class="grid grid-cols-6 gap-6">
                 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         Cover photo <span class="text-red-600">*</span>
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_default_photo" src="" width="200" height="200">
-                                                <input type="file" id="default_photo" name="default_photo" accept=".jpg,.gif,.png,.jpeg" required>
+                                        <div class="mt-1 flex justify-center items-center border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_default_photo" src="" style="width:200px;height:200px;">
+                                                <input id="default_photo" name="default_photo" type="file" accept=".jpg,.gif,.png,.jpeg" required>
+
                                             </div>
+
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 1 (optional)
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_photo_1" src="" width="200" height="200">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_photo_1" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="input_photo_1" name="photo_1" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 2 (optional)
                                         </label>
-                                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_photo_2" src="" width="200" height="200">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_photo_2" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="input_photo_2" name="photo_2" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+
+                                <div class="col-span-6 sm:col-span-6 lg:col-span-3">
                                     <div>
                                         <label class="block text-sm font-medium text-gray-700">
                                         photo 3 (optional)
                                         </label>
-                                        <div class="mt-1  justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            <div class="space-y-1 text-center">
-                                                <img id="output_photo_3" src="" width="200" height="200">
+                                        <div class="mt-1 flex justify-center items-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                            <div class="flex flex-col place-items-center space-y-1 text-center">
+                                                <img id="output_photo_3" src="" style="width:200px;height:200px;">
                                                 <input type="file" id="input_photo_3" name="photo_3" accept=".jpg,.gif,.png,.jpeg">
                                             </div>
                                         </div>
@@ -265,6 +274,9 @@
 
     <script>
 
+        autosize($('#description'));
+        autosize($('#specs'));
+
         $(document).on("change", "#default_photo", function() {
             document.getElementById('output_default_photo').src = window.URL.createObjectURL(this.files[0])
         });
@@ -276,6 +288,18 @@
         });
         $(document).on("change", "#input_photo_3", function() {
             document.getElementById('output_photo_3').src = window.URL.createObjectURL(this.files[0])
+        });
+
+        $( "#discount_button" ).click(function() {
+            $('.discount-form').show();
+            $('#discount_button').hide();
+        });
+
+        $( "#discount_button_cancel" ).click(function() {
+            $('.discount-form').hide();
+            $('#discount_button').show();
+            $('#discount_type').val(null);
+            $('#discount_price').val(null);
         });
 
          $(document).ready(function() {
@@ -309,48 +333,6 @@
                             }
                     });
             });
-
-            // $('#add-modal').on("hide.bs.modal", function (e) {
-                  
-            //     if(confirm("Are you sure, you want to Discard this?")){ 
-            //         $("#add-form").trigger("reset");
-
-            //         $('#sub_category_name').prop('selectedIndex',0);
-            //         $('#sub_category_name').attr('disabled', 'disabled');
-
-            //         // sub category display
-            //         $('#sub_category_name_label').hide();
-            //         $('#sub_category_name').hide();
-
-            //         // form category display 
-            //         $('.form-basic').hide();
-
-            //         $('#submit_product').attr('disabled', 'disabled');
-            //         return true;
-            //     }
-            //     else{ 
-            //         return false;
-            //     }
-            // });
-            
-            // // on modal hide
-            // $("#add-modal").on("hide.bs.modal", function() {
-                
-            //     $("#add-form").trigger("reset");
-
-
-            //     $('#sub_category_name').prop('selectedIndex',0);
-            //     $('#sub_category_name').attr('disabled', 'disabled');
-
-            //     // sub category display
-            //     $('#sub_category_name_label').hide();
-            //     $('#sub_category_name').hide();
-
-            //     // form category display 
-            //     $('.form-basic').hide();
-
-            //     $('#submit_product').attr('disabled', 'disabled');
-            // });
 
           
         });

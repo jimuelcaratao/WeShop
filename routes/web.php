@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\NormalUser\SingleProductController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
@@ -57,14 +58,24 @@ Route::get('/wishlist', function () {
     return view('Pages.NormalUser.wishlist');
 })->name('wishlist');
 
-Route::get('/product/item', function () {
-    return view('Pages.NormalUser.product');
-})->name('product');
+// Route::get('/product/item', function () {
+//     return view('Pages.NormalUser.product');
+// })->name('product');
+
+Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');
+
+
+Route::get('/product/{product_code}/review/{review}', [SingleProductController::class, 'review'])->name('product.review');
+
 
 // Route::get('/error', function () {
 //     return abort(500);;
 // });
 
+// Normal Users with Auth 'verified',
+Route::middleware(['auth:sanctum'])->group(function () {
+
+});
 
 // Admin Users 'verified',
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
@@ -107,7 +118,9 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     // orders pages
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
 
-    // orders pages
+    Route::post('/orders/order-status', [OrderController::class, 'order_status'])->name('order_status');
+
+    // sales pages
     Route::get('/sales', [SaleController::class, 'index'])->name('sales');
 
 });
@@ -115,6 +128,8 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
 
 Route::get('/fetchProductPhotos', [ProductController::class, 'fetchProductPhoto']);
+
+Route::get('/OrderItems', [OrderController::class, 'order_items']);
 
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
