@@ -17,8 +17,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $productsSlideOne = Product::all()->take(4);
-        $products = Product::all()->take(8);
+        $products = Product::all();
 
         // create visit
         Visit::Create([
