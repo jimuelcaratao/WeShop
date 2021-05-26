@@ -4,12 +4,16 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PrintController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\NormalUser\CartController;
 use App\Http\Controllers\NormalUser\HomeController;
 use App\Http\Controllers\NormalUser\SingleProductController;
+use App\Http\Controllers\NormalUser\WishListController;
 use App\Http\Controllers\SocialAuthController;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -50,13 +54,13 @@ Route::get('/catalog', function () {
     return view('Pages.NormalUser.catalog');
 });
 
-Route::get('/cart', function () {
-    return view('Pages.NormalUser.cart');
-})->name('cart');
+// Route::get('/cart', function () {
+//     return view('Pages.NormalUser.cart');
+// })->name('cart');
 
-Route::get('/wishlist', function () {
-    return view('Pages.NormalUser.wishlist');
-})->name('wishlist');
+// Route::get('/wishlist', function () {
+//     return view('Pages.NormalUser.wishlist');
+// })->name('wishlist');
 
 // Route::get('/product/item', function () {
 //     return view('Pages.NormalUser.product');
@@ -74,6 +78,26 @@ Route::get('/product/{product_code}/review/{review}', [SingleProductController::
 
 // Normal Users with Auth 'verified',
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // Wishlist
+    Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
+
+    Route::post('/wishlist/{product_code}', [WishListController::class, 'add_to_wishlist'])->name('wishlist.add');
+
+    Route::delete('/wishlist/{product_code}/delete', [WishListController::class, 'remove_to_wishlist'])->name('wishlist.remove');
+
+    Route::post('/wishlist/{product_code}/cart', [WishListController::class, 'move_to_cart'])->name('wishlist.move');
+
+    // Cart
+    Route::get('/cart', [CartController::class, 'index'])->name('cart');
+
+    Route::post('/cart/{product_code}', [CartController::class, 'add_to_cart'])->name('cart.add');
+
+    Route::put('/cart/{cart_id}', [CartController::class, 'change_quantity'])->name('cart.quantity');
+
+    Route::delete('/cart/{product_code}/delete', [CartController::class, 'remove_to_cart'])->name('cart.remove');
+
+    Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
 });
 
@@ -113,7 +137,7 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     // users pages
     Route::get('/users', [UserController::class, 'index'])->name('user');
 
-    Route::resource('users', UserController::class)->only(['destroy']);
+    Route::post('/users', [UserController::class, 'ban'])->name('user.ban');
 
     // orders pages
     Route::get('/orders', [OrderController::class, 'index'])->name('orders');
@@ -122,6 +146,9 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     // sales pages
     Route::get('/sales', [SaleController::class, 'index'])->name('sales');
+
+    // print invoice
+    Route::get('/order/invoice-print', [PrintController::class, 'print_invoice'])->name('print_invoice');
 
 });
 

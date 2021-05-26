@@ -31,6 +31,8 @@
     </head>
     <body class="font-sans antialiased bg-gray-100">
 
+        @include('sweetalert::alert')
+
         {{-- Main navbar for normal users --}}
         @include('normal-navigation')
 

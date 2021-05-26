@@ -19,7 +19,9 @@ class CreateOrderItemsTable extends Migration
             $table->string('product_code', 20);
             $table->string('quantity');
             $table->string('price');
-
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
+            
             $table->foreign('order_no')->references('order_no')->on('orders');
             $table->foreign('product_code')->references('product_code')->on('products');
         });
