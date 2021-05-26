@@ -7,7 +7,9 @@ use App\Models\Post;
 use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\Review;
+use App\Models\WishList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SingleProductController extends Controller
 {
@@ -20,11 +22,15 @@ class SingleProductController extends Controller
             return abort(404);
         }
 
+        $wishlist = WishList::Where('user_id', 'like', '%' . Auth::user()->id . '%')
+        ->Where('product_code',$product_code)->first();
+
         $product_ave_reviews = Review::where('product_code',$product_code)->avg('stars');
 
         return view('Pages.NormalUser.product',[
             'product' => $product,
             'product_ave_reviews' => $product_ave_reviews,
+            'wishlist' => $wishlist ?? null,
 
         ]);
     }

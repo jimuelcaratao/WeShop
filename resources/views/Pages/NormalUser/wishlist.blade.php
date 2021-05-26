@@ -1,27 +1,91 @@
 <x-normal_user>
     <div class="w-11/12 my-12 mx-auto">
-        <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1>
+        {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
 
         <div class="mt-12 flex flex-col justify-center items-center space-y-5 md:space-x-3">
             <div class="p-4 bg-white shadow-md w-11/12 md:w-4/5">
-                <h1 class="text-left text-2xl sm:text-3xl font-bold">Wish list (1 item)</h1>
+                <h1 class="text-left text-xl font-bold">
+                    My Wish list ({{ count($wishlists) }} item/s)
+                </h1>
                 <hr class="my-2 border-b border-gray-500">
-                <div class="flex flex-col md:flex-row p-2">
-                    <img src="{{ asset('./img/RAM1.jpg') }}" alt="RAM" class="block h-2/4 w-2/4 md:h-1/4 md:w-1/4 mx-auto">
-                    <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
-                        <h1 class="text-gray-600 font-bold">HyperX FURY DDR4 RGB</h1>
-                        <p>Brand: HYPERX</p>
-                        <p class="font-bold">&#8369; 12,000</p>
-                        <div class="flex flex-row space-x-2">
-                            <x-jet-button><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                              </svg>Remove item</x-jet-button>
-                            <x-jet-button><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                              </svg>Add to cart</x-jet-button>
+                <div class="container my-12 mx-auto px-4 md:px-12">
+                    <div class="flex flex-wrap -mx-1 lg:-mx-4">
+                
+
+                        @forelse ($wishlists as $wishlist)
+                              <!-- Column -->
+                        <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+                
+                            <!-- Article -->
+                            <article class="overflow-hidden rounded-lg shadow-lg">
+                
+                                <a href="{{ route('product',[$wishlist->product->product_code]) }}">
+                                    <img class="block h-3/4 w-full"  src="{{ asset('storage/media/products/main_'.$wishlist->product->product_code.'_'.$wishlist->product->default_photo) }}" alt="{{ $wishlist->product->product_name }}">
+                                </a>
+                
+                                <header class="flex items-center justify-between leading-tight p-2 md:p-4">
+                                    <h1 class="text-lg">
+                                        <a class="no-underline text-black" href="{{ route('product',[$wishlist->product->product_code]) }}">
+                                            {{ $wishlist->product->product_name }}
+                                        </a>
+                                    </h1>
+
+                                    <p class="text-grey-darker text-sm">
+                                        Brand: {{ $wishlist->product->brand->brand_name }}
+                                    </p>  
+                                </header>
+                                
+                                <footer class="flex items-center justify-between leading-none p-2 md:p-4">
+                                    <a class="flex items-center no-underline text-black">
+                                        <p class="ml-2 text-sm">
+                                            @if (!empty($wishlist->product->product_price->discounted_price))
+                                                <h1 class="mr-2 0">&#8369; @convert($wishlist->product->product_price->discounted_price)</h1>
+                                                <h6 class=" ">&#8369; <span class="line-through ">@convert($wishlist->product->product_price->price)</span>
+                                                    <span>
+                                                        @if ($wishlist->product->product_price->discount_type == 'Money' )
+                                                            - &#8369;  {{ $wishlist->product->product_price->discount_price }}  Off
+                                                        @else
+                                                            -   {{ $wishlist->product->product_price->discount_price }} % Off
+                                                        @endif
+                                                    </span>
+                                                </h6>
+                                            @else
+                                                <h1 class=" ">&#8369; @convert($wishlist->product->product_price->price)</h1>
+                                            @endif
+                                        </p>
+                                    </a>
+                                    <a class="no-underline text-grey-darker hover:text-red-dark" href="#">
+                                        <form action="{{ route('wishlist.remove', [$wishlist->product->product_code]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-right">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </a>
+                                </footer>
+                
+                            </article>
+                            <!-- END Article -->
+                
                         </div>
+                        <!-- END Column -->
+                        @empty
+                        <div class="flex flex-col md:flex-row ">
+                            <div class="px-4 w-full flex flex-col justify-around ">
+                                <img src="{{ asset('images/undraw_Wishlist_re_m7tv.svg') }}" alt="RAM" class="block h-2/4 w-2/4  mx-auto">
+                                <p class="font-bold block mx-auto">No item on wishlist</p>
+                            </div>
+                        </div>
+                        @endforelse
+
+                      
+                
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

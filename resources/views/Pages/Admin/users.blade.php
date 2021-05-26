@@ -12,12 +12,18 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+
+        var exampleEl = document.getElementById('example')
+        var tooltip = new bootstrap.Tooltip(exampleEl, {
+        boundary: document.body // or document.querySelector('#boundary')
+        })
+
         //delete
-        $(".delete-user").click(function(e) {
+        $(".ban-user").click(function(e) {
             e.preventDefault();
             swal({
-                title: "Are you sure to Delete?",
-                text: "Once you Deleted, theres no turning back!",
+                title: "Are you sure?",
+                text: "Don't worry you can unban and ban anyone if your admin",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -110,10 +116,20 @@
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Banned Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Date Created
                             </th>
-                            <th scope="col-2" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                               Action
+                            <th scope="col-2" class="flex flex-row px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Action
+                                <svg 
+                                data-bs-toggle="tooltip"
+                                 data-bs-placement="top"
+                                title="Please configure your password first. Ignore this if you're finish." 
+                                xmlns="http://www.w3.org/2000/svg" class="cursor-pointer ml-3 h-4 w-4" fill="none" viewBox="0 0 24  24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
                             </th>
                         </tr>
                     </x-slot>
@@ -156,36 +172,59 @@
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">Active</div>
                                 </td>
+
+                                <td class="px-6 py-2 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $user->is_banned }}</div>
+                                </td>
+
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">{{ \Carbon\Carbon::parse($user->created_at)->format('d / F / Y')}}</div>
                                 </td>
 
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0">
+
+                                        {{-- <div class="flex-shrink-0">
                                             <a 
                                             href="#"
                                             data-bs-toggle="modal" 
                                             data-bs-target="#edit-modal-user"
-                                            data-tooltip="tooltip"
-                                            data-placement="top"
-                                            title="Edit"
                                             data-community="{{ json_encode($user) }}"
                                             data-item-id="{{ $user->id }}"
                                             data-item-name="{{ $user->name }}"
                                             data-item-email="{{ $user->email }}"
                                             id="edit-item-user"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-5">View</a>
-                                        </div>
+                                            class="text-indigo-600 no-underline hover:text-indigo-900 mr-5">View</a>
+                                        </div> --}}
+
+                                        {{-- banned --}}
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
                                                 
-                                                <form class="delete-user" action="" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                
-                                                    <button type="submit"class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
+                                                @if ($user->is_admin == false)
+                                                    @if ($user->is_banned != null)
+                                                        <a 
+                                                        href="#"
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#confirm-modal"
+                                                        data-item-id="{{ $user->id }}"
+                                                        id=""
+                                                        class="confirm-password text-red-600 no-underline hover:text-red-900 mr-5">Unbanned</a>
+                                                    @endif
+
+                                                    @empty($user->is_banned)
+                                                        <a 
+                                                        href="#"
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#confirm-modal"
+                                                        data-item-id="{{ $user->id }}"
+                                                        
+                                                        id=""
+                                                        class="confirm-password text-red-600 no-underline hover:text-red-900 mr-5">Ban</a>
+                                                    @endempty
+                                                @endif
+                                         
+                                             
                                             </div>
                                         </div>
                            
@@ -209,6 +248,7 @@
         </div>
     </div>
 
-
+    <x-admin.user.confirm-password-modal>
+    </x-admin.user.confirm-password-modal>
 
 </x-app-layout>

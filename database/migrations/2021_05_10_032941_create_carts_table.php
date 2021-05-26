@@ -16,10 +16,13 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id('cart_id');
             $table->foreignId('user_id');
+            $table->string('product_code', 20);
+            $table->string('quantity');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('product_code')->references('product_code')->on('products');
 
         });
     }

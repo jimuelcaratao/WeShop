@@ -16,7 +16,7 @@ class CreateWishListsTable extends Migration
         Schema::create('wish_lists', function (Blueprint $table) {
             $table->id('wish_list_id');
             $table->foreignId('user_id');
-            $table->string('product_code', 20)->unique();
+            $table->string('product_code', 20);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

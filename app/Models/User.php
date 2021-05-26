@@ -31,6 +31,7 @@ class User extends Authenticatable
         'password',
         'external_provider',
         'external_id',
+        'is_banned',
     ];
 
     /**

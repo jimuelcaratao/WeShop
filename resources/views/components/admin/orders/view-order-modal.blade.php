@@ -83,16 +83,20 @@
                         </div>
                     </div>
                
-                    <div div class="modal-footer">
-                        <button type="button" class="btn btn-secondary close-modal-view">Close</button>
-                    </div>
+                
                 </form>
 
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-modal-view">Close</button>
 
-            
+
+                    <div id="export-button">
+                    </div>
+                   
+                    
+                </div>
+            </div>
         </div>
-       
         </div>
     </div>
 </div>
@@ -156,8 +160,12 @@
             $("#view_order_status").val(status);
             $("#view_mobile_no").val(mobile_no);
 
-         
-            // alert(category_name);
+            $("#export-button").append(
+                '<form action="{{ route("print_invoice") }}" method="GET">' +
+                    `<input type="text" name="order_no" id="order_no" value="${order_no}" class="hidden" required >` +
+                    '<button type="submit" class="btn btn-primary close-modal-view">Export</button>' +
+                '</form>'
+            );
 
             $.ajax({
                 type: "GET",
@@ -217,7 +225,7 @@
             $("#view-form").trigger("reset");
 
             $("#order-items").html(null);
-         
+            $("#export-button").html(null);
 
         });
     });
