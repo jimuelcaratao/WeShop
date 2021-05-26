@@ -20,4 +20,9 @@ class UserAddress extends Model
         'province',
         'barangay',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

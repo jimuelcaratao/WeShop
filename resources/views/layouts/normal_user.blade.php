@@ -53,6 +53,7 @@
         @include('footer')
             
         @livewireScripts
+        
         @stack('scripts')
 
 
@@ -83,6 +84,12 @@
                 // screens greater than >= 640px
                 breakpoint: 640,
                 settings: {
+                    slidesToShow: '2',
+                }
+                }, {
+                // screens greater than >= 768px
+                breakpoint: 768,
+                settings: {
                     slidesToShow: '4',
                 }
                 } ]
@@ -108,8 +115,6 @@
             });
 
         </script>
-
-
 
     </body>
 </html>
