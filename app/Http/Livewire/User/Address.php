@@ -42,7 +42,6 @@ class Address extends Component
     public function mount()
     {
         $this->user = User::find(Auth::id())->user_address;
-        // dd($user);
     }
 
     public function render()
