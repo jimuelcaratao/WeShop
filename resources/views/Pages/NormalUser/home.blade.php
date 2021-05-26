@@ -31,10 +31,23 @@
             <div class="products bg-white flex justify-evenly items-center">
                @foreach ($products as $product)
                      <div class="h-full w-60 p-5 flex flex-col justify-center items-center space-y-5 hover:shadow-md bg-gray-50">
-                        <img src="{{ asset('./img/RAM1.jpg') }}" alt="RAM's picture" class="block h-2/4 w-auto mx-auto">
+                        <img src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}" class="block h-2/4 w-auto mx-auto">
                         <p class="text-sm sm:text-md">{{ $product->product_name }}</p>
-                        <p class="text-sm">{{ $product->description }}</p>
-                        <p class="text-sm">&#8369; 2,448.00</p>
+
+                        @if (!empty($product->product_price->discounted_price))
+                              <h1 class="mr-2 0">&#8369; @convert($product->product_price->discounted_price)</h1>
+                              <p class="text-red-600 text-sm">&#8369; <span class="line-through ">@convert($product->product_price->price)</span>
+                                 <span>
+                                    @if ($product->product_price->discount_type == 'Money' )
+                                          - &#8369;  {{ $product->product_price->discount_price }}  Off
+                                    @else
+                                          -   {{ $product->product_price->discount_price }} % Off
+                                    @endif
+                                 </span>
+                              </p>
+                        @else
+                              <h1 class=" ">&#8369; @convert($product->product_price->price)</h1>
+                        @endif
                      </div>
                @endforeach
             </div>
