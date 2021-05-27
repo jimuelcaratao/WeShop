@@ -92,7 +92,7 @@
                                     </span>
                                 </h6>
                             @else
-                                <h1 class="mt-5">&#8369; @convert($cart->product->product_price->price)</h1>
+                                <h1 class="mt-5">&#8369; @convert(optional($cart->product->product_price)->price)</h1>
                             @endif
 
                         </div>
@@ -102,11 +102,11 @@
 
                         $price = 0;
 
-                        if ($cart->product->product_price->discounted_price != null) {
-                            $price = $cart->product->product_price->discounted_price;
+                        if (optional($cart->product->product_price)->discounted_price != null) {
+                            $price = optional($cart->product->product_price)->discounted_price;
                         }
 
-                        if ($cart->product->product_price->discounted_price == null) {
+                        if (optional($cart->product->product_price)->discounted_price == null) {
                             $price = optional($cart->product->product_price)->price;
                         }
 

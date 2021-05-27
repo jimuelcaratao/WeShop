@@ -13,7 +13,7 @@
             <!-- Mobile No. -->
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="mobile_no" value="{{ __('Mobile No.') }}" />
-                <x-jet-input id="mobile_no" type="text" class="mt-1 block w-full" wire:model.defer="mobile_no" autocomplete="mobile_no" placeholder="{{ optional($user)->mobile_no }}" />
+                <x-jet-input id="mobile_no" type="text" class="mt-1 block w-full" wire:model.defer="mobile_no" autocomplete="mobile_no" placeholder="{{ optional($user)->mobile_no }}" value="{{ optional($user)->mobile_no }}" />
                 <x-jet-input-error for="mobile_no" class="mt-2" />
             </div>
 
