@@ -82,7 +82,7 @@
                             
                             @if (!empty($cart->product->product_price->discounted_price))
                                 <h1 class="mt-5">&#8369; @convert($cart->product->product_price->discounted_price)</h1>
-                                <h6 class="text-sm text-red-600"><span class="line-through">&#8369; @convert($cart->product->product_price->price)</span>
+                                <h6 class="text-sm text-red-600"><span class="line-through">&#8369; @convert(optional($cart->product->product_price)->price)</span>
                                     <span>
                                         @if ($cart->product->product_price->discount_type == 'Money' )
                                             - &#8369;  {{ $cart->product->product_price->discount_price }}  Off
@@ -107,7 +107,7 @@
                         }
 
                         if ($cart->product->product_price->discounted_price == null) {
-                            $price = $cart->product->product_price->price;
+                            $price = optional($cart->product->product_price)->price;
                         }
 
                         $total = ($cart->quantity * $price) + $total;

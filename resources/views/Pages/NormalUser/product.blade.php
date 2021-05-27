@@ -207,7 +207,7 @@
                                     </svg>
                                 </button>
                             </form>
-                        @else
+                        @empty
                             <form action="{{ route('wishlist.add',[$product->product_code]) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="ml-4">
@@ -244,7 +244,8 @@
                             </span>
                         </h6>
                     @else
-                        <h1 class="mt-5 text-2xl md:text-4xl font-bold text-yellow-600">&#8369; @convert($product->product_price->price)</h1>
+                        {{-- Added optional helper to render even if the price is null, to prevent non object error --}}
+                        <h1 class="mt-5 text-2xl md:text-4xl font-bold text-yellow-600">&#8369; @convert(optional($product->product_price)->price)</h1>
                     @endif
 
                     <div class="flex flex-row space-x-2 mt-4">
