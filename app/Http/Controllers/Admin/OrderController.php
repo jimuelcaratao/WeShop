@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderItem as ResourcesOrderItem;
+use App\Mail\OrderDelivered;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
@@ -104,6 +106,12 @@ class OrderController extends Controller
                     'status' => 'Delivered',
                     'delivered_at' => Carbon::now(),
                 ]);
+
+
+                $order = Order::findOrFail($request->input('order_no'));
+
+                // Ship the order...
+                // Mail::to( $order->user->email)->send(new OrderDelivered($order));
             }
         }
         if($request->input('delivered_switch') == null){

@@ -76,7 +76,7 @@ Route::get('/product/{product_code}/review/{review}', [SingleProductController::
 //     return abort(500);;
 // });
 
-// Normal Users with Auth 'verified',
+// Normal Users with Auth 
 Route::middleware(['auth:sanctum'])->group(function () {
 
     // Wishlist
@@ -100,6 +100,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
 });
+
+// Normal Account with verification
+Route::middleware(['verified','auth:sanctum'])->group(function () {
+
+});
+
 
 // Admin Users 'verified',
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {

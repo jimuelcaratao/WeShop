@@ -207,7 +207,10 @@
                                     </svg>
                                 </button>
                             </form>
-                        @else
+                           
+                        @endif
+
+                        @empty($wishlist)
                             <form action="{{ route('wishlist.add',[$product->product_code]) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="ml-4">
@@ -216,7 +219,7 @@
                                     </svg>
                                 </button>
                             </form>
-                        @endif
+                        @endempty
 
                     </div>
                     <div class="mt-5 flex flex-row justify-start">
