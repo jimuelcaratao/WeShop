@@ -1,4 +1,5 @@
 <x-normal_user>
+
     <div class="w-11/12 my-12 mx-auto">
         {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
 
@@ -89,5 +90,6 @@
             </div>
         </div>
     </div>
+    
  </x-normal_user>
  

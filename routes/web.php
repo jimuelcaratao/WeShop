@@ -10,8 +10,10 @@ use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\NormalUser\CartController;
 use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\NormalUser\MyOrderController;
 use App\Http\Controllers\NormalUser\SingleProductController;
 use App\Http\Controllers\NormalUser\WishListController;
+use App\Http\Controllers\NormalUser\WriteReviewController;
 use App\Http\Controllers\SocialAuthController;
 use App\Models\Cart;
 use Illuminate\Support\Facades\Route;
@@ -79,6 +81,9 @@ Route::get('/product/{product_code}/review/{review}', [SingleProductController::
 // Normal Users with Auth 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    // My Orders
+    Route::get('/my_orders', [MyOrderController::class, 'index'])->name('my_orders');
+
     // Wishlist
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
 
@@ -99,8 +104,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
-});
+    // Reviews
+    Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
 
+    Route::post('/review/{product_code}/{order_no}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
+
+});
 // Normal Account with verification
 Route::middleware(['verified','auth:sanctum'])->group(function () {
 
