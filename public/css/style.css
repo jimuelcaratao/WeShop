@@ -54,3 +54,11 @@ a {
 .bg-main {
     background-color: rgb(26, 60, 64);
 }
+
+.glider-prev {
+    left: 40px !important;
+}
+
+.glider-next {
+    right: 40px !important;
+}

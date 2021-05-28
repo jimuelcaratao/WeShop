@@ -2,7 +2,7 @@
    <div class="flex flex-col space-y-5">
        
       {{-- Landing page's carousel --}}
-       <div class="relative glider-contain h-1/2 w-screen">
+       <div class="glider-contain h-1/2 w-screen">
          {{-- Slide Container --}}
          <div class="glider flex justify-center items-center">
             <div>
@@ -18,12 +18,12 @@
          {{-- Buttons for previous and next --}}
          <div class="flex justify-between items-center">
             <x-jet-button aria-label="Previous" class="glider-prev">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
               </svg>
             </x-jet-button>
-            <x-jet-button aria-label="Next" class="absolute top-1/2 right-0 glider-next">
-               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <x-jet-button aria-label="Next" class="glider-next">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 fill-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </x-jet-button>

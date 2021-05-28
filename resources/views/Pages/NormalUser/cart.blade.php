@@ -19,7 +19,8 @@
                 @forelse ($carts as $cart)
                 
                     <div class="flex flex-col md:flex-row p-2 border-b border-gray-300">
-                        <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }}" alt="{{ $cart->product->product_name }}">
+                        {{-- {{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }} --}}
+                        <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('img/RAM1.jpg') }}" alt="{{ $cart->product->product_name }}">
                         <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
                             <h1 class="text-gray-600 font-bold">
                                 <a href="{{ route('product',[$cart->product->product_code]) }}">
