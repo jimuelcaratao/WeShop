@@ -4,25 +4,24 @@
         <link rel="stylesheet" href="{{ asset('css/normal/normal.css') }}">
     @endpush
 
-
-    <div class="w-11/12 my-12 mx-auto">
-        {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">Shopping Cart</h1> --}}
+    <div class="w-11/12 my-12 p-6 md:p-12 mx-auto">
 
         @php
             $total = 0;
         @endphp
-        <div class="mt-12 flex flex-col md:flex-row justify-center items-center space-y-5 md:space-x-3">
+
+        <div class="flex flex-col md:flex-row justify-center items-center md:items-start space-y-5 md:space-x-3">
             <div class="p-4 bg-white shadow-md w-11/12 md:w-3/5">
                 <h1 class="text-left text-xl font-bold">My Cart ({{ count($carts) }} item/s)</h1>
                 <hr class="my-2 border-b border-gray-500">
 
                 @forelse ($carts as $cart)
-                
-                    <div class="flex flex-col md:flex-row p-2 border-b border-gray-300">
+
+                    <div class="flex flex-col md:flex-row p-2 border-b border-gray-500">
                         {{-- {{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }} --}}
-                        <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('img/RAM1.jpg') }}" alt="{{ $cart->product->product_name }}">
+                        <img  class="h-1/2 w-1/2 md:h-1/4 md:w-1/4 block mx-auto" src="{{ asset('img/RAM1.jpg') }}" alt="{{ $cart->product->product_name }}">
                         <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
-                            <h1 class="text-gray-600 font-bold">
+                            <h1 class="text-gray-700 font-bold">
                                 <a href="{{ route('product',[$cart->product->product_code]) }}">
                                     {{ $cart->product->product_name }}
                                 </a>
@@ -66,15 +65,15 @@
 
                                     <td>
                                         <div class="justify-content-center">
-                                                <div class=" mx-auto mb-0">
-                                                    <label for="quantity">Quantity :</label>
-                                                    <div class="number-input">
-    
-                                                    <button  class="qty-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                    <input class="input_quantity quantity" min="1" max="5" name="quantity" value="{{ $cart->quantity }}" type="number">
-                                                    <button  class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></button>
-                                                    </div>
+                                            <div class=" mx-auto mb-0">
+                                                <label for="quantity">Quantity :</label>
+                                                <div class="number-input">
+
+                                                <button  class="qty-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                <input class="input_quantity quantity" min="1" max="5" name="quantity" value="{{ $cart->quantity }}" type="number">
+                                                <button  class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></button>
                                                 </div>
+                                            </div>
                                         </div>
                                     </td>
                                 </form>
@@ -126,7 +125,7 @@
 
             </div>
 
-            <div class="p-4 bg-white shadow-md w-11/12 md:w-auto">
+            <div class="p-4 bg-white shadow-md w-11/12 md:w-auto m-auto" style="margin-top: 0;">
                 <h1 class="mx-10 mb-5 text-center text-xl font-bold">The total amount of</h1>
                 <div class="flex flex-col">
                     <div class="flex flex-row justify-between items-center">
@@ -138,28 +137,32 @@
                           <p>Free</p>
                      </div>
                 </div>
-                    <hr class="my-5 border-b border-gray-500">
-                    <div class="flex flex-row justify-between items-center font-bold mb-5">
-                        <p class="text-sm">The total amount: </p>
-                        <p>&#8369; @convert($total) </p>
-                    </div>
-                    <x-jet-button>Go to checkout</x-jet-button>
+                <hr class="my-5 border-b border-gray-500">
+                <div class="flex flex-row justify-between items-center font-bold mb-5">
+                    <p class="text-sm">The total amount: </p>
+                    <p>&#8369; @convert($total) </p>
+                </div>
+                <x-jet-button>
+                    <a href="{{ route('checkout.index') }}">
+                        Go to checkout
+                    </a>
+                </x-jet-button>
             </div>
         </div>
     </div>
 
 
     @push('scripts')
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script>
-        $(".input_quantity").on("input", function() {
-            $("form.formQuantity").submit();
-        });
+        {{-- Jquery --}}
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script>
+            $(".input_quantity").on("input", function() {
+                $("form.formQuantity").submit();
+            });
 
-    </script>
+        </script>
     @endpush
 
  </x-normal_user>

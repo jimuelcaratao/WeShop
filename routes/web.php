@@ -13,8 +13,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\NormalUser\CartController;
 use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\NormalUser\CheckoutController;
 use App\Http\Controllers\NormalUser\WishListController;
-use App\Http\Controllers\NormalUser\TransactionController;
 use App\Http\Controllers\NormalUser\SingleProductController;
 
 /*
@@ -89,7 +89,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
     // Order
-    // Route::resource('/transaction', TransactionController::class);
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 });
 
 // Admin Users
