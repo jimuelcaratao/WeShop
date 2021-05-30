@@ -101,7 +101,7 @@ class CartController extends Controller
                 'product_code' => $product_code,
             ]);
 
-            $cart->delete();
+            // $cart->delete();
 
             return Redirect::route('cart')->with('toast_success', 'Moved to Wishlist');
         }

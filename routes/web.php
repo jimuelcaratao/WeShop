@@ -17,6 +17,12 @@ use App\Http\Controllers\NormalUser\PaymentController;
 use App\Http\Controllers\NormalUser\CheckoutController;
 use App\Http\Controllers\NormalUser\WishListController;
 use App\Http\Controllers\NormalUser\SingleProductController;
+use App\Http\Controllers\NormalUser\MyOrderController;
+use App\Http\Controllers\NormalUser\WriteReviewController;
+use App\Http\Controllers\SocialAuthController;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,8 +72,13 @@ Route::get('/product/{product_code}/review/{review}', [SingleProductController::
 //     return abort(500);;
 // });
 
-// Normal Users with Auth 'verified',
+// Normal Users with Auth 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // My Orders
+    Route::get('/my_orders', [MyOrderController::class, 'index'])->name('my_orders');
+
+    Route::get('/my_orders/{product_code}/{order_no}', [MyOrderController::class, 'my_order_status'])->name('my_orders.status');
 
     // Wishlist
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
@@ -94,7 +105,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Payment
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+
+    // Reviews
+    Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
+
+    Route::post('/review/{product_code}/{order_no}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
+
 });
+// Normal Account with verification
+Route::middleware(['verified','auth:sanctum'])->group(function () {
+
+});
+
 
 // Admin Users
 Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {

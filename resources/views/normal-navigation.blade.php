@@ -54,6 +54,14 @@
                   </x-slot>
 
                   <x-slot name="content">
+                        <!-- Transaction Management -->
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Transaction') }}
+                        </div>
+
+                        <x-jet-dropdown-link href="{{ route('my_orders') }}">
+                            {{ __('My Orders') }}
+                        </x-jet-dropdown-link>
                       <!-- Account Management -->
                       <div class="block px-4 py-2 text-xs text-gray-400">
                           {{ __('Manage Account') }}
@@ -228,6 +236,10 @@
                         </div>
         
                         <div class="mt-3 space-y-1">
+
+                            <x-jet-responsive-nav-link href="{{ route('my_orders') }}" :active="request()->routeIs('my_orders')">
+                                {{ __('My Orders') }}
+                            </x-jet-responsive-nav-link>
                             <!-- Account Management -->
                             <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                                 {{ __('Profile') }}

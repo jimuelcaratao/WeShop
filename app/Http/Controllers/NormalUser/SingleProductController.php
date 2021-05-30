@@ -22,12 +22,12 @@ class SingleProductController extends Controller
             return abort(404);
         }
 
-        if (Auth::check() == true) {
+        if(Auth::check() == true){
             $wishlist = WishList::Where('user_id', 'like', '%' . Auth::user()->id . '%')
-                ->Where('product_code', $product_code)->first();
+            ->Where('product_code',$product_code)->first();
         }
-
-        $product_ave_reviews = Review::where('product_code', $product_code)->avg('stars');
+  
+        $product_ave_reviews = Review::where('product_code',$product_code)->avg('stars');
 
         return view('Pages.NormalUser.product', [
             'product' => $product,
