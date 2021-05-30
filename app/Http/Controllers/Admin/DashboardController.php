@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\User;
+use App\Models\WishList;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -39,10 +43,32 @@ class DashboardController extends Controller
             ->whereMonth('created_at', '=', Carbon::now()->month)
             ->count();
 
+        $products_count = Product::count();
+
+        $products_count_low = Product::where('stock', '<=', 10)
+            ->count();
+
+        $orders_count_today = Order::whereDate('created_at', Carbon::today())
+            ->count();
+
+        $popular_items = WishList::select('product_code')
+            ->groupBy('product_code')
+            ->orderByRaw('COUNT(*) DESC')
+            ->limit(10)
+            ->get();
+
+        $revenue_per_month = OrderItem::whereMonth('created_at', '=', Carbon::now()->subMonth()->month + 1)->get();
+
         return view('Pages.Admin.dashboard',[
             'users' => $users,
             'new_users' => $new_users,
+            'products_count' => $products_count,
             'dayTerm' => $dayTerm,
+            'products_count_low' => $products_count_low,
+            'orders_count_today' => $orders_count_today,
+            'popular_items' => $popular_items,
+            'revenue_per_month' => $revenue_per_month,
+
         ]);
     }
 }

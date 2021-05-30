@@ -39,6 +39,21 @@
 }
 
 /* end of .sidenav */
+
+/* cardborder */
+
+.card-image {
+    width: 4rem;
+    position: absolute;
+    top: 30%;
+    right: 10%;
+}
+.card_border {
+    margin-left: -1px;
+    border-radius: 2%;
+    border-left: rgb(30, 111, 121) 4px solid;
+}
+
 .swall-overlay {
     z-index: 100005;
 }

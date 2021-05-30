@@ -10,8 +10,6 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $table = 'order_items';
     protected $primaryKey = 'order_item_id';
 

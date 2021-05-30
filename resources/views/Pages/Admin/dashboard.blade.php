@@ -15,61 +15,59 @@
         </div>
     </x-slot>
 
-    <div class="container">
 
-        {{-- mini cards --}}
-        <div class="row gap-4 pb-4">
-            <div class="col-md-3 bg-white sm:rounded-md shadow-sm py-3">
-                <p class="title-card">Users</p>
-                <p class="content-card mt-2 offset-md-1">{{ count($users)  }} users</p>
-            </div>
-            <div class="col-md-3 bg-white sm:rounded-md shadow-sm py-3">
-                <p class="title-card">New Users</p>
-                <p class="content-card mt-2 offset-md-1">{{ $new_users }} created acc.</p>
-            </div>
-            <div class="col-md-3 bg-white sm:rounded-md shadow-sm py-3">
-                <p class="title-card">Revenue for Today</p>
-                <p class="content-card mt-2 offset-md-1">₱01239812</p>
-            </div>
-            <div class="col-md-2 bg-white sm:rounded-md shadow-sm py-3">
-                <p class="title-card">Orders today</p>
-                <p class="content-card mt-2 offset-md-1">0 orders</p>
-            </div>
-        </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        
-        <div class="row gap-5 pb-4">
-            {{-- Chart for web visits --}}
-            <div class="col-md-6 bg-white sm:rounded-md shadow-sm py-3 mr-2">
-                <div id="chartContainerVisits" style="height: 300px; width: 100%;"></div>
-            </div>
-            
-            <div class="col-md-5 bg-white sm:rounded-md shadow-sm py-3">
-                <p class="title-card">Popular Items</p>
-                <div class="popular-items">
-                    <ul class="list-decimal list-inside bg-rose-200">
-                        <li>Rakker331 - 131231231</li>
-                        <li>Rakker331123 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                        <li>Rakker33113 - 131231231</li>
-                    </ul>
+            <div class="grid grid-cols-6 gap-4">
+
+                <div class="col-start-1 col-end-2 px-3 pt-2 bg-white overflow-hidden shadow-md sm:rounded-lg card_border">
+                    <p class="title-card">Users</p>
+                    <p class="content-card offset-md-1">{{ count($users)  }} users</p>
                 </div>
+                <div class="col-start-2 col-end-3 px-3 pt-2 bg-white overflow-hidden shadow-md sm:rounded-lg card_border">
+                    <p class="title-card">New Users</p>
+                    <p class="content-card offset-md-1">{{ $new_users }} created acc.</p>
+                </div>
+                <div class="col-start-3 col-end-4 px-3 pt-2 bg-white overflow-hidden shadow-md sm:rounded-lg card_border">
+                    <p class="title-card">Total Products</p>
+                    <p class="content-card offset-md-1">{{ $products_count }}</p>
+                </div>
+                <div class="col-start-4 col-end-5 px-3 pt-2 bg-white overflow-hidden shadow-md sm:rounded-lg card_border">
+                    <p class="title-card">Low stock products</p>
+                    <p class="content-card offset-md-1">{{ $products_count_low }}</p>
+                </div>
+                <div class="col-end-7 col-span-2 px-3 pt-2 bg-white overflow-hidden shadow-md sm:rounded-lg card_border">
+                    <p class="title-card">Orders today</p>
+                    <p class="content-card offset-md-1">{{ $orders_count_today }}</p>
+                </div>
+
+
+                <div class="col-start-1 col-end-5  py-5 px-3 bg-white overflow-hidden shadow-md sm:rounded-lg">
+                    <div id="chartContainerVisits" style="height: 300px; width: 100%;"></div>
+                </div>
+                <div class="col-end-7 col-span-2  py-4 px-3 bg-white overflow-hidden shadow-md sm:rounded-lg">
+                    <p class="title-card">Popular Items</p>
+                    <div class="popular-items">
+                        <ul class="list-decimal list-inside bg-rose-200">
+
+                            @forelse ($popular_items as $popular_item)
+                            <li>{{ $popular_item->product->product_name }} - {{ $popular_item->product->product_code }}</li>
+                                
+                            @empty
+                                
+                            @endforelse
+                            
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-start-1 col-end-7 py-5 px-3 bg-white overflow-hidden shadow-md sm:rounded-lg">
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                </div>
+
             </div>
         </div>
-
-        {{-- Sales chart --}}
-        <div class="row  ">
-            <div class="col-md-12 bg-white sm:rounded-md mb-4 py-4">
-                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
-            </div>
-        </div>
-
     </div>
 
     {{-- Popular Products --}}
@@ -85,15 +83,25 @@
 
     <script type="text/javascript">
 
+    // collections
+        var revenue_per_month = {!! json_encode($revenue_per_month->toArray(), JSON_HEX_TAG) !!};
+        console.log(revenue_per_month);
+
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        const d = new Date();
+
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,  
                 title:{
-                    text: "WeShop Revenue by Months"
+                    text: "WeShop Revenue by month of "+ monthNames[d.getMonth()]
                 },
                 axisY: {
                     title: "Revenue in PHP",
-                    valueFormatString: "#0,,.",
+                    valueFormatString: "#0,.",
                     suffix: "k",
                     prefix: "₱"
                 },
@@ -101,29 +109,19 @@
                     type: "splineArea",
                     color: "rgba(54,158,173,.7)",
                     markerSize: 5,
-                    xValueFormatString: "YYYY",
+                    xValueFormatString: "YYYY-MM-DD",
                     yValueFormatString: "₱#,##0.##",
                     dataPoints: [
-                        { x: new Date(2000, 0), y: 3289000 },
-                        { x: new Date(2001, 0), y: 3830000 },
-                        { x: new Date(2002, 0), y: 2009000 },
-                        { x: new Date(2003, 0), y: 2840000 },
-                        { x: new Date(2004, 0), y: 2396000 },
-                        { x: new Date(2005, 0), y: 1613000 },
-                        { x: new Date(2006, 0), y: 2821000 },
-                        { x: new Date(2007, 0), y: 2000000 },
-                        { x: new Date(2008, 0), y: 1397000 },
-                        { x: new Date(2009, 0), y: 2506000 },
-                        { x: new Date(2010, 0), y: 2798000 },
-                        { x: new Date(2011, 0), y: 3386000 },
-                        { x: new Date(2012, 0), y: 6704000},
-                        { x: new Date(2013, 0), y: 6026000 },
-                        { x: new Date(2014, 0), y: 2394000 },
-                        { x: new Date(2015, 0), y: 1872000 },
-                        { x: new Date(2016, 0), y: 2140000 }
+
+                        @foreach ($revenue_per_month as $revenue)
+                            { x: new Date("{{ $revenue->created_at }}"), y: {{ $revenue->price * $revenue->quantity }} },
+                        @endforeach
+
                     ]
                 }]
                 });
+
+                
 
 
                 var chart2 = new CanvasJS.Chart("chartContainerVisits", {

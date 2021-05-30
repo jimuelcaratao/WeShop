@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->longText('specs')->nullable();
             $table->string('category_name');
             $table->string('sub_category_name');
-            $table->foreignId('brand_id');
+            $table->foreignId('brand_id')->nullable();
             $table->string('stock');
             // $table->foreignId('product_price_id');
             $table->text('default_photo')->nullable();
