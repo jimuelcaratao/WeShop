@@ -256,3 +256,7 @@ input[type="number"]::-webkit-outer-spin-button {
     border: solid #c2c4c6;
     border-width: 2px;
 }
+
+.text-star {
+    background-color: gold;
+}

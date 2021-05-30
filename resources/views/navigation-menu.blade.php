@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 main-nav">
 
     <!-- Side Navigation Menu -->
     <div id="mySidenav" class="sidenav">
@@ -8,7 +8,7 @@
             {{ __('Dashboard') }}
         </x-admin.admin-nav-link> --}}
 
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500 " href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             {{ __('Dashboard') }}
         </x-jet-nav-link>
         <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
