@@ -19,10 +19,8 @@ use App\Http\Controllers\NormalUser\WishListController;
 use App\Http\Controllers\NormalUser\SingleProductController;
 use App\Http\Controllers\NormalUser\MyOrderController;
 use App\Http\Controllers\NormalUser\WriteReviewController;
-use App\Http\Controllers\SocialAuthController;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
+
 
 /*
 |--------------------------------------------------------------------------
