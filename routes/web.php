@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\NormalUser\CartController;
 use App\Http\Controllers\NormalUser\HomeController;
+use App\Http\Controllers\NormalUser\PaymentController;
 use App\Http\Controllers\NormalUser\CheckoutController;
 use App\Http\Controllers\NormalUser\WishListController;
 use App\Http\Controllers\NormalUser\SingleProductController;
@@ -90,6 +91,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // Order
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+    // Payment
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
 });
 
 // Admin Users

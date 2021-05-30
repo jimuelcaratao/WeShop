@@ -39,8 +39,7 @@
             <div class="products bg-white flex justify-evenly items-center">
                   @forelse ($products as $product)
                      <div class="h-full w-60 p-5 flex flex-col justify-center items-center space-y-5 hover:shadow-md bg-gray-50">
-                        {{-- {{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }} --}}
-                        <img src="{{ asset('img/RAM1.jpg') }}" alt="{{ $product->product_name }}" class="block h-2/4 w-auto mx-auto">
+                        <img src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}" class="block h-2/4 w-auto mx-auto">
                         <p class="text-sm sm:text-md font-semibold">{{ $product->product_name }}</p>
                         @if (!empty($product->product_price->discounted_price))
                               <h1 class="mr-2 0">&#8369; @convert($product->product_price->discounted_price)</h1>
