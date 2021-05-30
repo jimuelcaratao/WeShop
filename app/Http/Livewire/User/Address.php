@@ -25,7 +25,7 @@ class Address extends Component
     ];
 
 
-    public function profileAddress()
+    public function createProfileAddress()
     {
         $this->validate();
 
@@ -37,6 +37,25 @@ class Address extends Component
             'province' => $this->province,
             'barangay' => $this->barangay,
         ]);
+
+        $this->user = User::find(Auth::id())->user_address;
+    }
+
+    public function updateProfileAddress($user_address_id)
+    {
+        $this->validate();
+
+        $address = UserAddress::find($user_address_id);
+        $address->user_id = Auth::id();
+        $address->mobile_no = $this->mobile_no;
+        $address->house = $this->house;
+        $address->city = $this->city;
+        $address->province = $this->province;
+        $address->barangay = $this->barangay;
+
+        $address->save();
+
+        $this->user = User::find(Auth::id())->user_address;
     }
 
     public function mount()
