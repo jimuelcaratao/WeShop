@@ -10,7 +10,7 @@
 </div>
 
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('my_orders') ])
 Submit a Review
 @endcomponent
 

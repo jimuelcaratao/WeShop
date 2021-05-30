@@ -87,7 +87,7 @@
                               
                               </div>
                               <div class="flex items-center justify-end">
-                                  <a class="italic" href="">
+                                  <a class="italic" href="{{ route('my_orders.status',[$item->product->product_code,$order->order_no]) }}">
                                       {{ $order->status }}
                                   </a>
                               </div>

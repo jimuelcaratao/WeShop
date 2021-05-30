@@ -84,6 +84,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // My Orders
     Route::get('/my_orders', [MyOrderController::class, 'index'])->name('my_orders');
 
+    Route::get('/my_orders/{product_code}/{order_no}', [MyOrderController::class, 'my_order_status'])->name('my_orders.status');
+
     // Wishlist
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
 

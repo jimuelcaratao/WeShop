@@ -1,0 +1,14 @@
+@media print {
+    .main-nav {
+        display: none;
+    }
+    .header-main {
+        display: none;
+    }
+    .sales-chart {
+        margin-bottom: 200px;
+    }
+    #datePicker {
+        display: none;
+    }
+}

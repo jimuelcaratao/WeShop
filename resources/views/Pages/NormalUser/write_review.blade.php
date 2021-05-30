@@ -1,16 +1,9 @@
 <x-normal_user>
     @push('styles')
-
+        <link rel="stylesheet" href="{{ asset('css/normal/normal.css') }}">
     @endpush
 
-    @push('scripts')
 
-
-    <script type="text/javascript">
-
-    </script>
-       
-    @endpush
 
     <div class="w-11/12 my-12 mx-auto">
         {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
@@ -45,7 +38,16 @@
 
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="stars" class="block text-sm font-medium text-gray-700">Star</label>
-                                            <input type="text" name="stars" id="stars" value="{{ old('stars') }}" class="mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            <input type="text" name="stars" id="stars" value="{{ old('stars') }}" class="hidden mt-1 focus:ring-green-500 focus:border-green-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                            <div class="flex justify-center items-center">
+                                                <div class="flex items-center mt-2 mb-4">
+                                                  <svg id="star-1" class="mx-1 cursor-pointer w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                                  <svg id="star-2" class="mx-1 cursor-pointer w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                                  <svg id="star-3" class="mx-1 cursor-pointer w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                                  <svg id="star-4" class="mx-1 cursor-pointer w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                                  <svg id="star-5" class="mx-1 cursor-pointer w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                                </div>
+                                              </div>
                                         </div>
                             
                                         <div class="col-span-6 ">
@@ -83,6 +85,130 @@
             </div>
         </div>
     </div>
-  
+
+    @push('scripts')
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // hover
+
+            $("#star-1").hover(function () {
+                $(this).toggleClass("text-yellow-500");
+
+
+            });
+
+            $("#star-2").hover(function () {
+                $(this).toggleClass("text-yellow-500");
+                $("#star-1").toggleClass("text-yellow-500");
+       
+            });
+
+            $("#star-3").hover(function () {
+                $(this).toggleClass("text-yellow-500");
+                $("#star-1").toggleClass("text-yellow-500");
+                $("#star-2").toggleClass("text-yellow-500");
+   
+            });
+
+            $("#star-4").hover(function () {
+                $(this).toggleClass("text-yellow-500");
+                $("#star-1").toggleClass("text-yellow-500");
+                $("#star-2").toggleClass("text-yellow-500");
+                $("#star-3").toggleClass("text-yellow-500");
+            });
+
+            $("#star-5").hover(function () {
+                $(this).toggleClass("text-yellow-500");
+                $("#star-1").toggleClass("text-yellow-500");
+                $("#star-2").toggleClass("text-yellow-500");
+                $("#star-3").toggleClass("text-yellow-500");
+                $("#star-4").toggleClass("text-yellow-500");
+            });
+
+
+            // onclik
+            $('#star-1').click(function(){
+                $(this).addClass("text-yellow-500");
+                $("#star-2").removeClass("text-yellow-500");
+                $("#star-3").removeClass("text-yellow-500");
+                $("#star-4").removeClass("text-yellow-500");
+                $("#star-5").removeClass("text-yellow-500");
+                
+                $('#stars').val(1);
+
+                $("#star-1").unbind('mouseenter mouseleave');
+                $("#star-2").unbind('mouseenter mouseleave');
+                $("#star-3").unbind('mouseenter mouseleave');
+                $("#star-4").unbind('mouseenter mouseleave');
+                $("#star-5").unbind('mouseenter mouseleave');
+            });
+            $('#star-2').click(function(){
+                $("#star-1").addClass("text-yellow-500");
+                $(this).addClass("text-yellow-500");
+                $("#star-3").removeClass("text-yellow-500");
+                $("#star-4").removeClass("text-yellow-500");
+                $("#star-5").removeClass("text-yellow-500");
+
+                $('#stars').val(2);
+
+                $("#star-1").unbind('mouseenter mouseleave');
+                $("#star-2").unbind('mouseenter mouseleave');
+                $("#star-3").unbind('mouseenter mouseleave');
+                $("#star-4").unbind('mouseenter mouseleave');
+                $("#star-5").unbind('mouseenter mouseleave');
+            });
+            $('#star-3').click(function(){
+                $("#star-1").addClass("text-yellow-500");
+                $("#star-2").addClass("text-yellow-500");
+                $(this).addClass("text-yellow-500");
+                $("#star-4").removeClass("text-yellow-500");
+                $("#star-5").removeClass("text-yellow-500");
+
+                $('#stars').val(3);
+
+                $("#star-1").unbind('mouseenter mouseleave');
+                $("#star-2").unbind('mouseenter mouseleave');
+                $("#star-3").unbind('mouseenter mouseleave');
+                $("#star-4").unbind('mouseenter mouseleave');
+                $("#star-5").unbind('mouseenter mouseleave');
+            });
+
+            $('#star-4').click(function(){
+                $("#star-1").addClass("text-yellow-500");
+                $("#star-2").addClass("text-yellow-500");
+                $("#star-3").addClass("text-yellow-500");
+                $(this).addClass("text-yellow-500");
+                $("#star-5").removeClass("text-yellow-500");
+
+                $('#stars').val(4);
+
+                $("#star-1").unbind('mouseenter mouseleave');
+                $("#star-2").unbind('mouseenter mouseleave');
+                $("#star-3").unbind('mouseenter mouseleave');
+                $("#star-4").unbind('mouseenter mouseleave');
+                $("#star-5").unbind('mouseenter mouseleave');
+            });
+
+            $('#star-5').click(function(){
+                $("#star-1").addClass("text-yellow-500");
+                $("#star-2").addClass("text-yellow-500");
+                $("#star-3").addClass("text-yellow-500");
+                $("#star-4").addClass("text-yellow-500");
+                $(this).addClass("text-yellow-500");
+
+                $('#stars').val(5);
+
+                $("#star-1").unbind('mouseenter mouseleave');
+                $("#star-2").unbind('mouseenter mouseleave');
+                $("#star-3").unbind('mouseenter mouseleave');
+                $("#star-4").unbind('mouseenter mouseleave');
+                $("#star-5").unbind('mouseenter mouseleave');
+            });
+        });
+    </script>
+    @endpush
 
 </x-normal_user>    
