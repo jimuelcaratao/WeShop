@@ -51,7 +51,7 @@
                                                     </span>
                                                 </h6>
                                             @else
-                                                <h1 class=" ">&#8369; @convert($wishlist->product->product_price->price)</h1>
+                                                <h1 class=" ">&#8369; @convert(optional($wishlist->product->product_price)->price)</h1>
                                             @endif
                                         </p>
                                     </a>
