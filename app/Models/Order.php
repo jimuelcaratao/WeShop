@@ -13,6 +13,15 @@ class Order extends Model
     protected $table = 'orders';
     protected $primaryKey = 'order_no';
 
+    protected $fillable = [
+        'user_id',
+        'status',
+        'packaged_at',
+        'shipped_at',
+        'delivered_at',
+    ];
+
+
     public function order_items()
     {
         return $this->hasMany(OrderItem::class, 'order_no', 'order_no');

@@ -141,11 +141,13 @@
                     <p class="text-sm">The total amount: </p>
                     <p>&#8369; @convert($total) </p>
                 </div>
+
                 <x-jet-button>
                     <a href="{{ route('checkout.index') }}">
                         Go to checkout
                     </a>
                 </x-jet-button>
+
             </div>
         </div>
     </div>
