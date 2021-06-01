@@ -8,6 +8,7 @@
     </x-slot>
 
     <x-slot name="form">
+     
         <!-- Profile Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
             <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
@@ -65,7 +66,29 @@
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
         </div>
+
+
+        @if (Auth::user()->email_verified_at != null)
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-button >
+                        {{ __('Verified') }}
+                </x-jet-button>
+            </div>
+        @endif
+        @empty(Auth::user()->email_verified_at)
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-button >
+                    <a href="{{ route('verification.notice') }}">
+                        {{ __('Verifiy') }}
+                    </a>
+                </x-jet-button>
+            </div>
+        @endempty
+  
+    
+
     </x-slot>
+
 
     <x-slot name="actions">
         <x-jet-action-message class="mr-3" on="saved">
@@ -77,3 +100,6 @@
         </x-jet-button>
     </x-slot>
 </x-jet-form-section>
+
+
+

@@ -16,18 +16,20 @@ class SingleProductController extends Controller
     public function index($product_code)
     {
 
-        $product = Product::where('product_code',$product_code)->first();
+        $product = Product::where('product_code', $product_code)->first();
 
-        if(empty($product)) {
+        if (empty($product)) {
             return abort(404);
         }
 
-        $wishlist = WishList::Where('user_id', 'like', '%' . Auth::user()->id . '%')
-        ->Where('product_code',$product_code)->first();
-
+        if(Auth::check() == true){
+            $wishlist = WishList::Where('user_id', 'like', '%' . Auth::user()->id . '%')
+            ->Where('product_code',$product_code)->first();
+        }
+  
         $product_ave_reviews = Review::where('product_code',$product_code)->avg('stars');
 
-        return view('Pages.NormalUser.product',[
+        return view('Pages.NormalUser.product', [
             'product' => $product,
             'product_ave_reviews' => $product_ave_reviews,
             'wishlist' => $wishlist ?? null,
@@ -37,17 +39,17 @@ class SingleProductController extends Controller
 
     // public function post($product_code,Post $post )
     // {
-    
+
     //     return view('Pages.NormalUser.product_review', [
     //         'post' => $post,
     //     ]);
     // }
 
-    public function review($product_code,Review $review )
+    public function review($product_code, Review $review)
     {
-        $product = Product::where('product_code',$product_code)->first();
+        $product = Product::where('product_code', $product_code)->first();
 
-        if(empty($product)) {
+        if (empty($product)) {
             return abort(404);
         }
         return view('Pages.NormalUser.product_review', [

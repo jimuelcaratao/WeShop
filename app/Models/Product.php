@@ -51,7 +51,7 @@ class Product extends Model
 
     public function product_reviews()
     {
-        return $this->hasMany(Review::class, 'product_code', 'product_code');
+        return $this->hasMany(Review::class, 'product_code', 'product_code')->latest();
     }
 
     // filtering product

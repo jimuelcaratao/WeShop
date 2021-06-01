@@ -1,4 +1,5 @@
 <x-normal_user>
+
     <div class="w-11/12 my-12 mx-auto">
         {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
 
@@ -50,7 +51,7 @@
                                                     </span>
                                                 </h6>
                                             @else
-                                                <h1 class=" ">&#8369; @convert($wishlist->product->product_price->price)</h1>
+                                                <h1 class=" ">&#8369; @convert(optional($wishlist->product->product_price)->price)</h1>
                                             @endif
                                         </p>
                                     </a>
@@ -89,5 +90,6 @@
             </div>
         </div>
     </div>
+    
  </x-normal_user>
  

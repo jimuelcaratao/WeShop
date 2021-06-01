@@ -1,21 +1,26 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Admin\SaleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PrintController;
 use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\SaleController;
-use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\NormalUser\CartController;
 use App\Http\Controllers\NormalUser\HomeController;
-use App\Http\Controllers\NormalUser\SingleProductController;
+use App\Http\Controllers\NormalUser\PaymentController;
+use App\Http\Controllers\NormalUser\CheckoutController;
 use App\Http\Controllers\NormalUser\WishListController;
-use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\NormalUser\SingleProductController;
+use App\Http\Controllers\NormalUser\MyOrderController;
+use App\Http\Controllers\NormalUser\WriteReviewController;
 use App\Models\Cart;
-use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,17 +59,6 @@ Route::get('/catalog', function () {
     return view('Pages.NormalUser.catalog');
 });
 
-// Route::get('/cart', function () {
-//     return view('Pages.NormalUser.cart');
-// })->name('cart');
-
-// Route::get('/wishlist', function () {
-//     return view('Pages.NormalUser.wishlist');
-// })->name('wishlist');
-
-// Route::get('/product/item', function () {
-//     return view('Pages.NormalUser.product');
-// })->name('product');
 
 Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');
 
@@ -76,8 +70,13 @@ Route::get('/product/{product_code}/review/{review}', [SingleProductController::
 //     return abort(500);;
 // });
 
-// Normal Users with Auth 'verified',
+// Normal Users with Auth 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+    // My Orders
+    Route::get('/my_orders', [MyOrderController::class, 'index'])->name('my_orders');
+
+    Route::get('/my_orders/{product_code}/{order_no}', [MyOrderController::class, 'my_order_status'])->name('my_orders.status');
 
     // Wishlist
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
@@ -99,10 +98,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
+    // Order
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+    // Payment
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+
+    // Reviews
+    Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
+
+    Route::post('/review/{product_code}/{order_no}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
+
+});
+// Normal Account with verification
+Route::middleware(['verified','auth:sanctum'])->group(function () {
+
 });
 
-// Admin Users 'verified',
-Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
+
+// Admin Users
+Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
 
     // dashboard pages
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -125,14 +140,14 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     Route::delete('/categories/{sub_category_id}/delete', [CategoryController::class, 'destroy_sub_category'])->name('sub_categories.destroy');
 
-    Route::resource('categories', CategoryController::class)->only(['destroy','store']);
+    Route::resource('categories', CategoryController::class)->only(['destroy', 'store']);
 
     // brands pages
     Route::get('/brands', [BrandController::class, 'index'])->name('brand');
 
     Route::put('/brands/update', [BrandController::class, 'update'])->name('brands.update');
 
-    Route::resource('brands', BrandController::class)->only(['destroy','store']);
+    Route::resource('brands', BrandController::class)->only(['destroy', 'store']);
 
     // users pages
     Route::get('/users', [UserController::class, 'index'])->name('user');
@@ -149,7 +164,6 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     // print invoice
     Route::get('/order/invoice-print', [PrintController::class, 'print_invoice'])->name('print_invoice');
-
 });
 
 Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
