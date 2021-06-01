@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\NormalUser\CartController;
+use App\Http\Controllers\NormalUser\CatalogController;
 use App\Http\Controllers\NormalUser\HomeController;
 use App\Http\Controllers\NormalUser\PaymentController;
 use App\Http\Controllers\NormalUser\CheckoutController;
@@ -49,19 +50,18 @@ Route::get('/signin-google', function () {
 
 Route::get('/callbackGoogle', [SocialAuthController::class, 'callbackGoogle']);
 
-
 // Routings for pages
 
 // Normal Users
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/catalog', function () {
-    return view('Pages.NormalUser.catalog');
-});
+// Product views
 
+Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
+
+// Product details
 
 Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');
-
 
 Route::get('/product/{product_code}/review/{review}', [SingleProductController::class, 'review'])->name('product.review');
 
@@ -76,7 +76,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // My Orders
     Route::get('/my_orders', [MyOrderController::class, 'index'])->name('my_orders');
 
-    Route::get('/my_orders/{product_code}/{order_no}', [MyOrderController::class, 'my_order_status'])->name('my_orders.status');
+    Route::get('/my_orders/status/{order_no}', [MyOrderController::class, 'my_order_status'])->name('my_orders.status');
+
 
     // Wishlist
     Route::get('/wishlist', [WishListController::class, 'index'])->name('wishlist');
@@ -98,21 +99,32 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
 
-    // Order
+});
+
+// Normal Account with verification
+Route::middleware(['verified','auth:sanctum'])->group(function () {
+
+    // My Orders
+    Route::post('/my_orders/send/{order_no}', [MyOrderController::class, 'send_confirm_order'])->name('my_orders.send');
+
+    Route::get('/my_orders/confirm/{order_no}', [MyOrderController::class, 'confirm_order'])->name('my_orders.confirm');
+
+    Route::post('/my_orders/cancel/{order_no}', [MyOrderController::class, 'cancel_order'])->name('my_orders.cancel');
+
+    // Checkout
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+
+    Route::post('/checkout/address', [CheckoutController::class, 'confirm_address_checkout'])->name('checkout.address');
 
     // Payment
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
 
+    Route::post('/payment/place-order', [PaymentController::class, 'place_order'])->name('payment.order');
+    
     // Reviews
     Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
 
     Route::post('/review/{product_code}/{order_no}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
-
-});
-// Normal Account with verification
-Route::middleware(['verified','auth:sanctum'])->group(function () {
-
 });
 
 
@@ -171,7 +183,6 @@ Route::get('/fetchcat', [ProductController::class, 'fetchSubCategories']);
 Route::get('/fetchProductPhotos', [ProductController::class, 'fetchProductPhoto']);
 
 Route::get('/OrderItems', [OrderController::class, 'order_items']);
-
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('Pages.Admin.dashboard');

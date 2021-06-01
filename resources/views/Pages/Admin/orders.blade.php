@@ -63,6 +63,12 @@
                                 Status
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Confirmed Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Canceled Date
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Packaged Date
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -90,6 +96,14 @@
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
                                         {{ $order->status }}
                                     </span>
+                                </td>
+                                
+                                <td class="px-6 py-2 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $order->confirmed }}</div>
+                                </td>
+
+                                <td class="px-6 py-2 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $order->canceled_at }}</div>
                                 </td>
 
                                 <td class="px-6 py-2 whitespace-nowrap">
@@ -126,6 +140,7 @@
                                             data-item-barangay="{{ $order->user->user_address->barangay ?? null }}"
 
                                             data-item-status="{{ $order->status }}"
+                                            data-item-confirmed="{{ $order->confirmed }}"
                                             data-item-packaged_at="{{ $order->packaged_at }}"
                                             data-item-shipped_at="{{ $order->shipped_at }}"
                                             data-item-delivered_at="{{ $order->delivered_at }}"
@@ -166,9 +181,10 @@
                                 <th  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Product Name
                                 </th>
-                                <th colspan="2" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th colspan="4" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Category
                                 </th>
+                          
                                 <th  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Quantity
                                 </th>
@@ -193,11 +209,12 @@
                                     <td class="px-6 py-2 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">{{ $order_item->product->product_name }}</div>
                                     </td>
-                                    <td colspan="2" class="px-6 py-2 whitespace-nowrap">
+                                    <td colspan="4" class="px-6 py-2 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                           {{ $order_item->product->category_name }} / {{ $order_item->product->sub_category_name }}
                                         </span>
                                     </td>
+                                
                                     <td class="px-6 py-2 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">{{ $order_item->quantity }}</div>
                                     </td>
@@ -210,7 +227,7 @@
                             @endforelse
                             {{-- order products total--}}
                             <tr class="bg-gray-50">
-                                <td colspan="6" class="text-right px-6 py-2 whitespace-nowrap">
+                                <td colspan="8" class="text-right px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">Total:</div>
                                 </td>
                                 <td colspan="1" class="px-6 py-2 whitespace-nowrap">
