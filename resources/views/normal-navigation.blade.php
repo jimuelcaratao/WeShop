@@ -10,11 +10,8 @@
         <div>
             <h1 class="text-2xl md:text-3xl font-bold">Search</h1>
         </div>
-        <div class="w-screen px-3 mt-5">
-            <form class="flex justify-center items-center">
-                @csrf
-                <input id="search" type="search" class="w-4/5">
-            </form>
+        <div class="mt-5">
+            @livewire('product.product-search')
         </div>
     </div>
 </div>
