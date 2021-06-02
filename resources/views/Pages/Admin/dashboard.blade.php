@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Dashboard | 
+    </x-slot>
+
     <x-slot name="header">
         <div class="lg:flex lg:items-center lg:justify-between">
             <div class="flex-1 min-w-0">

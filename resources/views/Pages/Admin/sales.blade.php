@@ -1,11 +1,12 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Sales | 
+    </x-slot>
+
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/admin/sales_print.css') }}">
     @endpush
-
-  
-
 
     <x-slot name="header">
         <div class="lg:flex lg:items-center lg:justify-between">

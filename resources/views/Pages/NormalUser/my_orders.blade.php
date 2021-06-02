@@ -1,4 +1,9 @@
 <x-normal_user>
+
+  <x-slot name="title">
+      My Orders | 
+  </x-slot>
+
     @push('styles')
 
     @endpush
@@ -14,7 +19,6 @@
 
     <div class="w-11/12 my-12 mx-auto">
         {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
-
         <div class="mt-12 flex flex-col justify-center items-center space-y-5 md:space-x-3">
             <div class="p-4 bg-white shadow-md w-11/12 md:w-4/5">
                 <h1 class="text-left text-xl font-bold">
@@ -31,7 +35,7 @@
 
                         @foreach ($order->order_items as $item)
                           <!--Card 1-->
-                          <div class="my-2 w-full lg:max-w-full lg:flex border rounded-b lg:rounded-b-none lg:rounded-r">
+                          <div class="my-2 w-full lg:max-w-full lg:flex border rounded-b lg:rounded-b-none lg:rounded-r hover:shadow-lg">
                             <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden  " style="background-image: url('{{ asset('storage/media/products/main_'.$item->product->product_code.'_'.$item->product->default_photo) }}')" title="Mountain">
 
                           

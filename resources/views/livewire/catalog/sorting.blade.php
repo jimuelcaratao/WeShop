@@ -46,31 +46,19 @@
           {{-- filter by brands content --}}
            <div class="p-3 uppercase border-b-2 border-gray-500" id="filter-by-brands-content">
               <div class="flex flex-col px-5">
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>cherry</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>coolermaster</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>corsair</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>ducky</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>easypc</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>fantech</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>gateron</a>
-                  <a href="#" class="flex flex-row hover:underline py-1"><svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                  </svg>generic</a>
-              </div>
+                     <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" name="accountType" value="personal">
+                        <span class="ml-2">Personal</span>
+                     </label>
+                     <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" name="accountType" value="busines">
+                        <span class="ml-2">Business</span>
+                     </label>
+                     <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" name="accountType" value="busines">
+                        <span class="ml-2">Business</span>
+                     </label> 
+                </div>
            </div>  {{-- filter by brands content --}}
 
       </div> 

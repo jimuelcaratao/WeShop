@@ -1,5 +1,9 @@
 <x-normal_user>
 
+    <x-slot name="title">
+        Payment | 
+    </x-slot>
+
     @php
         $total = 0;
     @endphp
@@ -52,32 +56,38 @@
 
         <div class="w-11/12 md:w-1/2 mx-auto p-5 bg-white rounded-lg shadow-md" style="margin-top: 0;">
             @foreach ($carts as $cart)  
-                <div class="flex flex-col md:flex-row p-2 border-b border-gray-300">
-                    <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }}" alt="{{ $cart->product->product_name }}">
-                    <div class="px-4 w-full flex flex-col justify-center items-start space-y-3">
-                        <h1 class="text-gray-600 font-bold">
-                            <a href="{{ route('product',[$cart->product->product_code]) }}">
-                                {{ $cart->product->product_name }}
-                            </a>
-                        </h1>
-                        <p>Brand: {{ $cart->product->brand->brand_name }}</p>
-                        <p>&#8369; @convert(optional($cart->product->product_price)->price)</p>
-                    </div>
-                </div>   
+
+                @if ($cart->product->stock > 0)
+
+                    <div class="flex flex-col md:flex-row p-2 border-b border-gray-300">
+                        <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }}" alt="{{ $cart->product->product_name }}">
+                        <div class="px-4 w-full flex flex-col justify-center items-start space-y-3">
+                            <h1 class="text-gray-600 font-bold">
+                                <a href="{{ route('product',[$cart->product->product_code]) }}">
+                                    {{ $cart->product->product_name }}
+                                </a>
+                            </h1>
+                            <p>Brand: {{ $cart->product->brand->brand_name }}</p>
+                            <p>&#8369; @convert(optional($cart->product->product_price)->price)</p>
+                        </div>
+                    </div>   
+                @endif
                 
                 
                 @php
                     $price = 0;
 
-                    if (optional($cart->product->product_price)->discounted_price != null) {
-                        $price = optional($cart->product->product_price)->discounted_price;
-                    }
+                    if ($cart->product->stock > 0) {
+                        if (optional($cart->product->product_price)->discounted_price != null) {
+                            $price = optional($cart->product->product_price)->discounted_price;
+                        }
 
-                    if (optional($cart->product->product_price)->discounted_price == null) {
-                        $price = optional($cart->product->product_price)->price;
-                    }
+                        if (optional($cart->product->product_price)->discounted_price == null) {
+                            $price = optional($cart->product->product_price)->price;
+                        }
 
-                    $total = ($cart->quantity * $price) + $total;
+                        $total = ($cart->quantity * $price) + $total;
+                    }
 
                 @endphp
             @endforeach  

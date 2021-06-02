@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Categories | 
+    </x-slot>
+
     @push('styles')
         {{-- <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet"> --}}
 

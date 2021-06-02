@@ -6,14 +6,13 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="icon" href="{{ asset("img/logo/LogoV2.png") }}">
 
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title ?? null }} {{ config('app.name', 'Laravel') }} </title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-           <!-- Compiled and minified CSS -->
-           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
         
         <!-- Styles -->

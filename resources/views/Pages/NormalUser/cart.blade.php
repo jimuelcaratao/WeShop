@@ -1,5 +1,9 @@
 <x-normal_user>
 
+    <x-slot name="title">
+       My Cart | 
+    </x-slot>
+
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/normal/normal.css') }}">
     @endpush
@@ -17,7 +21,9 @@
 
                 @forelse ($carts as $cart)
 
-                    <div class="flex flex-col md:flex-row p-2 border-b border-gray-500">
+                 
+
+                    <div class="flex flex-col md:flex-row p-2 border-b border-gray-500 hover:shadow-lg">
                         <img  class="h-1/2 w-1/2 md:h-1/4 md:w-1/4 block mx-auto" src="{{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }}" alt="{{ $cart->product->product_name }}">
                         <div class="px-4 w-full flex flex-col justify-around items-start space-y-3">
                             <h1 class="text-gray-700 font-bold">
@@ -25,6 +31,7 @@
                                     {{ $cart->product->product_name }}
                                 </a>
                             </h1>
+                            <p>Stock: {{ $cart->product->stock }}</p>
                             <p>Brand: {{ $cart->product->brand->brand_name }}</p>
 
                             {{-- Buttons --}}
@@ -55,27 +62,36 @@
                         <div class="mt-3 md:mt-0 px-4 flex flex-col justify-around items-center">
                             <div class="flex flex-col items-center">
 
-                                <form class="formQuantity" action="{{ route('cart.quantity',[$cart->cart_id]) }}" method="POST">
-                                    @method('PUT')
-                                    @csrf
-                                    {{-- <label for="quantity">Quantity:</label> --}}
-                                    {{-- <input class="input_quantity"  type="number" name="quantity" min="1" max="5"  value="{{ $cart->quantity }}"> --}}
 
+                                @if ($cart->product->stock <= 0)
+                                    Out of Stock
 
-                                    <td>
-                                        <div class="justify-content-center">
-                                            <div class=" mx-auto mb-0">
-                                                <label for="quantity">Quantity :</label>
-                                                <div class="number-input">
-
-                                                <button  class="qty-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
-                                                <input class="input_quantity quantity" min="1" max="5" name="quantity" value="{{ $cart->quantity }}" type="number">
-                                                <button  class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></button>
+                                        
+                                @else
+                                    <form class="formQuantity" action="{{ route('cart.quantity',[$cart->cart_id,$cart->product->product_code]) }}" method="POST">
+                                        @method('PUT')
+                                        @csrf
+                                        {{-- <label for="quantity">Quantity:</label> --}}
+                                        {{-- <input class="input_quantity"  type="number" name="quantity" min="1" max="5"  value="{{ $cart->quantity }}"> --}}
+    
+    
+                                        <td>
+                                            <div class="justify-content-center">
+                                                <div class=" mx-auto mb-0">
+                                                    <label for="quantity">Quantity :</label>
+                                                    <div class="number-input">
+    
+                                                    <button  class="qty-btn" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ></button>
+                                                    <input class="input_quantity quantity" min="1" max="5" name="quantity" value="{{ $cart->quantity }}" type="number">
+                                                    <button  class="qty-btn plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"></button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </form>
+                                        </td>
+                                    </form>
+                                @endif
+
+                           
                             </div>
                             
                             
@@ -99,18 +115,21 @@
 
                     @php
 
-                        $price = 0;
+                        if ($cart->product->stock > 0) {
 
-                        if (optional($cart->product->product_price)->discounted_price != null) {
-                            $price = optional($cart->product->product_price)->discounted_price;
+                            $price = 0;
+
+                            if (optional($cart->product->product_price)->discounted_price != null) {
+                                $price = optional($cart->product->product_price)->discounted_price;
+                            }
+
+                            if (optional($cart->product->product_price)->discounted_price == null) {
+                                $price = optional($cart->product->product_price)->price;
+                            }
+
+                            $total = ($cart->quantity * $price) + $total;
                         }
-
-                        if (optional($cart->product->product_price)->discounted_price == null) {
-                            $price = optional($cart->product->product_price)->price;
-                        }
-
-                        $total = ($cart->quantity * $price) + $total;
-
+                       
                     @endphp
 
                 @empty
@@ -142,11 +161,13 @@
                     <p>&#8369; @convert($total) </p>
                 </div>
 
-                <x-jet-button>
-                    <a href="{{ route('checkout.index') }}">
-                        Go to checkout
-                    </a>
-                </x-jet-button>
+                @if ($total > 0)
+                    <x-jet-button>
+                        <a href="{{ route('checkout.index') }}">
+                            Go to checkout
+                        </a>
+                    </x-jet-button>
+                @endif
 
             </div>
         </div>
