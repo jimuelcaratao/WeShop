@@ -7,8 +7,7 @@
 
         <link rel="icon" href="{{ asset("img/logo/LogoV2.png") }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
+        <title>{{ $title ?? null }} {{ config('app.name', 'Laravel') }} </title>
 
         <!-- Styles -->
         @stack('styles')

@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Brands | 
+    </x-slot>
+
     @push('styles')
 
     @endpush

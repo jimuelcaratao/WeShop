@@ -19,6 +19,7 @@ class CheckoutController extends Controller
         if(empty($cart_check)){
             return Redirect::route('cart')->with('toast_error','You cannot checkout if you had no item on cart');
         }
+
         $carts = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')->get();
 
         return view('Pages.NormalUser.checkout', [

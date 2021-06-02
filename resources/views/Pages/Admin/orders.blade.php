@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Orders | 
+    </x-slot>
+
     @push('styles')
 
     @endpush

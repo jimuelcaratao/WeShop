@@ -1,5 +1,9 @@
 <x-normal_user>
 
+    <x-slot name="title">
+        Checkout | 
+    </x-slot>
+
     @php
         $total = 0;
     @endphp
@@ -80,6 +84,8 @@
         <div class="w-11/12 md:w-1/2 mx-auto p-5 bg-white rounded-lg shadow-md" style="margin-top: 0;">
 
             @foreach ($carts as $cart)  
+
+            @if ($cart->product->stock > 0)
                 <div class="flex flex-col md:flex-row p-2 border-b border-gray-300">
                     <img  class="block h-1/4 w-1/4 mx-auto" src="{{ asset('storage/media/products/main_'.$cart->product->product_code.'_'.$cart->product->default_photo) }}">
                     <div class="px-4 w-full flex flex-col justify-center items-start space-y-3">
@@ -105,25 +111,26 @@
                             <h1 class="mt-5">&#8369; @convert(optional($cart->product->product_price)->price)</h1>
                         @endif
                     </div>
-                </div>    
-
+                </div>  
+            @endif
 
                 @php
+                    $price = 0;
 
-                $price = 0;
+                    if ($cart->product->stock > 0) {
+                        if (optional($cart->product->product_price)->discounted_price != null) {
+                            $price = optional($cart->product->product_price)->discounted_price;
+                        }
 
-            
-                if (optional($cart->product->product_price)->discounted_price != null) {
-                    $price = optional($cart->product->product_price)->discounted_price;
-                }
+                        if (optional($cart->product->product_price)->discounted_price == null) {
+                            $price = optional($cart->product->product_price)->price;
+                        }
 
-                if (optional($cart->product->product_price)->discounted_price == null) {
-                    $price = optional($cart->product->product_price)->price;
-                }
-
-                $total = ($cart->quantity * $price) + $total;
+                        $total = ($cart->quantity * $price) + $total;
+                    }
 
                 @endphp
+
             @endforeach  
             
  

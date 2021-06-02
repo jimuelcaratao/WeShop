@@ -1,4 +1,10 @@
 <x-normal_user>
+
+    <x-slot name="title">
+        {{ $product->product_name }} | 
+    </x-slot>
+
+
     @push('styles')
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />

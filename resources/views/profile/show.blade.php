@@ -1,5 +1,10 @@
 @if (Auth::user()->is_admin == false)
 <x-normal_user>
+
+    <x-slot name="title">
+        Profile | 
+    </x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -52,6 +57,11 @@
 
 @if (Auth::user()->is_admin == true)
 <x-app-layout>
+    
+    <x-slot name="title">
+        Profile | 
+    </x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
