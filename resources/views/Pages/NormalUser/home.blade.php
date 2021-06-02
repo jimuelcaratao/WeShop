@@ -88,6 +88,25 @@
          </div>
       </div>
 
+      {{-- Explore more --}}
+      <div class="h-auto md:h-screen w-screen flex flex-col md:flex-row bg-gray-900">
+         <div>
+            <a href="#">
+               <img src="{{ asset('images/home-squares/Network.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A network">
+            </a>
+            <a href="#">
+               <img src="{{ asset('images/home-squares/Headset.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A headset">
+            </a>
+         </div>
+         <div>
+            <a href="#">
+               <img src="{{ asset('images/home-squares/Laptop.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A laptop">
+            </a>
+            <a href="#">
+               <img src="{{ asset('images/home-squares/Monitor.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A monitor">
+            </a>
+         </div>
+      </div>
       {{-- Most viewed carousel --}}
       <div class="px-6 sm:px-12">
          <h1 class="text-center text-3xl md:text-5xl my-5">Most Viewed</h1>
@@ -146,6 +165,15 @@
          </div>
       </div>
 
+      {{-- Finding products --}}
+      <div class="p-5 h-1/2 w-screen bg-secondary flex flex-col md:flex-row justify-center items-center">
+         <img src="{{ asset('images/undraw_community_8nwl.svg') }}" class="h-1/2 w-1/2 block mx-auto" alt="Three girls facing forward...">
+         <div class="flex flex-col justify-center items-center p-5">
+            <h1 class="text-3xl md:text-5xl text-gray-100">Easy shopping for computer enthusiastics</h1>
+            <br>
+            <p class="text-gray-200">There are many products here. Go explore this website, you might find what you like...</p>
+         </div>
+      </div>
    </div>
 
 </x-normal_user>
