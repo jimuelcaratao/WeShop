@@ -66,6 +66,10 @@ class OrderController extends Controller
     {
         $order = Order::where('order_no', $request->input('order_no'))->first();
 
+
+        if(!empty($order->canceled_at)){
+            return Redirect::route('orders')->withInfo('Order no.:' . $request->input('order_no') . '. Already Canceled!');
+        }
         // Switches status
         if($order->packaged_at == null){
             if($request->has('packaged_switch')){
