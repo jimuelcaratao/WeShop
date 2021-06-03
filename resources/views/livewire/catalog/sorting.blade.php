@@ -4,7 +4,7 @@
       <div>
          
            {{-- product categories trigger --}}
-           <a href="#" class="uppercase font-bold flex flex-row mt-3" id="product-categories">Product Categories<svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="product-categories-svg">
+           <a href="#" class="uppercase font-bold flex flex-row mt-3" id="product-categories">Categories<svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="product-categories-svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg></a>
 
@@ -45,20 +45,18 @@
 
           {{-- filter by brands content --}}
            <div class="p-3 uppercase border-b-2 border-gray-500" id="filter-by-brands-content">
+            <form id="brand-form">
               <div class="flex flex-col px-5">
+                 @foreach ($brands as $brand)
                      <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="accountType" value="personal">
-                        <span class="ml-2">Personal</span>
+                        <input type="radio" class="form-radio brand-radio" name="brand_type" value="{{ $brand->brand_id }}">
+                        <span class="ml-2">{{ $brand->brand_name }}</span>
                      </label>
-                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="accountType" value="busines">
-                        <span class="ml-2">Business</span>
-                     </label>
-                     <label class="inline-flex items-center">
-                        <input type="radio" class="form-radio" name="accountType" value="busines">
-                        <span class="ml-2">Business</span>
-                     </label> 
-                </div>
+                 @endforeach
+             
+               </div>
+            </form>
+
            </div>  {{-- filter by brands content --}}
 
       </div> 
