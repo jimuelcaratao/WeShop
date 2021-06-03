@@ -1,8 +1,27 @@
 <x-normal_user>
 
+    @push('scripts')
+
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $('.brand-radio').click(function() {
+            brand =  $('input[name="brand_type"]:checked').val();
+
+            $('#brand-form').submit();
+        });
+
+        window.document.onload = $(document).ready(function() { 
+            $('input[name="brand_type"][value={{ request()->brand_type }}]').prop("checked",true);
+        });
+    </script>
+       
+    @endpush
+
     <div class="text-center pt-5">
             <p class="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 ">
-              Products
+              Products 
             </p>
             <p class="mt-4 max-w-2xl text-sm text-gray-500 lg:mx-auto">
                 <nav class="text-black font-bold " aria-label="Breadcrumb">
@@ -10,10 +29,21 @@
                       <li class="flex items-center">
                         <a href="#">WeShop</a>
                       </li>
-                      <span class="text-md  mx-2">-</span>
-                      <li class="flex items-center">
+
+                      @empty($brands_search)
+                        <span class="text-md  mx-2">-</span>
+                        <li class="flex items-center">
                         <a href="#">ALL</a>
-                      </li>
+                        </li>
+                      @endempty
+                  
+                      @if (!empty($brands_search))
+                        <span class="text-md  mx-2">-</span>
+                        <li class="flex items-center">
+                            <a href="#">{{ $brands_search }}</a>
+                        </li>
+                      @endif
+                    
                     </ol>
                 </nav>
             </p>
