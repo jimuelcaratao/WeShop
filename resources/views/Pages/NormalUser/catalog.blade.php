@@ -87,19 +87,18 @@
     </div>
 
     {{-- Parent container for the whole page --}}
-    <div class="w-11/12 my-12 mx-auto flex md:flex-row">
+    <div class="w-11/12 my-12 mx-auto flex md:flex-row items-start">
         
         {{-- Sorting for products --}}
         @livewire('catalog.sorting')
 
         {{-- List of products --}}
-        {{-- @livewire('catalog.products') --}}
 
-        <div class="container mx-auto">
-            <div class="flex flex-wrap -mx-4">
+        <div class="container">
+            <div class="flex flex-wrap place-self-start -mx-4">
 
                 @forelse ($products as $product)
-                    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+                    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 px-4 pb-4">
                         <a href="{{ route('product',[$product->product_code]) }}" class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                             <div class="relative pb-48 overflow-hidden">
                                 <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}">
