@@ -1,5 +1,9 @@
 <x-normal_user>
 
+    <x-slot name="title">
+        My Wishlist | 
+    </x-slot>
+
     <div class="w-11/12 my-12 mx-auto">
         {{-- <h1 class="text-center text-3xl sm:text-4xl font-bold">My Wish list</h1> --}}
 
@@ -18,7 +22,7 @@
                         <div class="my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
                 
                             <!-- Article -->
-                            <article class="overflow-hidden rounded-lg shadow-lg">
+                            <article class="overflow-hidden rounded-lg hover:shadow-lg border">
                 
                                 <a href="{{ route('product',[$wishlist->product->product_code]) }}">
                                     <img class="block h-3/4 w-full"  src="{{ asset('storage/media/products/main_'.$wishlist->product->product_code.'_'.$wishlist->product->default_photo) }}" alt="{{ $wishlist->product->product_name }}">

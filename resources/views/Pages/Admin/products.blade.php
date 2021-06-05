@@ -1,5 +1,10 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Products | 
+    </x-slot>
+
+
     @push('styles')
 
     @endpush

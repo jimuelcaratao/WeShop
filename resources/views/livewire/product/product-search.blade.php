@@ -12,7 +12,18 @@
     <div class="px-8 md:px-12 absolute top-18 left-0 z-40 bg-gray-50 w-full rounded-b-md">
         <div class="max-h-72 overflow-auto divide-y divide-gray-200">
             @if (!empty($search))
-                @forelse ($products as $product)
+
+                <div>
+                    @foreach ($categories as $category)
+                        <a href="{{ route('catalog.category',[$category->category_name]) }}" class="flex flex-row py-2 hover:bg-gray-100">
+                            <p class="px-5 py-2 overscroll-none">{{ $category->category_name }}</p>
+                        </a>
+                    @endforeach
+                </div>
+
+      
+                <div>
+                    @forelse ($products as $product)
                     <a href="/product/{{ $product->product_code }}" class="flex flex-row py-2 hover:bg-gray-100">
                         <img src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" class="h-auto w-20 mr-3" alt="{{ $product->product_name }}">
                         <div class="flex flex-col space-y-2">
@@ -20,10 +31,17 @@
                             <p class="text-gray-600">{{ $product->brand_name }}</p>
                         </div>
                     </a>
-                @empty
-                    <a class="px-5 py-2 overscroll-none">No results found...</a>
-                @endforelse    
-            @endif
+                    @empty
+                        <a class="px-5 py-2 overscroll-none">No results found...</a>
+                    @endforelse    
+                </div>
+
+   
+
+
+        
+            @endif        
+          
         </div>
     </div>
 </div>

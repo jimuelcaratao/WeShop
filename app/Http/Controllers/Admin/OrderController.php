@@ -7,6 +7,7 @@ use App\Http\Resources\OrderItem as ResourcesOrderItem;
 use App\Mail\OrderDelivered;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -66,20 +67,46 @@ class OrderController extends Controller
     {
         $order = Order::where('order_no', $request->input('order_no'))->first();
 
+        if(empty($order->confirmed)){
+            return Redirect::route('orders')->withInfo('Order no.:' . $request->input('order_no') . '. Confirmation needed!');
+        }
 
         if(!empty($order->canceled_at)){
             return Redirect::route('orders')->withInfo('Order no.:' . $request->input('order_no') . '. Already Canceled!');
         }
+
         // Switches status
         if($order->packaged_at == null){
             if($request->has('packaged_switch')){
+                
                 Order::where('order_no', $request->input('order_no'))
                 ->update([
                     'status' => 'Shipping',
                     'packaged_at' => Carbon::now(),
                 ]);
+
+
+                // minus in the stock
+                $get_items = OrderItem::where('order_no', $request->input('order_no'))->get();
+
+                foreach ($get_items as $item) {
+                    $get_products = Product::where('product_code',$item->product_code)->first();
+
+                    $updated_stock = $get_products->stock - $item->quantity;
+
+                    if($updated_stock >= 0){
+                        return  Redirect::back()->with('toast_error','No more Stocks');
+                    }
+
+                    if($updated_stock >= 0){
+                        Product::where('product_code',$item->product_code)->update([
+                            'stock' => $updated_stock ,
+                        ]);
+                    }
+                }
             }
         }
+
         if($request->input('packaged_switch') == null){
             Order::where('order_no', $request->input('order_no'))
             ->update([

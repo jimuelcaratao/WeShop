@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="title">
+        Brands | 
+    </x-slot>
+
     @push('styles')
 
     @endpush
@@ -157,6 +161,15 @@
                 </x-admin.table>
 
             </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 d-flex justify-content-center" >
+        {{-- pagination --}}
+        <div class="pagination">
+            {{ $brands->render("pagination::bootstrap-4") }}
+        </div>
         </div>
     </div>
 

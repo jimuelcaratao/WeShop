@@ -92,8 +92,31 @@ class Product extends Model
     public function scopeBrandFilter($q)
     {
         if (!empty(request()->searchBrand)) {
-
             $q->Where('brand_id', 'LIKE', '%' . request()->searchBrand .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeBrandTypeFilter($q)
+    {
+        if (!empty(request()->brand_type)) {
+            $q->Where('brand_id', 'LIKE', '%' . request()->brand_type .  '%');
+        }
+
+        return $q;
+    }
+
+    public function scopeStockFilter($q)
+    {
+        if (!empty(request()->stock_type)) {
+            if(request()->stock_type == 'in'){
+                $q->Where('stock', '>' , 0);
+            }
+
+            if(request()->stock_type == 'out'){
+                $q->Where('stock', '<=' , 0);
+            }
         }
 
         return $q;

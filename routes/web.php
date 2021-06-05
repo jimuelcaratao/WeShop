@@ -59,6 +59,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
+Route::get('/catalog/{category_name}', [CatalogController::class, 'category'])->name('catalog.category');
+
+Route::get('/catalog/{category_name}/{sub_category_name}', [CatalogController::class, 'collection'])->name('catalog.collection');
+
+
 // Product details
 
 Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');
@@ -93,7 +98,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/cart/{product_code}', [CartController::class, 'add_to_cart'])->name('cart.add');
 
-    Route::put('/cart/{cart_id}', [CartController::class, 'change_quantity'])->name('cart.quantity');
+    Route::put('/cart/{cart_id}/{product_code}', [CartController::class, 'change_quantity'])->name('cart.quantity');
 
     Route::delete('/cart/{product_code}/delete', [CartController::class, 'remove_to_cart'])->name('cart.remove');
 

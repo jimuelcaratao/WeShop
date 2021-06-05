@@ -1,4 +1,10 @@
 <x-normal_user>
+
+    <x-slot name="title">
+        {{ $product->product_name }} | 
+    </x-slot>
+
+
     @push('styles')
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -243,6 +249,12 @@
                                 </p>
                             @endif
                     </div>
+                    <div class="mt-5 flex flex-row justify-start">
+                        <p class="mr-5">Brand:</p>
+                        <p class="font-bold">
+                            {{ $product->brand->brand_name }}
+                        </p>
+                    </div>
                     
                     @if (!empty($product->product_price->discounted_price))
                         <h1 class="mt-5 text-2xl md:text-4xl font-bold text-yellow-600">&#8369; @convert($product->product_price->discounted_price)</h1>
@@ -329,12 +341,11 @@
 
             @livewire('product.review-content') --}}
 
-            <x-jet-button class="mt-5" id="review-show-more">Show more reviews</x-jet-button>
+            {{-- <x-jet-button class="mt-5" id="review-show-more">Show more reviews</x-jet-button> --}}
             
             {{-- Reviews hidden by default --}}
             <div class="hidden" id="review-container-show">
 
-           
                 {{-- @livewire('product.review-content')
 
                 @livewire('product.review-content') 

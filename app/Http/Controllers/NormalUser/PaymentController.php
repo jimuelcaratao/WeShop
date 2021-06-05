@@ -41,12 +41,15 @@ class PaymentController extends Controller
            $my_carts =  Cart::where('user_id',Auth::user()->id)->get();
 
            foreach ($my_carts as $my_cart) {
-                OrderItem::Create([
-                    'order_no' => $order->order_no,
-                    'product_code' => $my_cart->product_code,
-                    'quantity' => $my_cart->quantity,
-                    'price' => $my_cart->product->product_price->discounted_price ?? $my_cart->product->product_price->price,
-                ]);
+
+                if($my_cart->product->stock > 0){
+                    OrderItem::Create([
+                        'order_no' => $order->order_no,
+                        'product_code' => $my_cart->product_code,
+                        'quantity' => $my_cart->quantity,
+                        'price' => $my_cart->product->product_price->discounted_price ?? $my_cart->product->product_price->price,
+                    ]);
+                }
            }
 
            $deletedRows = Cart::where('user_id', Auth::user()->id)->delete();

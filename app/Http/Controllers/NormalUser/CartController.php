@@ -4,6 +4,7 @@ namespace App\Http\Controllers\NormalUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,8 @@ class CartController extends Controller
 
     public function index()
     {
-        $carts = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')->get();
+        $carts = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')
+        ->get();
 
         // $get_total = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')
         // ->sum(function($carts) {
@@ -48,7 +50,21 @@ class CartController extends Controller
             ->where('product_code', $product_code)
             ->first();
 
+
+        $product_info = Product::where('product_code', $product_code)
+        ->first();
+
+        // validation for stock if nostocks
+        if($product_info->stock <= 0){
+            return Redirect::route('product', [$product_code])->with('toast_error', 'Opps no more stocks');
+        }
+
+        if($product_info->stock < $request->input('quantity')){
+            return Redirect::route('product', [$product_code])->with('toast_error', 'Opps only '.$product_info->stock.' stock left.');
+        }
+
         if (!empty($get_cart_info)) {
+
             // qty validation
             $check_qty = $get_cart_info->quantity + $request->input('quantity');
 
@@ -108,8 +124,15 @@ class CartController extends Controller
     }
 
 
-    public function change_quantity($cart_id, Request $request)
+    public function change_quantity($cart_id, $product_code,Request $request)
     {
+
+        $product_info = Product::where('product_code', $product_code)
+        ->first();
+
+        if($product_info->stock < $request->input('quantity')){
+            return Redirect::route('cart')->with('toast_error', 'Opps only '.$product_info->stock.' stock left.');
+        }
 
         if ($request->input('quantity') > 5) {
             return Redirect::route('cart')
