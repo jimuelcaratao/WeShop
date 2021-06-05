@@ -114,7 +114,8 @@
          <div class="relative glider-contain relative h-1/2 w-screen shadow-md rounded-lg">
             {{-- Slide Container --}}   
             <div class="most-viewed bg-white flex justify-evenly items-center">
-                  @forelse ($products as $product)
+
+                  @forelse ($latest_products as $product)
                      <div class="h-full w-60 p-5 flex flex-col justify-center items-center space-y-5 hover:shadow-md bg-gray-50">
                         <img src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}" class="block h-2/4 w-auto mx-auto">
                         <p class="text-sm sm:text-md font-semibold">{{ $product->product_name }}</p>
@@ -148,6 +149,7 @@
                         <h1 class="text-center font-bold text-md sm:text-lg mt-5">No products found in the database.</h1>
                      </div>   
                   @endforelse
+
             </div>
             {{-- Buttons for previous and next --}}
                <div class="flex justify-between items-center">

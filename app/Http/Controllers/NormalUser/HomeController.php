@@ -17,16 +17,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
 
         // create visit
         Visit::Create([
             'ip_address' => FacadesRequest::ip(),
             'visit_date' => Carbon::now(),
         ]);
+        
+        $products = Product::inRandomOrder()->take(10)->get();
+
+        $latest_products = Product::latest()->take(10)->get();
 
         return view('Pages.NormalUser.home', [
             'products' => $products,
+            'latest_products' => $latest_products,
+
         ]);
     }
 }
