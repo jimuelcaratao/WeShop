@@ -87,28 +87,27 @@
     </div>
 
     {{-- Parent container for the whole page --}}
-    <div class="w-11/12 my-12 mx-auto flex md:flex-row">
+    <div class="w-11/12 my-12 mx-auto flex md:flex-row items-start">
         
         {{-- Sorting for products --}}
         @livewire('catalog.sorting')
 
         {{-- List of products --}}
-        {{-- @livewire('catalog.products') --}}
 
-        <div class="container mx-auto">
-            <div class="flex flex-wrap -mx-4">
+        <div class="container">
+            <div class="flex flex-wrap place-self-start -mx-4">
 
                 @forelse ($products as $product)
-                    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+                    <div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 px-4 pb-4">
                         <a href="{{ route('product',[$product->product_code]) }}" class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                             <div class="relative pb-48 overflow-hidden">
                                 <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}">
                             </div>
                             <div class="p-4">
-                                <h2 class="mt-2 mb-2  font-bold">{{ $product->product_name }}</h2>
+                                <h2 class="mt-2 mb-2  font-bold">{{ \Illuminate\Support\Str::limit($product->product_name, 20) }}</h2>
                                 <div class="mt-3 flex items-center">
                                         @if (!empty($product->product_price->discounted_price))
-                                            <span class="text-sm font-semibold">₱</span>&nbsp;<span class="font-bold text-xl">@convert($product->product_price->price)</span>&nbsp;
+                                            <span class="text-sm font-semibold">₱</span>&nbsp;<span class="font-bold text-xl">@convert($product->product_price->discounted_price)</span>&nbsp;
 
                                             <p class="text-red-600 text-sm">&#8369; <span class="line-through ">@convert($product->product_price->price)</span>
                                                 <span class="text-sm font-semibold">
