@@ -115,18 +115,18 @@
                             @livewire('navbar.dropdown-nav')
                             
                         </div>
-                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{-- <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             {{ __('WFH Essentials') }}
-                        </x-jet-nav-link>
+                        </x-jet-nav-link> --}}
                         <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             {{ __('Community') }}
                         </x-jet-nav-link>
-                        <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                        {{-- <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             {{ __('Support') }}
                         </x-jet-nav-link>
                         <x-jet-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             {{ __('Track Orders') }}
-                        </x-jet-nav-link>
+                        </x-jet-nav-link> --}}
                     </div>
                 </div>
                 
@@ -197,18 +197,18 @@
                     {{-- Responsive resolution dropdown --}}
                     @livewire('navbar.responsive-dropdown-nav')
 
-                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    {{-- <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                         {{ __('WFH Essentials') }}
-                    </x-jet-responsive-nav-link>
+                    </x-jet-responsive-nav-link> --}}
                     <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                         {{ __('Community') }}
                     </x-jet-responsive-nav-link>
-                    <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                    {{-- <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                         {{ __('Support') }}
                     </x-jet-responsive-nav-link>
                     <x-jet-responsive-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                         {{ __('Track Orders') }}
-                    </x-jet-responsive-nav-link>    
+                    </x-jet-responsive-nav-link>     --}}
                     
                     <x-jet-responsive-nav-link href="#" id="search-button-small">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
