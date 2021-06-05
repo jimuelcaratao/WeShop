@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 main-nav">
 
     <!-- Side Navigation Menu -->
     <div id="mySidenav" class="sidenav">
@@ -8,12 +8,27 @@
             {{ __('Dashboard') }}
         </x-admin.admin-nav-link> --}}
 
-        <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500 " href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
             {{ __('Dashboard') }}
         </x-jet-nav-link>
-
-        <x-jet-nav-link href="{{ route('products') }}" :active="request()->routeIs('products')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+            {{ __('Orders') }}
+        </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('products') }}" :active="request()->routeIs('products')">
             {{ __('Products') }}
+        </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('category') }}" :active="request()->routeIs('category')">
+            {{ __('Category') }}
+        </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('brand') }}" :active="request()->routeIs('brand')">
+            {{ __('Brands') }}
+        </x-jet-nav-link>
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('user') }}" :active="request()->routeIs('user')">
+            {{ __('Users') }}
+        </x-jet-nav-link>
+
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('sales') }}" :active="request()->routeIs('sales')">
+            {{ __('Sales') }}
         </x-jet-nav-link>
     </div>
 
@@ -56,21 +71,15 @@
                             @endif
                         </x-slot>
 
-                        <x-slot name="content">
+                        <x-slot name="content" >
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900" href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
-
-                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                    {{ __('API Tokens') }}
-                                </x-jet-dropdown-link>
-                            @endif
 
                             <div class="border-t border-gray-100"></div>
 
@@ -78,7 +87,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900" href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('Log Out') }}

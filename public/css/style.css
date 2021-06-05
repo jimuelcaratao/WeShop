@@ -1,36 +1,64 @@
-/* :root {
-    --nav-color: #1a3c40;
-    --dark-green: #307672;
-} */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&family=Raleway&display=swap");
+
+:root {
+    --primary-color: #1a3c40;
+    --secondary-color: #307672;
+    --black-secondary-color: #282828;
+}
 
 body {
     overflow-x: hidden !important;
+    font-family: "Poppins", sans-serif !important;
+}
+
+p,
+a {
+    font-family: "Raleway", sans-serif !important;
+}
+
+/* Navbar stuff */
+.nav-shop {
+    margin-top: 1.3rem;
 }
 
 .toggleNav {
     display: block !important;
 }
 
-/* .bg-nav-color {
-    background-color: var(--nav-color);
-} */
+.toggleRotate {
+    transform: rotate(180deg);
+}
 
-.glider-next {
-    right: 40px !important;
+.toggleSort {
+    display: none !important;
+}
+
+.navbar-logo {
+    height: 100px;
+    width: 140px;
+}
+
+/* Custom colors */
+.bg-primary {
+    background-color: var(--primary-color);
+}
+
+.bg-secondary {
+    background-color: var(--secondary-color);
+}
+
+.bg-black-secondary {
+    background-color: var(--black-secondary-color);
+}
+
+.bg-main {
+    background-color: rgb(26, 60, 64);
 }
 
 .glider-prev {
     left: 40px !important;
 }
 
-.glider-next-products {
-    position: absolute;
-    margin-top: -250px;
+.glider-next {
     right: 40px !important;
-}
-
-.glider-prev-products {
-    position: absolute;
-    margin-top: -250px;
-    left: 40px !important;
 }

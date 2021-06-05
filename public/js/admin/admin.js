@@ -18,9 +18,9 @@ if (mq.matches) {
     /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
 
     function openNav() {
-        document.getElementById("mySidenav").style.width = "200px";
-        document.getElementById("pageContent").style.marginLeft = "200px";
-        document.getElementById("pageHeader").style.marginLeft = "200px";
+        document.getElementById("mySidenav").style.width = "180px";
+        document.getElementById("pageContent").style.marginLeft = "180px";
+        document.getElementById("pageHeader").style.marginLeft = "180px";
         document.getElementById("sideNavBurger").style.visibility = "hidden";
     }
 

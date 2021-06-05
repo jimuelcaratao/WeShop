@@ -18,14 +18,14 @@
     font-size: 20px;
     display: block;
     transition: 0.3s;
+    margin-left: 35px;
 }
 
 .sidenav .closebtn {
     position: absolute;
     top: 0;
-    right: 25px;
+    right: 15px;
     font-size: 36px;
-    margin-left: 50px;
     color: #818181;
 }
 
@@ -39,6 +39,55 @@
 }
 
 /* end of .sidenav */
+
+/* cardborder */
+
+.card-image {
+    width: 4rem;
+    position: absolute;
+    top: 30%;
+    right: 10%;
+}
+.card_border {
+    margin-left: -1px;
+    border-radius: 2%;
+    border-left: rgb(30, 111, 121) 4px solid;
+}
+
+.swall-overlay {
+    z-index: 100005;
+}
+.swal-modal {
+    z-index: 99999;
+}
+/* Forms */
+#sub_category_name {
+    display: none;
+}
+#category_category_id {
+    display: none;
+}
+#edit_sub_sub_category_id {
+    display: none;
+}
+#sub_category_name_label {
+    display: none;
+}
+
+.form-basic {
+    display: none;
+}
+.discount-form {
+    display: none;
+}
+
+#searchSubCategory {
+    display: none;
+}
+
+#searchSubCategoryLabel {
+    display: none;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

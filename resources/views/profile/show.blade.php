@@ -1,5 +1,10 @@
 @if (Auth::user()->is_admin == false)
 <x-normal_user>
+
+    <x-slot name="title">
+        Profile | 
+    </x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}
@@ -13,6 +18,10 @@
 
                 <x-jet-section-border />
             @endif
+
+            @livewire('user.address')
+
+            <x-jet-section-border />
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
                 <div class="mt-10 sm:mt-0">
@@ -48,6 +57,11 @@
 
 @if (Auth::user()->is_admin == true)
 <x-app-layout>
+    
+    <x-slot name="title">
+        Profile | 
+    </x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Profile') }}

@@ -12,8 +12,11 @@
 -   npm run dev
 -   php artisan storage:link
 -   php artisan migrate
+-   php artisan storage:link
 -   composer require laravel/socialite
 -   composer require realrashid/sweet-alert
+-   composer require intervention/image
+-   composer require laravelista/comments
 
 ## Packages
 
@@ -28,6 +31,6 @@
 -   file storage
 
 ## Note.
+-   Update your composer and node.js for less error/and faster installations.
 -   always pull/push from development brach, ignore main branch for now.
--   Update your composer and node.js for less error/and faster installations. ty pakyu.
 -   Don't forget to clear cache ;) sometimes that the only problem. happens to me everytime.
