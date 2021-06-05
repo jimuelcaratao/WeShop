@@ -12,40 +12,46 @@
            <div class="ml-4 my-4" id="product-categories-content">
                <details class="flex flex-col">
                   <summary class="cursor-pointer">Peripherals</summary>
-                  <a class="ml-4 hover:underline cursor-pointer">Mouse</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Keyboard</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Headphone</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Headset</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Speakers</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Earphones</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Monitor</a>
-                  <a class="ml-4 hover:underline cursor-pointer">AVR</a>
-                  <a class="ml-4 hover:underline cursor-pointer">AVR</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'mouse']) }}" class="ml-4 hover:underline cursor-pointer">Mouse</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'keyboard']) }}" class="ml-4 hover:underline cursor-pointer">Keyboard</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'headphones']) }}" class="ml-4 hover:underline cursor-pointer">Headphone</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'headset']) }}"class="ml-4 hover:underline cursor-pointer">Headset</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'speakers']) }}" class="ml-4 hover:underline cursor-pointer">Speakers</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'earphones']) }}" class="ml-4 hover:underline cursor-pointer">Earphones</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'monitor']) }}" class="ml-4 hover:underline cursor-pointer">Monitor</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'avr']) }}" class="ml-4 hover:underline cursor-pointer">AVR</a>
+                  <a href="{{ route('catalog.collection',['peripherals' ,'mousepad']) }}" class="ml-4 hover:underline cursor-pointer">Mousepad</a>
                </details>
                <details class="flex flex-col">
                   <summary class="cursor-pointer">Components</summary>
-                  <a class="ml-4 hover:underline cursor-pointer">Motherboard</a>
-                  <a class="ml-4 hover:underline cursor-pointer">PC Case</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Processor</a>
-                  <a class="ml-4 hover:underline cursor-pointer">CPU Cooling</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Memory</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Graphics Card</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Hard Disk</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Solid State Drive</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Power Supply</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Chassis Fan</a>
+                  <a href="{{ route('catalog.collection',['components' ,'motherboard']) }}" class="ml-4 hover:underline cursor-pointer">Motherboard</a>
+                  <a href="{{ route('catalog.collection',['components' ,'pc case']) }}" class="ml-4 hover:underline cursor-pointer">PC Case</a>
+                  <a href="{{ route('catalog.collection',['components' ,'processor']) }}" class="ml-4 hover:underline cursor-pointer">Processor</a>
+                  <a href="{{ route('catalog.collection',['components' ,'cpu cooling']) }}" class="ml-4 hover:underline cursor-pointer">CPU Cooling</a>
+                  <a href="{{ route('catalog.collection',['components' ,'memory']) }}" class="ml-4 hover:underline cursor-pointer">Memory</a>
+                  <a href="{{ route('catalog.collection',['components' ,'graphics card']) }}" class="ml-4 hover:underline cursor-pointer">Graphics Card</a>
+                  <a href="{{ route('catalog.collection',['components' ,'hard disk']) }}" class="ml-4 hover:underline cursor-pointer">Hard Disk</a>
+                  <a href="{{ route('catalog.collection',['components' ,'solid state drive']) }}" class="ml-4 hover:underline cursor-pointer">Solid State Drive</a>
+                  <a href="{{ route('catalog.collection',['components' ,'power supply']) }}" class="ml-4 hover:underline cursor-pointer">Power Supply</a>
+                  <a href="{{ route('catalog.collection',['components' ,'chassis fan']) }}" class="ml-4 hover:underline cursor-pointer">Chassis Fan</a>
                </details>
                <details class="flex flex-col">
                   <summary class="cursor-pointer">Pre Build</summary>
-                  <a class="ml-4 hover:underline cursor-pointer">Gaming Pre-Build</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Office Pre-Build</a>
+                  <a href="{{ route('catalog.collection',['pre-build' ,'gaming']) }}" class="ml-4 hover:underline cursor-pointer">Gaming Pre-Build</a>
+                  <a href="{{ route('catalog.collection',['pre-build' ,'office']) }}"class="ml-4 hover:underline cursor-pointer">Office Pre-Build</a>
                </details>
                <details class="flex flex-col">
                   <summary class="cursor-pointer">Mobile Devices</summary>
-                  <a class="ml-4 hover:underline cursor-pointer">Laptops</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Mobile Phone</a>
-                  <a class="ml-4 hover:underline cursor-pointer">Tablet</a>
+                  <a href="{{ route('catalog.collection',['mobile devices' ,'laptops']) }}" class="ml-4 hover:underline cursor-pointer">Laptops</a>
+                  <a href="{{ route('catalog.collection',['mobile devices' ,'mobile phone']) }}" class="ml-4 hover:underline cursor-pointer">Mobile Phone</a>
+                  <a href="{{ route('catalog.collection',['mobile devices' ,'tablet']) }}" class="ml-4 hover:underline cursor-pointer">Tablet</a>
                </details>
+
+                  <a href="{{ route('catalog') }}">
+                     <p class="cursor-pointer">View All</p>
+                  </a>
+
+         
            </div>
 
          <form id="brand-form">

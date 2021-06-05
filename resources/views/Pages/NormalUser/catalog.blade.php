@@ -104,10 +104,10 @@
                                 <img class="absolute inset-0 h-full w-full object-cover" src="{{ asset('storage/media/products/main_'.$product->product_code.'_'.$product->default_photo) }}" alt="{{ $product->product_name }}">
                             </div>
                             <div class="p-4">
-                                <h2 class="mt-2 mb-2  font-bold">{{ $product->product_name }}</h2>
+                                <h2 class="mt-2 mb-2  font-bold">{{ \Illuminate\Support\Str::limit($product->product_name, 20) }}</h2>
                                 <div class="mt-3 flex items-center">
                                         @if (!empty($product->product_price->discounted_price))
-                                            <span class="text-sm font-semibold">₱</span>&nbsp;<span class="font-bold text-xl">@convert($product->product_price->price)</span>&nbsp;
+                                            <span class="text-sm font-semibold">₱</span>&nbsp;<span class="font-bold text-xl">@convert($product->product_price->discounted_price)</span>&nbsp;
 
                                             <p class="text-red-600 text-sm">&#8369; <span class="line-through ">@convert($product->product_price->price)</span>
                                                 <span class="text-sm font-semibold">

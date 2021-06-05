@@ -101,7 +101,7 @@ class Product extends Model
     public function scopeBrandTypeFilter($q)
     {
         if (!empty(request()->brand_type)) {
-            $q->Where('brand_id', 'LIKE', '%' . request()->brand_type .  '%');
+            $q->Where('brand_id', request()->brand_type);
         }
 
         return $q;
