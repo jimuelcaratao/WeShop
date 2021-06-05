@@ -164,6 +164,15 @@
         </div>
     </div>
 
+    <div class="row justify-content-center">
+        <div class="col-md-8 d-flex justify-content-center" >
+        {{-- pagination --}}
+        <div class="pagination">
+            {{ $brands->render("pagination::bootstrap-4") }}
+        </div>
+        </div>
+    </div>
+
     <x-admin.brand.add-brand-modal>
     </x-admin.brand.add-brand-modal>
 

@@ -12,8 +12,32 @@
             $('#brand-form').submit();
         });
 
+        $('.stock-radio').click(function() {
+            brand =  $('input[name="stock_type"]:checked').val();
+
+            $('#stock-form').submit();
+        });
+
+        $('#brand_type_clear').click(function() {
+            
+            $('input[name="brand_type"][value={{ request()->brand_type }}]').prop("checked",false);
+            $('#brand-form').submit();
+        });
+
+        $('#stock_type_clear').click(function() {
+
+            $('input[name="stock_type"][value={{ request()->stock_type }}]').prop("checked",false);
+            $('#brand-form').submit();
+        });
+
         window.document.onload = $(document).ready(function() { 
-            $('input[name="brand_type"][value={{ request()->brand_type }}]').prop("checked",true);
+            if ('{{ request()->brand_type }}' != '') {
+                $('input[name="brand_type"][value={{ request()->brand_type }}]').prop("checked",true);
+            }
+
+            if ('{{ request()->stock_type }}' != '') {
+                $('input[name="stock_type"][value={{ request()->stock_type }}]').prop("checked",true);
+            }
         });
     </script>
        
@@ -26,23 +50,36 @@
             <p class="mt-4 max-w-2xl text-sm text-gray-500 lg:mx-auto">
                 <nav class="text-black font-bold " aria-label="Breadcrumb">
                     <ol class="list-none p-0 inline-flex">
-                      <li class="flex items-center">
-                        <a href="#">WeShop</a>
-                      </li>
+                        <li class="flex items-center">
+                            <a href="#">WeShop</a>
+                        </li>
 
-                      @empty($brands_search)
-                        <span class="text-md  mx-2">-</span>
-                        <li class="flex items-center">
-                        <a href="#">ALL</a>
-                        </li>
-                      @endempty
-                  
-                      @if (!empty($brands_search))
-                        <span class="text-md  mx-2">-</span>
-                        <li class="flex items-center">
-                            <a href="#">{{ $brands_search }}</a>
-                        </li>
-                      @endif
+                        @if (!empty($category_name))
+                            <span class="text-md  mx-2">-</span>
+                            <li class="flex capitalize items-center">
+                                <a href="#">{{ $category_name }}</a>
+                            </li>
+                        @endif
+
+                        @if (!empty($sub_category_name))
+                            <span class="text-md  mx-2">-</span>
+                            <li class="flex capitalize items-center">
+                                <a href="#">{{ $sub_category_name }}</a>
+                            </li>
+                        @endif
+                        @empty($brands_search)
+                            <span class="text-md  mx-2">-</span>
+                            <li class="flex items-center">
+                            <a href="#">ALL</a>
+                            </li>
+                        @endempty
+
+                        @if (!empty($brands_search))
+                            <span class="text-md  mx-2">-</span>
+                            <li class="flex items-center">
+                                <a href="#">{{ $brands_search }}</a>
+                            </li>
+                        @endif
                     
                     </ol>
                 </nav>
@@ -89,10 +126,15 @@
                                         @endif
                                 </div>
                             </div>
-                            <div class="p-4 border-t border-b text-xs text-gray-700">
+                            <div class="p-4 border-t border-b text-xs text-gray-700 flex justify-between">
                                 <span class="flex items-center mb-1">
                                     {{ $product->brand->brand_name }}
                                 </span>
+                                @if ($product->stock <= 0)
+                                    <span class="flex items-center mb-1 text-red-600">
+                                        Out of Stocks
+                                    </span>
+                                @endif
                             </div>
                             <div class="p-4 flex items-center text-sm text-gray-600">
 

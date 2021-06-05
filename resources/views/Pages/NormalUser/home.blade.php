@@ -32,7 +32,7 @@
 
       {{-- Products carousel --}}
       <div class="px-6 sm:px-12">
-         <h1 class="text-center text-3xl md:text-5xl my-5">Best Sellers</h1>
+         <h1 class="text-center text-2xl md:text-3xl my-5">BEST SELLERS</h1>
          {{-- Carousel Container --}}
          <div class="relative glider-contain relative h-1/2 w-screen shadow-md rounded-lg">
             {{-- Slide Container --}}   
@@ -91,25 +91,25 @@
       {{-- Explore more --}}
       <div class="h-auto md:h-screen w-screen flex flex-col md:flex-row bg-gray-900">
          <div>
-            <a href="#">
+            <a href="{{ route('catalog.collection',['components' ,'power supply']) }}">
                <img src="{{ asset('images/home-squares/Network.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A network">
             </a>
-            <a href="#">
+            <a href="{{ route('catalog.collection',['peripherals' ,'headset']) }}">
                <img src="{{ asset('images/home-squares/Headset.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A headset">
             </a>
          </div>
          <div>
-            <a href="#">
+            <a href="{{ route('catalog.collection',['mobile devices' ,'laptops']) }}">
                <img src="{{ asset('images/home-squares/Laptop.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A laptop">
             </a>
-            <a href="#">
+            <a href="{{ route('catalog.collection',['peripherals' ,'monitor']) }}">
                <img src="{{ asset('images/home-squares/Monitor.jpg') }}" class="h-1/2 w-full block mx-auto" alt="A monitor">
             </a>
          </div>
       </div>
       {{-- Most viewed carousel --}}
       <div class="px-6 sm:px-12">
-         <h1 class="text-center text-3xl md:text-5xl my-5">Most Viewed</h1>
+         <h1 class="text-center text-2xl md:text-3xl my-5">NEW PRODUCTS</h1>
          {{-- Carousel Container --}}
          <div class="relative glider-contain relative h-1/2 w-screen shadow-md rounded-lg">
             {{-- Slide Container --}}   

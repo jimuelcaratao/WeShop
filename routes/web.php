@@ -59,6 +59,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 
+Route::get('/catalog/{category_name}', [CatalogController::class, 'category'])->name('catalog.category');
+
+Route::get('/catalog/{category_name}/{sub_category_name}', [CatalogController::class, 'collection'])->name('catalog.collection');
+
+
 // Product details
 
 Route::get('/product/{product_code}', [SingleProductController::class, 'index'])->name('product');

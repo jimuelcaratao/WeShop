@@ -106,4 +106,19 @@ class Product extends Model
 
         return $q;
     }
+
+    public function scopeStockFilter($q)
+    {
+        if (!empty(request()->stock_type)) {
+            if(request()->stock_type == 'in'){
+                $q->Where('stock', '>' , 0);
+            }
+
+            if(request()->stock_type == 'out'){
+                $q->Where('stock', '<=' , 0);
+            }
+        }
+
+        return $q;
+    }
 }
