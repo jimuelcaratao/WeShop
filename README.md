@@ -13,10 +13,6 @@
 -   php artisan storage:link
 -   php artisan migrate
 -   php artisan storage:link
--   composer require laravel/socialite
--   composer require realrashid/sweet-alert
--   composer require intervention/image
--   composer require laravelista/comments
 
 ## Packages
 
