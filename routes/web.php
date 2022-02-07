@@ -103,11 +103,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/cart/{product_code}/delete', [CartController::class, 'remove_to_cart'])->name('cart.remove');
 
     Route::post('/cart/{product_code}/wishlist', [CartController::class, 'move_to_wishlist'])->name('cart.move');
-
 });
 
 // Normal Account with verification
-Route::middleware(['verified','auth:sanctum'])->group(function () {
+Route::middleware(['verified', 'auth:sanctum'])->group(function () {
 
     // My Orders
     Route::post('/my_orders/send/{order_no}', [MyOrderController::class, 'send_confirm_order'])->name('my_orders.send');
@@ -125,7 +124,7 @@ Route::middleware(['verified','auth:sanctum'])->group(function () {
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
 
     Route::post('/payment/place-order', [PaymentController::class, 'place_order'])->name('payment.order');
-    
+
     // Reviews
     Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
 
@@ -134,7 +133,7 @@ Route::middleware(['verified','auth:sanctum'])->group(function () {
 
 
 // Admin Users
-Route::middleware(['auth:sanctum', 'verified', 'is_admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
 
     // dashboard pages
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

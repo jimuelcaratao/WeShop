@@ -33,23 +33,23 @@ class OrderController extends Controller
         if ($tableOrders->isNotEmpty()) {
             // search validation
             $search = Order::where('order_no', 'like', '%' . request()->search . '%')
-            // ->OrWhere('name', 'like', '%' . request()->search . '%')
-            ->first();
+                // ->OrWhere('name', 'like', '%' . request()->search . '%')
+                ->first();
 
-           if ($search === null) {
-               return Redirect::route('orders')->with('info', 'No "' . request()->search . '" found in the database.');
-           }
+            if ($search === null) {
+                return Redirect::route('orders')->with('info', 'No "' . request()->search . '" found in the database.');
+            }
 
-           if ($search != null) {
-               // default returning
-               $orders = Order::where('order_no', 'like', '%' . request()->search . '%')
+            if ($search != null) {
+                // default returning
+                $orders = Order::where('order_no', 'like', '%' . request()->search . '%')
                     // ->OrWhere('name', 'like', '%' . request()->search . '%')
                     ->latest('order_no')
                     ->paginate(5);
-           }
-       }
+            }
+        }
 
-        return view('Pages.Admin.orders',[
+        return view('Pages.Admin.orders', [
             'orders' => $orders,
         ]);
     }
@@ -67,76 +67,76 @@ class OrderController extends Controller
     {
         $order = Order::where('order_no', $request->input('order_no'))->first();
 
-        if(empty($order->confirmed)){
+        if (empty($order->confirmed)) {
             return Redirect::route('orders')->withInfo('Order no.:' . $request->input('order_no') . '. Confirmation needed!');
         }
 
-        if(!empty($order->canceled_at)){
+        if (!empty($order->canceled_at)) {
             return Redirect::route('orders')->withInfo('Order no.:' . $request->input('order_no') . '. Already Canceled!');
         }
 
         // Switches status
-        if($order->packaged_at == null){
-            if($request->has('packaged_switch')){
-                
+        if ($order->packaged_at == null) {
+            if ($request->has('packaged_switch')) {
+
                 Order::where('order_no', $request->input('order_no'))
-                ->update([
-                    'status' => 'Shipping',
-                    'packaged_at' => Carbon::now(),
-                ]);
+                    ->update([
+                        'status' => 'Shipping',
+                        'packaged_at' => Carbon::now(),
+                    ]);
 
 
                 // minus in the stock
-                $get_items = OrderItem::where('order_no', $request->input('order_no'))->get();
+                // $get_items = OrderItem::where('order_no', $request->input('order_no'))->get();
 
-                foreach ($get_items as $item) {
-                    $get_products = Product::where('product_code',$item->product_code)->first();
+                // foreach ($get_items as $item) {
+                //     $get_products = Product::where('product_code',$item->product_code)->first();
 
-                    $updated_stock = $get_products->stock - $item->quantity;
+                //     $updated_stock = $get_products->stock - $item->quantity;
 
-                    if($updated_stock >= 0){
-                        return  Redirect::back()->with('toast_error','No more Stocks');
-                    }
+                //     if($updated_stock >= 0){
+                //         return  Redirect::back()->with('toast_error','No more Stocks');
+                //     }
 
-                    if($updated_stock >= 0){
-                        Product::where('product_code',$item->product_code)->update([
-                            'stock' => $updated_stock ,
-                        ]);
-                    }
-                }
+                //     if($updated_stock >= 0){
+                //         Product::where('product_code',$item->product_code)->update([
+                //             'stock' => $updated_stock ,
+                //         ]);
+                //     }
+                // }
             }
         }
 
-        if($request->input('packaged_switch') == null){
+        if ($request->input('packaged_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'packaged_at' => null,
-            ]);
+                ->update([
+                    'packaged_at' => null,
+                ]);
         }
 
-        if($order->shipped_at == null){
-            if($request->has('shipped_switch')){
+        if ($order->shipped_at == null) {
+            if ($request->has('shipped_switch')) {
                 Order::where('order_no', $request->input('order_no'))
-                ->update([
-                    'status' => 'Delivering',
-                    'shipped_at' => Carbon::now(),
-                ]);
+                    ->update([
+                        'status' => 'Delivering',
+                        'shipped_at' => Carbon::now(),
+                    ]);
             }
         }
-        if($request->input('shipped_switch') == null){
+        if ($request->input('shipped_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'shipped_at' => null,
-            ]);
+                ->update([
+                    'shipped_at' => null,
+                ]);
         }
 
-        if($order->delivered_at == null){
-            if($request->has('delivered_switch')){
+        if ($order->delivered_at == null) {
+            if ($request->has('delivered_switch')) {
                 Order::where('order_no', $request->input('order_no'))
-                ->update([
-                    'status' => 'Delivered',
-                    'delivered_at' => Carbon::now(),
-                ]);
+                    ->update([
+                        'status' => 'Delivered',
+                        'delivered_at' => Carbon::now(),
+                    ]);
 
 
                 $order = Order::findOrFail($request->input('order_no'));
@@ -145,36 +145,35 @@ class OrderController extends Controller
                 // Mail::to( $order->user->email)->send(new OrderDelivered($order));
             }
         }
-        if($request->input('delivered_switch') == null){
+        if ($request->input('delivered_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'delivered_at' => null,
-            ]);
+                ->update([
+                    'delivered_at' => null,
+                ]);
         }
 
         // text status
-        if($request->input('delivered_switch') == null){
+        if ($request->input('delivered_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'status' => 'Delivering',
-            ]);
+                ->update([
+                    'status' => 'Delivering',
+                ]);
         }
 
-        if($request->input('delivered_switch') == null && $request->input('shipped_switch') == null){
+        if ($request->input('delivered_switch') == null && $request->input('shipped_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'status' => 'Shipping',
-            ]);
+                ->update([
+                    'status' => 'Shipping',
+                ]);
         }
 
-        if($request->input('delivered_switch') == null && $request->input('shipped_switch') == null && $request->input('packaged_switch') == null){
+        if ($request->input('delivered_switch') == null && $request->input('shipped_switch') == null && $request->input('packaged_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
-            ->update([
-                'status' => 'Packaging',
-            ]);
+                ->update([
+                    'status' => 'Packaging',
+                ]);
         }
 
         return Redirect::route('orders')->withSuccess('Order no.:' . $request->input('order_no') . '. Updated Successfully!');
     }
-  
 }
