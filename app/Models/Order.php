@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'orders';
     protected $primaryKey = 'order_no';
@@ -16,6 +16,7 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'status',
+        'payment_method',
         'packaged_at',
         'shipped_at',
         'delivered_at',
@@ -31,9 +32,10 @@ class Order extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function getTotalPrice() {
-        return $this->order_items->sum(function($order_items) {
-          return $order_items->quantity * $order_items->price;
+    public function getTotalPrice()
+    {
+        return $this->order_items->sum(function ($order_items) {
+            return $order_items->quantity * $order_items->price;
         });
     }
 }
