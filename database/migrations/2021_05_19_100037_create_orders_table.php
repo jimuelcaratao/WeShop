@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id('order_no')->from(100000);
             $table->foreignId('user_id');
             $table->string('status');
+            $table->string('payment_method');
             $table->timestamp('confirmed')->nullable();
             $table->timestamp('canceled_at')->nullable();
             $table->timestamp('packaged_at')->nullable();
