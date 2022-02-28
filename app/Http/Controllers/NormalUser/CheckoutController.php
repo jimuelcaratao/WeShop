@@ -16,8 +16,8 @@ class CheckoutController extends Controller
     {
         $cart_check = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')->first();
 
-        if(empty($cart_check)){
-            return Redirect::route('cart')->with('toast_error','You cannot checkout if you had no item on cart');
+        if (empty($cart_check)) {
+            return Redirect::route('cart')->with('toast_error', 'You cannot checkout if you had no item on cart');
         }
 
         $carts = Cart::Where('user_id', 'like', '%' . Auth::user()->id . '%')->get();
@@ -25,28 +25,26 @@ class CheckoutController extends Controller
         return view('Pages.NormalUser.checkout', [
             'carts' => $carts,
         ]);
-
-    
     }
 
     public function confirm_address_checkout(Request $request)
     {
 
-        if(Auth::user()->user_address){
+        if (Auth::user()->user_address) {
             return Redirect::route('payment.index');
         }
 
         $request->validate([
-            'mobile_no' => 'required',
+            'mobile_no' => 'required|numeric|digits:11',
             'house' => 'required',
             'city' => 'required',
             'province' => 'required',
             'barangay' => 'required',
         ]);
 
-   
 
-       if(empty(Auth::user()->user_address)){
+
+        if (empty(Auth::user()->user_address)) {
             UserAddress::create([
                 'user_id' => Auth::user()->id,
                 'mobile_no' => $request->input('mobile_no'),
@@ -55,8 +53,8 @@ class CheckoutController extends Controller
                 'province' =>  $request->input('province'),
                 'barangay' =>  $request->input('barangay'),
             ]);
-       }
+        }
 
-       return Redirect::route('payment.index')->with('toast_success', 'Address saved.');
+        return Redirect::route('payment.index')->with('toast_success', 'Address saved.');
     }
 }

@@ -23,6 +23,8 @@ class CreateOrdersTable extends Migration
             $table->timestamp('packaged_at')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('delivered_at')->nullable();
+            $table->timestamp('returned_at')->nullable();
+            $table->boolean('viewed_by_user')->default(0)->nullable();
             $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

@@ -83,6 +83,7 @@ class OrderController extends Controller
                     ->update([
                         'status' => 'Shipping',
                         'packaged_at' => Carbon::now(),
+                        'viewed_by_user' => 0,
                     ]);
 
 
@@ -120,6 +121,7 @@ class OrderController extends Controller
                     ->update([
                         'status' => 'Delivering',
                         'shipped_at' => Carbon::now(),
+                        'viewed_by_user' => 0,
                     ]);
             }
         }
@@ -136,6 +138,7 @@ class OrderController extends Controller
                     ->update([
                         'status' => 'Delivered',
                         'delivered_at' => Carbon::now(),
+                        'viewed_by_user' => 0,
                     ]);
 
 
