@@ -17,10 +17,10 @@ class MyOrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id' , 'like', '%' . Auth::user()->id . '%')->latest()->get();
+        $orders = Order::where('user_id', 'like', '%' . Auth::user()->id . '%')->latest()->get();
 
-        
-        return view('Pages.NormalUser.my_orders',[
+
+        return view('Pages.NormalUser.my_orders', [
             'orders' => $orders,
         ]);
     }
@@ -30,38 +30,43 @@ class MyOrderController extends Controller
 
         $order = Order::where('order_no', $order_no)->first();
 
+        //update comments
+        $order->update([
+            'viewed_by_user' => 1,
+        ]);
+
         $order_items = OrderItem::where('order_no', $order_no)
             ->get();
 
-        return view('Pages.NormalUser.order_status',[
+        return view('Pages.NormalUser.order_status', [
             'order' => $order,
             'order_items' => $order_items,
         ]);
     }
 
-    public function send_confirm_order( $order_no)
+    public function send_confirm_order($order_no)
     {
-        $order = Order::Where('order_no',$order_no)->first();
+        $order = Order::Where('order_no', $order_no)->first();
 
-         Mail::to($order->user->email)->send(new ConfirmOrder($order));
+        Mail::to($order->user->email)->send(new ConfirmOrder($order));
 
         return Redirect::back()->with('toast_success', 'Confirmation sent.');
     }
 
     public function confirm_order($order_no)
     {
-        $order = Order::Where('order_no',$order_no)->first();
+        $order = Order::Where('order_no', $order_no)->first();
 
-        if($order->user_id != Auth::user()->id){
+        if ($order->user_id != Auth::user()->id) {
             return abort(403);
         }
 
-        if(!empty($order->canceled_at)){
+        if (!empty($order->canceled_at)) {
             return Redirect::route('my_orders');
         }
-        
-        if(empty($order->confirm)){
-            Order::Where('order_no',$order_no)->update([
+
+        if (empty($order->confirm)) {
+            Order::Where('order_no', $order_no)->update([
                 'status' => 'Pending',
                 'confirmed' => Carbon::now(),
             ]);
@@ -72,14 +77,14 @@ class MyOrderController extends Controller
 
     public function cancel_order($order_no)
     {
-        $order = Order::Where('order_no',$order_no)->first();
+        $order = Order::Where('order_no', $order_no)->first();
 
-        if($order->user_id != Auth::user()->id){
+        if ($order->user_id != Auth::user()->id) {
             return abort(403);
         }
 
-        if(empty($order->canceled_at)){
-            Order::Where('order_no',$order_no)->update([
+        if (empty($order->canceled_at)) {
+            Order::Where('order_no', $order_no)->update([
                 'status' => 'Canceled',
                 'canceled_at' => Carbon::now(),
             ]);

@@ -33,81 +33,133 @@
         {{-- I modified this navbar --}}
         @if (Route::has('login'))
             @auth
-                <x-jet-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                            <button
-                                class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                                <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-                                    alt="{{ Auth::user()->name }}" />
 
-                            </button>
-                            @if (App\Models\Order::where('user_id', Auth::user()->id)->where('viewed_by_user', '0')->count() > 0)
-                                <span class="flex absolute -mt-8 ml-6">
-                                    <span
-                                        class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-pink-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500">
+                @php
+                    $new_orders = App\Models\Order::where('user_id', Auth::user()->id)
+                        ->where('viewed_by_user', '0')
+                        ->get();
+                @endphp
+
+                <div class="flex">
+                    {{-- nofits --}}
+                    <div x-data="{ dropdownOpen: false }" class="mr-1">
+                        <button @click="dropdownOpen = !dropdownOpen"
+                            class="relative z-10 block rounded-full bg-gray-700 p-2 focus:outline-none">
+                            <svg class="h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+                            </svg>
+
+                            @if ($new_orders != null)
+                                @if ($new_orders->count() > 0)
+                                    <span class="flex absolute -mt-5 ml-4">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-pink-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500">
+                                        </span>
                                     </span>
-                                </span>
+                                @endif
                             @endif
-                        @else
-                            <span class="inline-flex rounded-md">
-                                <button type="button"
-                                    class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                    {{ Auth::user()->name }}
+                        </button>
 
-                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10">
+                        </div>
+
+                        <div x-show="dropdownOpen"
+                            class="absolute right-0 mt-1 bg-white rounded-md shadow-lg overflow-hidden z-20"
+                            style="width:20rem;">
+                            <div class="py-2">
+
+                                @foreach ($new_orders as $order)
+                                    <a href="{{ route('my_orders') }}"
+                                        class="flex items-center px-4 py-2 border-b hover:bg-gray-100 -mx-2">
+                                        <p class="text-gray-600 text-sm mx-2">Your order
+                                            <span class="font-bold" href="#">({{ $order->order_no }})</span>
+                                            status:
+                                            <span class="font-bold text-blue-500" href="#">{{ $order->status }}</span>
+                                            {{ $order->created_at->diffForHumans() }}
+                                        </p>
+                                    </a>
+                                @endforeach
+
+                                @if ($new_orders->isEmpty())
+                                    <p class="text-center py-4">No updates for today.</p>
+                                @endif
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <x-jet-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                <button
+                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <img class="h-8 w-8 rounded-full object-cover"
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+
                                 </button>
-                            </span>
-                        @endif
-                    </x-slot>
+                            @else
+                                <span class="inline-flex rounded-md">
+                                    <button type="button"
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        {{ Auth::user()->name }}
 
-                    <x-slot name="content">
-                        <!-- Transaction Management -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Transaction') }}
-                        </div>
-
-                        <x-jet-dropdown-link href="{{ route('my_orders') }}">
-                            {{ __('My Orders') }}
-                            @if (App\Models\Order::where('user_id', Auth::user()->id)->where('viewed_by_user', '0')->count() > 0)
-                                <span class="flex absolute -mt-4 ml-16">
-                                    <span
-                                        class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-pink-400 opacity-75"></span>
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500">
-                                    </span>
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
                                 </span>
                             @endif
-                        </x-jet-dropdown-link>
-                        <!-- Account Management -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Account') }}
-                        </div>
+                        </x-slot>
 
-                        <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('Profile') }}
-                        </x-jet-dropdown-link>
+                        <x-slot name="content">
+                            <!-- Transaction Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Transaction') }}
+                            </div>
 
-
-                        <div class="border-t border-gray-100"></div>
-
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-jet-dropdown-link href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                                                                                                                                  this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                            <x-jet-dropdown-link href="{{ route('my_orders') }}">
+                                {{ __('My Orders') }}
+                                @if (App\Models\Order::where('user_id', Auth::user()->id)->where('viewed_by_user', '0')->count() > 0)
+                                    <span class="flex absolute -mt-4 ml-16">
+                                        <span
+                                            class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-pink-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500">
+                                        </span>
+                                    </span>
+                                @endif
                             </x-jet-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-jet-dropdown>
+                            <!-- Account Management -->
+                            <div class="block px-4 py-2 text-xs text-gray-400">
+                                {{ __('Manage Account') }}
+                            </div>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-jet-dropdown-link>
+
+
+                            <div class="border-t border-gray-100"></div>
+
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                                                                                                                                                                                                                                                              this.closest('form').submit();">
+                                    {{ __('Log Out') }}
+                                </x-jet-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-jet-dropdown>
+
+                </div>
             @endauth
         @endif
 
@@ -316,7 +368,7 @@
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                                                                                                                                                        this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-jet-responsive-nav-link>
                     </form>

@@ -8,26 +8,33 @@
             {{ __('Dashboard') }}
         </x-admin.admin-nav-link> --}}
 
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500 " href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500 " href="{{ route('dashboard') }}"
+            :active="request()->routeIs('dashboard')">
             {{ __('Dashboard') }}
         </x-jet-nav-link>
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('orders') }}" :active="request()->routeIs('orders')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('orders') }}"
+            :active="request()->routeIs('orders')">
             {{ __('Orders') }}
         </x-jet-nav-link>
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('products') }}" :active="request()->routeIs('products')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('products') }}"
+            :active="request()->routeIs('products')">
             {{ __('Products') }}
         </x-jet-nav-link>
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('category') }}" :active="request()->routeIs('category')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('category') }}"
+            :active="request()->routeIs('category')">
             {{ __('Category') }}
         </x-jet-nav-link>
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('brand') }}" :active="request()->routeIs('brand')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('brand') }}"
+            :active="request()->routeIs('brand')">
             {{ __('Brands') }}
         </x-jet-nav-link>
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('user') }}" :active="request()->routeIs('user')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('user') }}"
+            :active="request()->routeIs('user')">
             {{ __('Users') }}
         </x-jet-nav-link>
 
-        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('sales') }}" :active="request()->routeIs('sales')">
+        <x-jet-nav-link class="text-decoration-none hover:text-gray-500" href="{{ route('sales') }}"
+            :active="request()->routeIs('sales')">
             {{ __('Sales') }}
         </x-jet-nav-link>
     </div>
@@ -45,7 +52,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-             
+
                 </div>
             </div>
 
@@ -55,29 +62,37 @@
                     <x-jet-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                <button
+                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <img class="h-8 w-8 rounded-full object-cover"
+                                        src="{{ Auth::user()->profile_photo_url }}"
+                                        alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <button type="button"
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </button>
                                 </span>
                             @endif
                         </x-slot>
 
-                        <x-slot name="content" >
+                        <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900" href="{{ route('profile.show') }}">
+                            <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900"
+                                href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
@@ -87,8 +102,8 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900" href="{{ route('logout') }}"
-                                         onclick="event.preventDefault();
+                                <x-jet-dropdown-link class="text-decoration-none hover:text-gray-900"
+                                    href="{{ route('logout') }}" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>

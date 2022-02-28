@@ -20,6 +20,8 @@ class Order extends Model
         'packaged_at',
         'shipped_at',
         'delivered_at',
+        'returned_at',
+        'viewed_by_user',
     ];
 
 
