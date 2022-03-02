@@ -78,7 +78,7 @@
                           <tr>
                               <td class="text-left">{{ $order_item->product->product_name }}</td>
                               <td class="text-center">{{ $order_item->quantity }}</td>
-                              <td class="text-right">${{ $order_item->price }}</td>
+                              <td class="text-right">₱{{ $order_item->price }}</td>
                           </tr>
                         @endforeach
                     </tbody>
