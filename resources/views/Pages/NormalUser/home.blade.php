@@ -14,6 +14,18 @@
                 <div>
                     <img src="{{ asset('./img/home-banner/Banner3.jpg') }}" class="h-full w-full">
                 </div>
+                <div>
+                    <img src="{{ asset('./img/home-banner/Banner4.jpg') }}" class="h-full w-full">
+                </div>
+                <div>
+                    <img src="{{ asset('./img/home-banner/BannerG.jpg') }}" class="h-full w-full">
+                </div>
+                <div>
+                    <img src="{{ asset('./img/home-banner/Bannerrods.jpg') }}" class="h-full w-full">
+                </div>
+                <div>
+                    <img src="{{ asset('./img/home-banner/BannerRazer.jpg') }}" class="h-full w-full">
+                </div>
             </div>
             {{-- Buttons for previous and next --}}
             <div class="flex justify-between items-center">
