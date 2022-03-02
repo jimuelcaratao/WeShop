@@ -33,8 +33,9 @@
                 @if (Auth::user()->user_address)
                     <div class="bg-white p-6 rounded-lg border shadow-lg">
                         <h2 class="text-xl font-bold mb-2 text-gray-800">{{ Auth::user()->user_address->house }},
-                            ccv {{ Auth::user()->user_address->ccv }},
-                            {{ Auth::user()->user_address->province }}, {{ Auth::user()->user_address->city }}</h2>
+                            Barangay {{ Auth::user()->user_address->barangay }},
+                            Metro Manila, {{ Auth::user()->user_address->city }}</h2>
+                        ( Nearest Landmark: {{ Auth::user()->user_address->province }} )
                         <p class="text-gray-700">This Address</p>
                     </div>
                 @endif
