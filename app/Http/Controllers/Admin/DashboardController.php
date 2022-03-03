@@ -53,6 +53,9 @@ class DashboardController extends Controller
         $orders_count_today = Order::whereDate('created_at', Carbon::today())
             ->count();
 
+        $orders_count_ship = Order::where('status', 'Shipping')
+            ->count();
+
         $popular_items = WishList::select('product_code')
             ->groupBy('product_code')
             ->orderByRaw('COUNT(*) DESC')
@@ -63,23 +66,24 @@ class DashboardController extends Controller
 
         $page_visits = Visit::select([
             // This aggregates the data and makes available a 'count' attribute
-            DB::raw('count(visit_id) as `count`'), 
+            DB::raw('count(visit_id) as `count`'),
             // This throws away the timestamp portion of the date
             DB::raw('DATE(visit_date) as day')
-          // Group these records according to that day
-          ])->groupBy('day')
-          // And restrict these results to only those created in the last week
-          ->where('visit_date', '>=', Carbon::now()->subWeeks(1))
-          ->get();
+            // Group these records according to that day
+        ])->groupBy('day')
+            // And restrict these results to only those created in the last week
+            ->where('visit_date', '>=', Carbon::now()->subWeeks(1))
+            ->get();
 
 
-        return view('Pages.Admin.dashboard',[
+        return view('Pages.Admin.dashboard', [
             'users' => $users,
             'new_users' => $new_users,
             'products_count' => $products_count,
             'dayTerm' => $dayTerm,
             'products_count_low' => $products_count_low,
             'orders_count_today' => $orders_count_today,
+            'orders_count_ship' => $orders_count_ship,
             'popular_items' => $popular_items,
             'page_visits' => $page_visits,
             'revenue_per_month' => $revenue_per_month,
