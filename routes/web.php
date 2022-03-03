@@ -129,6 +129,8 @@ Route::middleware(['verified', 'auth:sanctum'])->group(function () {
     Route::get('/review/{product_code}/{order_no}', [WriteReviewController::class, 'index'])->name('write_review');
 
     Route::post('/review/{product_code}/{order_no}', [WriteReviewController::class, 'write_review'])->name('write_review.write');
+
+    Route::delete('/review/{id}/', [SingleProductController::class, 'delete_review'])->name('delete_review');
 });
 
 

@@ -10,6 +10,7 @@ use App\Models\Review;
 use App\Models\WishList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class SingleProductController extends Controller
 {
@@ -22,12 +23,12 @@ class SingleProductController extends Controller
             return abort(404);
         }
 
-        if(Auth::check() == true){
+        if (Auth::check() == true) {
             $wishlist = WishList::Where('user_id', 'like', '%' . Auth::user()->id . '%')
-            ->Where('product_code',$product_code)->first();
+                ->Where('product_code', $product_code)->first();
         }
-  
-        $product_ave_reviews = Review::where('product_code',$product_code)->avg('stars');
+
+        $product_ave_reviews = Review::where('product_code', $product_code)->avg('stars');
 
         return view('Pages.NormalUser.product', [
             'product' => $product,
@@ -57,5 +58,17 @@ class SingleProductController extends Controller
             'product' => $product,
 
         ]);
+    }
+
+    public function delete_review($id)
+    {
+
+        if (is_null($id)) {
+            return Redirect::back()->withInfo('Error encountered!');
+        }
+        // Softdeletes
+        Review::find($id)->delete();
+
+        return Redirect::back()->withSuccess('Review Deleted Successfully!');
     }
 }

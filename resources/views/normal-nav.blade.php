@@ -74,9 +74,9 @@
                                 @foreach ($new_orders as $order)
                                     <a href="{{ route('my_orders') }}"
                                         class="flex items-center px-4 py-2 border-b hover:bg-gray-100 -mx-2">
-                                        <p class="text-gray-600 text-sm mx-2">Your order
+                                        <p class="text-gray-600 text-sm mx-2">YOUR ORDER
                                             <span class="font-bold" href="#">({{ $order->order_no }})</span>
-                                            status:
+                                            PLEASE CHECK YOUR EMAIL TO:
                                             <span class="font-bold text-blue-500" href="#">{{ $order->status }}</span>
                                             {{ $order->created_at->diffForHumans() }}
                                         </p>
@@ -152,7 +152,7 @@
 
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                              this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                  this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-jet-dropdown-link>
                             </form>
@@ -368,7 +368,7 @@
 
                         <x-jet-responsive-nav-link href="{{ route('logout') }}"
                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                    this.closest('form').submit();">
+                                                                                                                                                                                                                                                                                                        this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-jet-responsive-nav-link>
                     </form>

@@ -33,7 +33,7 @@ class ProductController extends Controller
         $sub_categories_search = null;
         $brands_search = null;
 
-        $brands = Brand::where('status', 'active')->get();
+        $brands = Brand::get();
 
         $categories = Category::get();
 
@@ -210,14 +210,14 @@ class ProductController extends Controller
 
     public function store_product_price($request)
     {
-        if ($request->input('discount_type') == 'Money'){
+        if ($request->input('discount_type') == 'Money') {
             $price = $request->input('price') ?? $request->input('edit_price');
             $discount_price = $request->input('discount_price');
 
             $discounted_price = $price - $discount_price;
         }
 
-        if ($request->input('discount_type') == 'Percentage'){
+        if ($request->input('discount_type') == 'Percentage') {
             $price = $request->input('price') ?? $request->input('edit_price');
             $discount_price = $request->input('discount_price');
 
@@ -225,11 +225,11 @@ class ProductController extends Controller
         }
 
         ProductPrice::where('product_code',  $request->input('product_code') ?? $request->input('edit_product_code'))
-        ->update([
-            'discount_type' =>  $request->input('discount_type') ?? null,
-            'discount_price' =>  $discount_price ?? null,
-            'discounted_price' =>  $discounted_price ?? null,
-        ]);
+            ->update([
+                'discount_type' =>  $request->input('discount_type') ?? null,
+                'discount_price' =>  $discount_price ?? null,
+                'discounted_price' =>  $discounted_price ?? null,
+            ]);
     }
 
     // public function update_product_price($request)
@@ -380,9 +380,9 @@ class ProductController extends Controller
             ]);
 
         ProductPrice::where('product_code',  $request->input('edit_product_code'))
-        ->update([
-            'price' => $request->input('edit_price'),
-        ]); 
+            ->update([
+                'price' => $request->input('edit_price'),
+            ]);
 
         $this->store_product_price($request);
 
