@@ -20,6 +20,7 @@ class CreateReviewsTable extends Migration
             $table->foreignId('order_no');
             $table->integer('stars')->nullable();
             $table->longText('body')->nullable();
+            $table->softDeletes();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
 

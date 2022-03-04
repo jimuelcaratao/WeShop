@@ -33,27 +33,27 @@ class PaymentController extends Controller
 
     public function place_order(Request $request)
     {
-
         if (Auth::user()->user_address) {
-            if (empty(Auth::user()->user_card)) {
-                $request->validate([
-                    'cardname' => 'required',
-                    'cardnumber' => 'required|numeric|digits:16',
-                    'expmonth' => 'required|numeric|digits:2|max:12',
-                    'expyear' => 'required|numeric|digits:4',
-                    'ccv' => 'required|numeric|digits:3',
-                ]);
+            if ($request->input('payment_method') == "Online Payment") {
+                if (empty(Auth::user()->user_card)) {
+                    $request->validate([
+                        'cardname' => 'required',
+                        'cardnumber' => 'required|numeric|digits:16',
+                        'expmonth' => 'required|numeric|digits:2|max:12',
+                        'expyear' => 'required|numeric|digits:4',
+                        'ccv' => 'required|numeric|digits:3',
+                    ]);
 
-                UserCard::create([
-                    'user_id' => Auth::user()->id,
-                    'cardname' => $request->input('cardname'),
-                    'cardnumber' =>  $request->input('cardnumber'),
-                    'expmonth' =>  $request->input('expmonth'),
-                    'expyear' =>  $request->input('expyear'),
-                    'ccv' =>  $request->input('ccv'),
-                ]);
+                    UserCard::create([
+                        'user_id' => Auth::user()->id,
+                        'cardname' => $request->input('cardname'),
+                        'cardnumber' =>  $request->input('cardnumber'),
+                        'expmonth' =>  $request->input('expmonth'),
+                        'expyear' =>  $request->input('expyear'),
+                        'ccv' =>  $request->input('ccv'),
+                    ]);
+                }
             }
-
             $order = Order::create([
                 'user_id' => Auth::user()->id,
                 'status' => 'Confirm Pending',

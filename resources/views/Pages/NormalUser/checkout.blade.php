@@ -63,13 +63,7 @@
                         <x-jet-input-error for="city" class="mt-2" />
                     </div>
 
-                    <!-- Province -->
-                    <div class="mt-4">
-                        <x-jet-label for="province" value="{{ __('Province') }}" />
-                        <x-jet-input id="province" type="text" class="mt-1 block w-full" autocomplete="province"
-                            name="province" value="{{ old('province') }}" />
-                        <x-jet-input-error for="province" class="mt-2" />
-                    </div>
+
 
                     <!-- Barangay -->
                     <div class="mt-4">
@@ -77,6 +71,14 @@
                         <x-jet-input id="barangay" type="text" class="mt-1 block w-full" autocomplete="barangay"
                             name="barangay" value="{{ old('barangay') }}" />
                         <x-jet-input-error for="barangay" class="mt-2" />
+                    </div>
+
+                    <!-- Province -->
+                    <div class="mt-4">
+                        <x-jet-label for="province" value="{{ __('Nearest Landmark') }}" />
+                        <x-jet-input id="province" type="text" class="mt-1 block w-full" autocomplete="province"
+                            name="province" value="{{ old('province') }}" />
+                        <x-jet-input-error for="province" class="mt-2" />
                     </div>
                 @endempty
 

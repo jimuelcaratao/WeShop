@@ -105,7 +105,6 @@
                 modal.style.display = "none";
             }
         </script>
-
     @endpush
     <div class="bg-white p-5 my-12 w-11/12 mx-auto flex flex-col justify-center items-center">
         {{-- For product's show-off --}}
@@ -216,7 +215,6 @@
                         {{-- review counts --}}
                         @if (count($product->product_reviews) <= 0)
                             <p> No reviews</p>
-
                         @else
                             <p> {{ count($product->product_reviews) }} reviews</p>
                         @endif
@@ -235,7 +233,6 @@
                                     </svg>
                                 </button>
                             </form>
-
                         @endif
 
                         @empty($wishlist)

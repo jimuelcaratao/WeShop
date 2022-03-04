@@ -20,7 +20,7 @@ class BrandController extends Controller
     {
         $brands = Brand::oldest()->paginate(5);
 
-        return view('Pages.Admin.brands',[
+        return view('Pages.Admin.brands', [
             'brands' =>   $brands,
         ]);
     }
@@ -36,7 +36,7 @@ class BrandController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'brand_name' => 'required|unique:brands',
-            'status' => 'required',
+            // 'status' => 'required',
 
         ]);
 
@@ -47,12 +47,11 @@ class BrandController extends Controller
         }
 
         DB::table('brands')->insert([
-            'brand_name'=> $request->input('brand_name'),
-            'status' => $request->input('status'),
+            'brand_name' => $request->input('brand_name'),
+            // 'status' => $request->input('status'),
         ]);
 
         return Redirect::route('brand')->withSuccess('Brand :' . $request->input('brand_name') . '. Created Successfully!');
-
     }
 
 
@@ -67,10 +66,10 @@ class BrandController extends Controller
     {
 
         Brand::where('brand_id',  $request->input('brand_id'))
-        ->update([
-            'brand_name' => $request->input('brand_name'),
-            'status' => $request->input('status'),
-        ]);
+            ->update([
+                'brand_name' => $request->input('brand_name'),
+                // 'status' => $request->input('status'),
+            ]);
 
         return Redirect::route('brand')->withSuccess('Brand :' . $request->input('brand_name') . '. Updated Successfully!');
     }
