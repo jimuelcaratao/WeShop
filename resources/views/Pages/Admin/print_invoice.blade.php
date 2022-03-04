@@ -56,7 +56,45 @@
                                 No Address ??
                             @endempty
 
-                        </address>
+           <!-- begin invoice-content -->
+           <div class="invoice-content">
+              <!-- begin table-responsive -->
+              <div class="table-responsive">
+                 <table class="table table-invoice">
+                    <thead>
+                       <tr>
+                          <th class="text-left" >Product Name</th>
+                          <th class="text-center">Quantity</th>
+                          <th class="text-right" >Price</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($order_items as $order_item)
+                          <tr>
+                              <td class="text-left">{{ $order_item->product->product_name }}</td>
+                              <td class="text-center">{{ $order_item->quantity }}</td>
+                              <td class="text-right">₱{{ $order_item->price }}</td>
+                          </tr>
+                        @endforeach
+                    </tbody>
+                 </table>
+              </div>
+              <!-- end table-responsive -->
+              <!-- begin invoice-price -->
+              <div class="invoice-price">
+                 <div class="invoice-price-left">
+                    <div class="invoice-price-row">
+                       <div class="sub-price">
+                          <small>SUBTOTAL</small>
+                          <span class="text-inverse">₱ @convert($order->getTotalPrice())</span>
+                       </div>
+                       <div class="sub-price">
+                          <i class="fa fa-plus text-muted"></i>
+                       </div>
+                       <div class="sub-price">
+                          <small>SHIPPING FEE</small>
+                          <span class="text-inverse">FREE</span>
+                       </div>
                     </div>
                     <div class="invoice-date">
                         <small>Invoice</small>
