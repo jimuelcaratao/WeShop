@@ -34,6 +34,15 @@ class Order extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
+    public function scopeStatusFilter($q)
+    {
+        if (!empty(request()->search_col)) {
+            $q->Where('status', 'LIKE', '%' . request()->search_col .  '%');
+        }
+        return $q;
+    }
+
+
     public function getTotalPrice()
     {
         return $this->order_items->sum(function ($order_items) {
