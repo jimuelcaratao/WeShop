@@ -43,7 +43,7 @@ class OrderController extends Controller
             if ($search != null) {
                 // default returning
                 $orders = Order::where('order_no', 'like', '%' . request()->search . '%')
-                    // ->OrWhere('name', 'like', '%' . request()->search . '%')
+                    ->statusfilter()
                     ->latest('order_no')
                     ->paginate(5);
             }
@@ -155,7 +155,32 @@ class OrderController extends Controller
                 ]);
         }
 
+
+        if ($order->returned_at == null) {
+            if ($request->has('returned_switch')) {
+                Order::where('order_no', $request->input('order_no'))
+                    ->update([
+                        'status' => 'Returned',
+                        'returned_at' => Carbon::now(),
+                        'viewed_by_user' => 0,
+                    ]);
+            }
+        }
+        if ($request->input('returned_switch') == null) {
+            Order::where('order_no', $request->input('order_no'))
+                ->update([
+                    'returned_at' => null,
+                ]);
+        }
+
         // text status
+        if ($request->input('returned_switch') == null) {
+            Order::where('order_no', $request->input('order_no'))
+                ->update([
+                    'status' => 'Delivered',
+                ]);
+        }
+
         if ($request->input('delivered_switch') == null) {
             Order::where('order_no', $request->input('order_no'))
                 ->update([

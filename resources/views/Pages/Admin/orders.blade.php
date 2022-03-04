@@ -35,27 +35,50 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <div class="flex-1 min-w-0">
-                {{-- search --}}
-                <form class="flex">
-                    <div>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <input
-                                class="focus:ring-indigo-500 focus:border-indigo-500 w-full sm:text-sm border-gray-300 rounded-md"
-                                type="search" name="search" placeholder="Search.." aria-label="Search"
-                                value="{{ request()->search }}">
+            <div class="lg:flex lg:items-center lg:justify-between mb-3">
+                <div class="flex-1 min-w-0">
+                    {{-- search --}}
+                    <form class="flex">
+                        <div>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <input
+                                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-36  sm:text-sm border-gray-300 rounded-md"
+                                    type="search" name="search" placeholder="Search.." aria-label="Search"
+                                    value="{{ request()->search }}">
+                                <div class="absolute inset-y-0 left-0 flex items-center">
+                                    <label for="search_col" class="sr-only">Currency</label>
+                                    <select id="search_col" name="search_col"
+                                        class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-6 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                                        @if (!empty(request()->search_col))
+                                            <option class="bg-gray-200" disabled
+                                                selected="{{ request()->search_col }}">{{ request()->search_col }}
+                                            </option>
+                                        @endif
+                                        <option value="">ALL</option>
+                                        <option value="Confirm Pending">Confirm Pending</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Packaging">Packaging</option>
+                                        <option value="Shipping">Shipping</option>
+                                        <option value="Delivering">Delivering</option>
+                                        <option value="Delivered">Delivered</option>
+                                        <option value="Returned">Returned</option>
+                                        {{-- <option>Type</option> --}}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="text-green-600 hover:text-green-800 mx-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
-                            fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </form>
+                        <button type="submit" class="text-green-600 hover:text-green-800 mx-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
             </div>
+
 
             <div class="bg-white overflow-hidden shadow-md sm:rounded-lg mt-3">
                 {{-- Table --}}
@@ -97,6 +120,11 @@
                             <th scope="col"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Delivered Date
+                            </th>
+
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Returned Date
                             </th>
                             <th scope="col-2"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -148,6 +176,13 @@
                                     </span>
                                 </td>
 
+                                <td class="px-6 py-2 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                        {{ $order->returned_at }}
+                                    </span>
+                                </td>
+
 
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -166,7 +201,8 @@
                                                 data-item-confirmed="{{ $order->confirmed }}"
                                                 data-item-packaged_at="{{ $order->packaged_at }}"
                                                 data-item-shipped_at="{{ $order->shipped_at }}"
-                                                data-item-delivered_at="{{ $order->delivered_at }}" id="view-order"
+                                                data-item-delivered_at="{{ $order->delivered_at }}"
+                                                data-item-returned_at="{{ $order->returned_at }}" id="view-order"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-5">View</a>
                                         </div>
 
@@ -179,6 +215,7 @@
                                                 data-item-update_shipped_at="{{ $order->shipped_at }}"
                                                 data-item-update_delivered_at="{{ $order->delivered_at }}"
                                                 data-item-update_created_at="{{ $order->created_at }}"
+                                                data-item-update_returned_at="{{ $order->returned_at }}"
                                                 id="update-order"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Update</a>
                                         </div>
@@ -200,7 +237,7 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Product Name
                                 </th>
-                                <th colspan="5"
+                                <th colspan="6"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Category
                                 </th>
@@ -236,7 +273,7 @@
                                         <div class="text-sm text-gray-900">{{ $order_item->product->product_name }}
                                         </div>
                                     </td>
-                                    <td colspan="5" class="px-6 py-2 whitespace-nowrap">
+                                    <td colspan="6" class="px-6 py-2 whitespace-nowrap">
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             {{ $order_item->product->category_name }} /
@@ -255,7 +292,7 @@
                             @endforelse
                             {{-- order products total --}}
                             <tr class="bg-gray-50">
-                                <td colspan="9" class="text-right px-6 py-2 whitespace-nowrap">
+                                <td colspan="10" class="text-right px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">Total:</div>
                                 </td>
                                 <td colspan="1" class="px-6 py-2 whitespace-nowrap">
@@ -268,7 +305,7 @@
 
                         @empty
                             <tr>
-                                <td colspan="9" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
+                                <td colspan="10" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
                                     <img class="mx-auto d-block text-center py-4" style="width: 275px"
                                         src="{{ asset('images/components/no-products.svg') }}" alt="no products">
                                     Hmmm.. There is no orders yet.
