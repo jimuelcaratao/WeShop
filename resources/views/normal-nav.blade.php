@@ -74,9 +74,12 @@
                                 @foreach ($new_orders as $order)
                                     <a href="{{ route('my_orders') }}"
                                         class="flex items-center px-4 py-2 border-b hover:bg-gray-100 -mx-2">
-                                        <p class="text-gray-600 text-sm mx-2">YOUR ORDER
+                                        <p class="text-black-600 text-sm mx-3">Hi! WeShoppers Your Order 👋📦
                                             <span class="font-bold" href="#">({{ $order->order_no }})</span>
-                                            PLEASE CHECK YOUR EMAIL TO:
+                                            <br>
+                                            <br>                                
+                                            Status ✔️:
+
                                             <span class="font-bold text-blue-500" href="#">{{ $order->status }}</span>
                                             {{ $order->created_at->diffForHumans() }}
                                         </p>
@@ -84,7 +87,7 @@
                                 @endforeach
 
                                 @if ($new_orders->isEmpty())
-                                    <p class="text-center py-4">No updates for today.</p>
+                                    <p class="text-center py-4">No updates for your order today.</p>
                                 @endif
 
 

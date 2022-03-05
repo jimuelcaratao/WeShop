@@ -55,13 +55,13 @@
                                             </option>
                                         @endif
                                         <option value="">ALL</option>
-                                        <option value="Confirm Pending">Waiting for your order confirmation...</option>
-                                        <option value="Pending">Pending to update...</option>
-                                        <option value="Packaging">Packaging...</option>
-                                        <option value="Shipping">your order is about to Ship...</option>
-                                        <option value="Delivering">your order is out for Deliver...</option>
+                                        <option value="Confirm Pending">Confirm Pending</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Packaging">Packaging</option>
+                                        <option value="Shipping">Shipping</option>
+                                        <option value="Delivering">Delivering</option>
                                         <option value="Delivered">Delivered</option>
-                                        <option value="Returned">Returned order</option>
+                                        <option value="Returned">Returned</option>
                                         {{-- <option>Type</option> --}}
                                     </select>
                                 </div>
