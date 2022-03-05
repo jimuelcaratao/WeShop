@@ -34,12 +34,11 @@
                     <div class="invoice-from">
                         <small>from:</small>
                         <address class="m-t-5 m-b-5">
-                            <strong class="text-inverse">WeShop Computers.</strong><br>
-                            Bagong Silang<br>
-                            Caloocan, Metro Manila<br>
-                            Phone: +63 9098765432<br>
+                            <strong class="text-inverse">WeShop Store.</strong><br>
+                            Bagong Silang Brgy. 176 zone District III of Caloocan City, Metro Manila<br>
+                            Phone: +639098765432 <br>
+                            <br>
                         </address>
-                    </div>
                     <div class="invoice-to">
                         <small>to:</small>
                         <address class="m-t-5 m-b-5">
@@ -55,11 +54,11 @@
                             @empty($order->user->user_address)
                                 No Address ??
                             @endempty
-
+<br>
            <!-- begin invoice-content -->
            <div class="invoice-content">
               <!-- begin table-responsive -->
-              <div class="table-responsive">
+              <div class="table-responsivex`">
                  <table class="table table-invoice">
                     <thead>
                        <tr>
@@ -79,10 +78,11 @@
                     </tbody>
                  </table>
               </div>
+<br>
               <!-- end table-responsive -->
               <!-- begin invoice-price -->
               <div class="invoice-price">
-                 <div class="invoice-price-left">
+                 <div class="invoice-price-below">
                     <div class="invoice-price-row">
                        <div class="sub-price">
                           <small>SUBTOTAL</small>
@@ -96,6 +96,7 @@
                           <span class="text-inverse">FREE</span>
                        </div>
                     </div>
+                    <br>
                     <div class="invoice-date">
                         <small>Invoice</small>
                         <div class="date text-inverse m-t-5">{{ $order->created_at }}</div>
@@ -108,6 +109,7 @@
                 <!-- end invoice-header -->
 
                 <!-- begin invoice-content -->
+                <br>
                 <div class="invoice-content">
                     <!-- begin table-responsive -->
                     <div class="table-responsive">
@@ -124,7 +126,7 @@
                                     <tr>
                                         <td class="text-left">{{ $order_item->product->product_name }}</td>
                                         <td class="text-center">{{ $order_item->quantity }}</td>
-                                        <td class="text-right">${{ $order_item->price }}</td>
+                                        <td class="text-right">₱{{ $order_item->price }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -144,7 +146,7 @@
                                 </div>
                                 <div class="sub-price">
                                     <small>SHIPPING FEE</small>
-                                    <span class="text-inverse">FREE</span>
+                                    <span claxxss="text-inverse">FREE</span>
                                 </div>
 
                                 <div class="sub-price">
