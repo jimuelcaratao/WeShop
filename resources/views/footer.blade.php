@@ -1,7 +1,7 @@
 <div class="h-full md:h-screen w-screen bg-main p-4 flex flex-col md:flex-row justify-around md:items-center text-gray-100">
     <div class="flex flex-col p-4 place-self-start">
         <h1 class="text-3xl font-bold mb-4 uppercase">contact us</h1>
-        <p>+ 44 123 456 789</p>
+        <p>+639098765432</p>
         <p>weshop.computers@gmail.com</p>
         <p>Find a store</p>
     </div>
