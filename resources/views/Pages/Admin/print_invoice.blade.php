@@ -96,7 +96,6 @@
                           <span class="text-inverse">FREE</span>
                        </div>
                     </div>
-                    <br>
                     <div class="invoice-date">
                         <small>Invoice</small>
                         <div class="date text-inverse m-t-5">{{ $order->created_at }}</div>

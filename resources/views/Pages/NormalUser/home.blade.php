@@ -6,13 +6,13 @@
             {{-- Slide Container --}}
             <div class="glider">
                 <div>
-                    <img src="{{ asset('./img/home-banner/Banner1.jpg') }}" class="h-full w-full">
+                    <img src="{{ asset('./img/home-banner/Banner.gif') }}" class="h-full w-full">
                 </div>
                 <div>
                     <img src="{{ asset('./img/home-banner/Banner2.jpg') }}" class="h-full w-full">
                 </div>
                 <div>
-                    <img src="{{ asset('./img/home-banner/Banner3.jpg') }}" class="h-full w-full">
+                    <img src="{{ asset('./img/home-banner/Banner1.jpg') }}" class="h-full w-full">
                 </div>
                 <div>
                     <img src="{{ asset('./img/home-banner/Banner4.jpg') }}" class="h-full w-full">
