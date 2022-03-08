@@ -62,6 +62,16 @@
                                                         for="returned_switch">Returned</label>
                                                 </div>
                                             </div>
+
+                                            <div class=" col-span-6 sm:col-span-4">
+                                                <div class="form-check form-switch">
+                                                    <input class="switches form-check-input" type="checkbox"
+                                                        name="paid_switch" id="paid_switch">
+                                                    <label class="form-check-label" for="paid_switch">Paid</label>
+                                                </div>
+                                            </div>
+
+
                                         </div>
                                     </div>
 
@@ -170,6 +180,8 @@
                 var delivered_at = el.data("item-update_delivered_at");
                 var created_at = el.data("item-update_created_at");
                 var returned_at = el.data("item-update_returned_at");
+                var paid_at = el.data("item-update_paid_at");
+
 
 
                 $("#update_order_no").val(order_no);
@@ -187,6 +199,14 @@
                     $('#returned_switch').prop("disabled", false);
                 }
 
+                if (returned_at != '') {
+                    $('#returned_switch').attr('checked', 'checked');
+                }
+
+                if (paid_at != '') {
+                    $('#paid_switch').attr('checked', 'checked');
+                }
+
 
                 // alert(category_name);
 
@@ -201,6 +221,7 @@
                 $('#packaged_switch').attr('checked', false);
                 $('#shipped_switch').attr('checked', false);
                 $('#delivered_switch').attr('checked', false);
+                $('#paid_switch').attr('checked', false);
                 $('#returned_switch').prop("disabled", true);
             });
         });

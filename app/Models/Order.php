@@ -21,6 +21,7 @@ class Order extends Model
         'shipped_at',
         'delivered_at',
         'returned_at',
+        'paid_at',
         'viewed_by_user',
     ];
 
