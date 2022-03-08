@@ -126,6 +126,11 @@
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Returned Date
                             </th>
+
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Paid Date
+                            </th>
                             <th scope="col-2"
                                 class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Action
@@ -169,6 +174,7 @@
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">{{ $order->shipped_at }}</div>
                                 </td>
+
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -183,6 +189,12 @@
                                     </span>
                                 </td>
 
+                                <td class="px-6 py-2 whitespace-nowrap">
+                                    <span
+                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                        {{ $order->paid_at }}
+                                    </span>
+                                </td>
 
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -202,7 +214,8 @@
                                                 data-item-packaged_at="{{ $order->packaged_at }}"
                                                 data-item-shipped_at="{{ $order->shipped_at }}"
                                                 data-item-delivered_at="{{ $order->delivered_at }}"
-                                                data-item-returned_at="{{ $order->returned_at }}" id="view-order"
+                                                data-item-returned_at="{{ $order->returned_at }}"
+                                                data-item-paid_at="{{ $order->paid_at }}" id="view-order"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-5">View</a>
                                         </div>
 
@@ -216,7 +229,7 @@
                                                 data-item-update_delivered_at="{{ $order->delivered_at }}"
                                                 data-item-update_created_at="{{ $order->created_at }}"
                                                 data-item-update_returned_at="{{ $order->returned_at }}"
-                                                id="update-order"
+                                                data-item-update_paid_at="{{ $order->paid_at }}" id="update-order"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-5">Update</a>
                                         </div>
 
@@ -237,7 +250,7 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Product Name
                                 </th>
-                                <th colspan="6"
+                                <th colspan="7"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Category
                                 </th>
@@ -250,7 +263,6 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Price
                                 </th>
-
                             </tr>
                             {{-- order products --}}
                             @forelse ($order->order_items as $order_item)
@@ -273,7 +285,7 @@
                                         <div class="text-sm text-gray-900">{{ $order_item->product->product_name }}
                                         </div>
                                     </td>
-                                    <td colspan="6" class="px-6 py-2 whitespace-nowrap">
+                                    <td colspan="7" class="px-6 py-2 whitespace-nowrap">
                                         <span
                                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             {{ $order_item->product->category_name }} /
@@ -292,7 +304,7 @@
                             @endforelse
                             {{-- order products total --}}
                             <tr class="bg-gray-50">
-                                <td colspan="10" class="text-right px-6 py-2 whitespace-nowrap">
+                                <td colspan="11" class="text-right px-6 py-2 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">Total:</div>
                                 </td>
                                 <td colspan="1" class="px-6 py-2 whitespace-nowrap">
@@ -305,7 +317,7 @@
 
                         @empty
                             <tr>
-                                <td colspan="10" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
+                                <td colspan="11" class="pr-4 py-2 whitespace-nowrap text-sm font-medium text-center">
                                     <img class="mx-auto d-block text-center py-4" style="width: 275px"
                                         src="{{ asset('images/components/no-products.svg') }}" alt="no products">
                                     Hmmm.. There is no orders yet.

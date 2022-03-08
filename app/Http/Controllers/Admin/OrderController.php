@@ -156,6 +156,7 @@ class OrderController extends Controller
         }
 
 
+        // returned
         if ($order->returned_at == null) {
             if ($request->has('returned_switch')) {
                 Order::where('order_no', $request->input('order_no'))
@@ -170,6 +171,22 @@ class OrderController extends Controller
             Order::where('order_no', $request->input('order_no'))
                 ->update([
                     'returned_at' => null,
+                ]);
+        }
+
+        // paid
+        if ($order->paid_at == null) {
+            if ($request->has('paid_switch')) {
+                Order::where('order_no', $request->input('order_no'))
+                    ->update([
+                        'paid_at' => Carbon::now(),
+                    ]);
+            }
+        }
+        if ($request->input('paid_switch') == null) {
+            Order::where('order_no', $request->input('order_no'))
+                ->update([
+                    'paid_at' => null,
                 ]);
         }
 
